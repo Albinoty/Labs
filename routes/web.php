@@ -12,5 +12,40 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $actif = "home";
+
+    return view('home',compact('actif'));
+});
+
+Route::get('/services', function(){
+    //Je fais passer le nom pour pourvoir dynamiser chemin.blade
+    // qu'il afficher le nom de la page acutel
+    $name = "Services";
+    $actif = "services";
+
+    return view('service',compact('name','actif'));
+});
+
+Route::get('/blog', function(){
+    $name = "Blog";
+    $actif = "blog";
+
+    return view('blog',compact('name','actif'));
+});
+
+Route::get('/blog-post', function(){
+    $name = "Blog";
+    $actif = "blog";
+
+    return view('blogPost',compact('name','actif'));
+});
+
+Route::get('/contact', function(){
+    //Je fais passer le nom pour pourvoir dynamiser chemin.blade
+    // qu'il afficher le nom de la page acutel
+    $name = "Contact";
+    $actif = "contact";
+
+    return view('contact',compact('name','actif'));
 });
