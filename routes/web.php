@@ -15,7 +15,7 @@ Route::get('/', function () {
 
     $actif = "home";
 
-    return view('home',compact('actif'));
+    return view('index',compact('actif'));
 });
 
 Route::get('/services', function(){
@@ -49,3 +49,9 @@ Route::get('/contact', function(){
 
     return view('contact',compact('name','actif'));
 });
+
+Auth::routes();
+//Passer le auth et le role  pour determiner qui se connecte
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
