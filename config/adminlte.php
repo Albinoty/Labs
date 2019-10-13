@@ -126,22 +126,41 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-        ],
-        ['header' => 'main_navigation'],
+        ['header' => 'Page Home'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'Page Services'],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Services',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un Service',
+                    'icon' => 'fas fa-plus',
+                    'url' => 'services/create',
+                ],
+                [
+                    'text' => 'Afficher les Services',
+                    'icon' => 'far fa-eye',
+                    'url' => '/home/services'
+                ]
+            ]
+        ],
+        [
+            'text' => 'Projet',
+            'icon' => '<fas fa-project-diagram',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un projet',
+                    'icon' => 'fas fa-plus'
+                ],[
+                    'text' => 'Afficher les projets',
+                    'icon' => 'far fa-eye'
+                ]
+            ]
+           
         ],
         ['header' => 'account_settings'],
         [
@@ -227,7 +246,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
-    ],
+    ],  
 
     /*
     |--------------------------------------------------------------------------

@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('index',compact('actif'));
 });
 
-Route::get('/services', function(){
+Route::get('/service', function(){
     //Je fais passer le nom pour pourvoir dynamiser chemin.blade
     // qu'il afficher le nom de la page acutel
     $name = "Services";
@@ -52,6 +52,11 @@ Route::get('/contact', function(){
 
 Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
+
+Route::resource('services','ServicesController');
+
+Route::get('/home/services','ServicesController@index');
+
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');

@@ -20,31 +20,31 @@
 				@switch($actif)
 					@case("home")
 						<li class="active"><a href="/">Home</a></li>
-						<li><a href="/services">Services</a></li>
+						<li><a href="/service">Services</a></li>
 						<li><a href="/blog">Blog</a></li>
 						<li><a href="/contact">Contact</a></li>
 						@break
 					@case("services")
 						<li><a href="/">Home</a></li>
-						<li class="active"><a href="/services">Services</a></li>
+						<li class="active"><a href="/service">Services</a></li>
 						<li><a href="/blog">Blog</a></li>
 						<li><a href="/contact">Contact</a></li>
 						@break
 					@case("blog")
 						<li><a href="/">Home</a></li>
-						<li><a href="/services">Services</a></li>
+						<li><a href="/service">Services</a></li>
 						<li class="active"><a href="/blog">Blog</a></li>
 						<li><a href="/contact">Contact</a></li>
 						@break
 					@case("contact")
 						<li><a href="/">Home</a></li>
-						<li><a href="/services">Services</a></li>
+						<li><a href="/service">Services</a></li>
 						<li><a href="/blog">Blog</a></li>
 						<li class="active"><a href="/contact">Contact</a></li>
 						@break
 					@default
 						<li><a href="/">Home</a></li>
-						<li><a href="/services">Services</a></li>
+						<li><a href="/service">Services</a></li>
 						<li><a href="/blog">Blog</a></li>
 						<li><a href="/contact">Contact</a></li>
 						@break
