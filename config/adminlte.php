@@ -135,6 +135,7 @@ return [
         ['header' => 'Page Services'],
         [
             'text' => 'Services',
+            'icon' => 'fas fa-tools',
             'submenu' => [
                 [
                     'text' => 'Ajouter un Service',
@@ -150,14 +151,17 @@ return [
         ],
         [
             'text' => 'Projet',
-            'icon' => '<fas fa-project-diagram',
+            'icon' => 'fas fa-project-diagram',
             'submenu' => [
                 [
                     'text' => 'Ajouter un projet',
-                    'icon' => 'fas fa-plus'
-                ],[
+                    'icon' => 'fas fa-plus',
+                    'url' => 'projets/create'
+                ],
+                [
                     'text' => 'Afficher les projets',
-                    'icon' => 'far fa-eye'
+                    'icon' => 'far fa-eye',
+                    'url' => '/home/projets'
                 ]
             ]
            

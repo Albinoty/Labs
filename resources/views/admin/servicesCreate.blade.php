@@ -7,7 +7,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Creation d'un service</h1>
+    <h1>Ajout d'un service</h1>
 @stop
 
 @section('content')

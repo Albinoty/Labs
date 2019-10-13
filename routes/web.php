@@ -12,12 +12,15 @@
 */
 
 use App\Service;
+use App\Projet;
 
+//View Labs
 Route::get('/', function () {
 
     $actif = "home";
+    $services = DB::table('services')->paginate(9);
 
-    return view('index',compact('actif'));
+    return view('index',compact('actif','services'));
 });
 
 Route::get('/service', function(){
@@ -26,8 +29,9 @@ Route::get('/service', function(){
     $name = "Services";
     $actif = "services";
     $services = DB::table('services')->paginate(9);
+    $projets = Projet::all();
 
-    return view('service',compact('name','actif','services'));
+    return view('service',compact('name','actif','services','projets'));
 });
 
 Route::get('/blog', function(){
@@ -53,13 +57,20 @@ Route::get('/contact', function(){
     return view('contact',compact('name','actif'));
 });
 
-Auth::routes();
-//Passer le auth et le role  pour determiner qui se connecte
-
-Route::resource('services','ServicesController');
-
-Route::get('/home/services','ServicesController@index');
-
+//Back Office
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+Auth::routes();
+//Passer le auth et le role  pour determiner qui se connecte
+
+Route::resource('services','ServicesController')->middleware('auth');
+
+Route::get('/home/services','ServicesController@index')->middleware('auth');
+
+Route::resource('projets','ProjetsController')->middleware('auth');
+
+Route::get('/home/projets','ProjetsController@index')->middleware('auth');
+
+
