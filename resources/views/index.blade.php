@@ -20,8 +20,12 @@
 		</div>
 		<!-- slider -->
 		<div id="hero-slider" class="owl-carousel">
-			<div class="item  hero-item" data-bg="img/01.jpg"></div>
-			<div class="item  hero-item" data-bg="img/02.jpg"></div>
+
+			@foreach ($medias as $media)
+				<div class="item  hero-item" data-bg="storage/{{$media->img_path}}">
+					<img src="/storage/{{$media->img_path}}" alt="">
+				</div>
+			@endforeach
 		</div>
 	</div>
 	<!-- Intro Section -->
@@ -35,40 +39,21 @@
 			<div class="container">
 				<div class="row">
 					<!-- single card -->
-					<div class="col-md-4 col-sm-6">
-						<div class="lab-card">
-							<div class="icon">
-								<i class="flaticon-023-flask"></i>
+					@foreach ($servicesTop as $serviceTop)
+						<div class="col-md-4 col-sm-6">
+							<div class="lab-card">
+								<div class="icon">
+									<i class="{{$serviceTop->logo}}"></i>
+								</div>
+								<h2>{{$serviceTop->titre}}</h2>
+								<p>{{$serviceTop->description}}</p>
 							</div>
-							<h2>Get in the lab</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla..</p>
 						</div>
-					</div>
-					<!-- single card -->
-					<div class="col-md-4 col-sm-6">
-						<div class="lab-card">
-							<div class="icon">
-								<i class="flaticon-011-compass"></i>
-							</div>
-							<h2>Projects online</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla..</p>
-						</div>
-					</div>
-					<!-- single card -->
-					<div class="col-md-4 col-sm-12">
-						<div class="lab-card">
-							<div class="icon">
-								<i class="flaticon-037-idea"></i>
-							</div>
-							<h2>SMART MARKETING</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla..</p>
-						</div>
-					</div>
+					@endforeach
 				</div>
 			</div>
 		</div>
 		<!-- card section end-->
-
 
 		<!-- About contant -->
 		<div class="about-contant">

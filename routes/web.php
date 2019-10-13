@@ -13,14 +13,17 @@
 
 use App\Service;
 use App\Projet;
+use App\Media;
 
 //View Labs
 Route::get('/', function () {
 
     $actif = "home";
     $services = DB::table('services')->paginate(9);
+    $servicesTop = Service::all()->random(3);
+    $medias = Media::all();
 
-    return view('index',compact('actif','services'));
+    return view('index',compact('actif','servicesTop','services','medias'));
 });
 
 Route::get('/service', function(){
@@ -72,5 +75,9 @@ Route::get('/home/services','ServicesController@index')->middleware('auth');
 Route::resource('projets','ProjetsController')->middleware('auth');
 
 Route::get('/home/projets','ProjetsController@index')->middleware('auth');
+
+Route::resource('medias','MediasController')->middleware('auth');
+
+Route::get('/home/medias','MediasController@index')->middleware('auth');
 
 

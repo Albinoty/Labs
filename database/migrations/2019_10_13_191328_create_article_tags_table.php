@@ -21,6 +21,7 @@ class CreateArticleTagsTable extends Migration
                 ->references('id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('id_article')->unsigned();
             $table->foreign('id_article')
                 ->on('articles')
                 ->references('id')

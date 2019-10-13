@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Projet;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProjetsRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProjetsController extends Controller
@@ -96,6 +97,7 @@ class ProjetsController extends Controller
     public function update(ProjetsRequest $request, Projet $projet)
     {
         $projet::find($projet->id);
+        Storage::delete($projet->image);
 
         $projet->titre = $request->input('titre');
         $projet->description = $request->input('description');
@@ -115,6 +117,7 @@ class ProjetsController extends Controller
      */
     public function destroy(Projet $projet)
     {
+        Storage::delete($projet->image);
         $projet::find($projet->id)->delete();
 
         return redirect()->back();
