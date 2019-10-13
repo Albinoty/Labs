@@ -29,7 +29,7 @@ Route::get('/service', function(){
     $name = "Services";
     $actif = "services";
     $services = DB::table('services')->paginate(9);
-    $projets = Projet::all();
+    $projets = Projet::all()->random(3);
 
     return view('service',compact('name','actif','services','projets'));
 });
