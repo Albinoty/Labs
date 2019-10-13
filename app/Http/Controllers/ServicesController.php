@@ -14,9 +14,12 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.servicesIndex');
-    }
 
+        $services = Service::all();
+
+        return view('admin.servicesIndex',compact('services'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +46,7 @@ class ServicesController extends Controller
 
         $service->save();
 
-        return redirect(route('home'));
+        return redirect(route('services.index'));
 
     }
 
@@ -55,7 +58,7 @@ class ServicesController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -66,7 +69,9 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+
+        return view('admin.serviceEdit',compact('service'));
     }
 
     /**
@@ -78,7 +83,15 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = Service::find($id);
+
+        $service->logo = $request->input('logo');
+        $service->titre = $request->input('titre');
+        $service->description = $request->input('description');
+
+        $service->save();
+
+        return redirect(route('services.index'));
     }
 
     /**
@@ -89,6 +102,8 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id)->delete();
+
+        return redirect(route('services.index'));
     }
 }

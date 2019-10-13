@@ -24,3 +24,10 @@
 .logo{
     font-size: 40px;
 }
+
+.page-item.active{
+    .page-link{
+        background-color:#2be6ab !important;
+        border-color: #2be6ab !important;
+    }
+}

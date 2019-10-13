@@ -11,6 +11,8 @@
 |
 */
 
+use App\Service;
+
 Route::get('/', function () {
 
     $actif = "home";
@@ -23,8 +25,9 @@ Route::get('/service', function(){
     // qu'il afficher le nom de la page acutel
     $name = "Services";
     $actif = "services";
+    $services = DB::table('services')->paginate(9);
 
-    return view('service',compact('name','actif'));
+    return view('service',compact('name','actif','services'));
 });
 
 Route::get('/blog', function(){
