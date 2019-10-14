@@ -9,13 +9,12 @@
 @endsection
 
 @section('contenu')
-
 	<!-- Intro Section -->
 	<div class="hero-section">
 		<div class="hero-content">
 			<div class="hero-center">
-				<img src="img/big-logo.png" alt="">
-				<p>Get your freebie template now!</p>
+				<img src="{{isset($home) ? '/storage/'.$home->logo_carousel : 'img/big-logo.png'}}" alt="">
+				<p>{{ $home->texte_carousel != null ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
 			</div>
 		</div>
 		<!-- slider -->
@@ -63,10 +62,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequat ante ac congue. Quisque porttitor porttitor tempus. Donec maximus ipsum non ornare vporttitor porttitorestibulum. Sed libero nibh, feugiat at enim id, bibendum sollicitudin arcu.</p>
+						<p>{{ $home->texte_gauche != null ? $home->texte_gauche : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequat ante ac congue. Quisque porttitor porttitor tempus. Donec maximus ipsum non ornare vporttitor porttitorestibulum. Sed libero nibh, feugiat at enim id, bibendum sollicitudin arcu.'}}</p>
 					</div>
 					<div class="col-md-6">
-						<p>Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum. Nam convallis vel erat id dictum. Sed ut risus in orci convallis viverra a eget nisi. Aenean pellentesque elit vitae eros dignissim ultrices. Quisque porttitor porttitorlaoreet vel risus et luctus.</p>
+						<p>{{ $home->texte_droite != null ? $home->texte_droite : 'Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum. Nam convallis vel erat id dictum. Sed ut risus in orci convallis viverra a eget nisi. Aenean pellentesque elit vitae eros dignissim ultrices. Quisque porttitor porttitorlaoreet vel risus et luctus.'}}</p>
 					</div>
 				</div>
 				<div class="text-center mt60">
@@ -77,7 +76,7 @@
 					<div class="row">
 						<div class="col-md-8 offset-md-2">
 							<img src="img/video.jpg" alt="">
-							<a href="https://www.youtube.com/watch?v=X1ydNGz4rPM" class="video-popup">
+								<a href="{{$home->url_video != null ? $home->url_video : 'https://www.youtube.com/watch?v=X1ydNGz4rPM&t'}}" class="video-popup">
 								<i class="fa fa-play"></i>
 							</a>
 						</div>
@@ -100,89 +99,22 @@
 					</div>
 					<div class="owl-carousel" id="testimonial-slide">
 						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/01.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
-								</div>
-							</div>
-						</div>
-						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/02.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
+
+						@foreach ($testimonials as $testimonial)
+							<div class="testimonial">
+								<span>‘​‌‘​‌</span>
+								<p>{{$testimonial->texte}}</p>
+								<div class="client-info">
+									<div class="avatar">
+										<img src="/storage/{{$testimonial->image}}" alt="">
+									</div>
+									<div class="client-name">
+										<h2>{{$testimonial->auteur}}</h2>
+										<p>{{$testimonial->fonction}}</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/01.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
-								</div>
-							</div>
-						</div>
-						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/02.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
-								</div>
-							</div>
-						</div>
-						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/01.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
-								</div>
-							</div>
-						</div>
-						<!-- single testimonial -->
-						<div class="testimonial">
-							<span>‘​‌‘​‌</span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
-							<div class="client-info">
-								<div class="avatar">
-									<img src="img/avatar/02.jpg" alt="">
-								</div>
-								<div class="client-name">
-									<h2>Michael Smith</h2>
-									<p>CEO Company</p>
-								</div>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
 			</div>

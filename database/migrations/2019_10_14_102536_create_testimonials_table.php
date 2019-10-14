@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeTable extends Migration
+class CreateTestimonialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateHomeTable extends Migration
      */
     public function up()
     {
-        Schema::create('home', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->Increments('id');
-            $table->string('logo',125);
-            $table->string('logo_carousel',125);
-            $table->string('texte_carousel',125);
-            $table->string('texte_gauche',125);
-            $table->string('texte_droite',125);
-            $table->string('url_video',125);
+            $table->string('auteur',50);
+            $table->string('fonction',50);
+            $table->text('texte');
+            $table->string('image',150);
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateHomeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('home');
+        Schema::dropIfExists('testimonials');
     }
 }

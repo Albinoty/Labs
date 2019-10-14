@@ -128,9 +128,9 @@ return [
     'menu' => [
         ['header' => 'Page Home'],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Contenu Textuel',
+            'icon' => 'fas fa-pencil-alt',
+            'url' => '/home/index/edit'
         ],
         [
             'text' => 'Carousel',
@@ -145,6 +145,22 @@ return [
                     'text' => 'Voir les images',
                     'icon' => 'far fa-eye',
                     'url' => 'home/medias'
+                ]
+            ],
+        ],
+        [
+            'text' => 'Testimonials',
+            'icon' => 'fas fa-user-tag',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un testimonial',
+                    'icon' => 'fas fa-plus',
+                    'url' => 'testimonials/create'
+                ],
+                [
+                    'text' => 'Voir les testimonials',
+                    'icon' => 'far fa-eye',
+                    'url' => 'home/testimonials'
                 ]
             ]
         ],

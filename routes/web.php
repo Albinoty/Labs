@@ -11,20 +11,11 @@
 |
 */
 
-use App\Service;
 use App\Projet;
-use App\Media;
+
 
 //View Labs
-Route::get('/', function () {
-
-    $actif = "home";
-    $services = DB::table('services')->paginate(9);
-    $servicesTop = Service::all()->random(3);
-    $medias = Media::all();
-
-    return view('index',compact('actif','servicesTop','services','medias'));
-});
+Route::get('/','HomeController@index')->name('index');
 
 Route::get('/service', function(){
     //Je fais passer le nom pour pourvoir dynamiser chemin.blade
@@ -32,7 +23,10 @@ Route::get('/service', function(){
     $name = "Services";
     $actif = "services";
     $services = DB::table('services')->paginate(9);
-    $projets = Projet::all()->random(3);
+    $projets = Projet::all();
+
+    if(count($projets)>=3)
+        $projets = $projets->random(3);
 
     return view('service',compact('name','actif','services','projets'));
 });
@@ -68,6 +62,11 @@ Route::get('/home', function() {
 Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
+
+Route::get('/home/index/edit','HomeController@edit');
+
+Route::put('/home/index/update','HomeController@update');
+
 Route::resource('services','ServicesController')->middleware('auth');
 
 Route::get('/home/services','ServicesController@index')->middleware('auth');
@@ -79,5 +78,9 @@ Route::get('/home/projets','ProjetsController@index')->middleware('auth');
 Route::resource('medias','MediasController')->middleware('auth');
 
 Route::get('/home/medias','MediasController@index')->middleware('auth');
+
+Route::resource('testimonials','TestimonialsController')->middleware('auth');
+
+Route::get('/home/testimonials','TestimonialsController@index')->middleware('auth');
 
 
