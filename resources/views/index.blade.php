@@ -14,7 +14,7 @@
 		<div class="hero-content">
 			<div class="hero-center">
 				<img src="{{isset($home) ? '/storage/'.$home->logo_carousel : 'img/big-logo.png'}}" alt="">
-				<p>{{ $home->texte_carousel != null ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
+				<p>{{ isset($home) ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
 			</div>
 		</div>
 		<!-- slider -->
@@ -22,7 +22,7 @@
 
 			@foreach ($medias as $media)
 				<div class="item  hero-item" data-bg="storage/{{$media->img_path}}">
-					<img src="/storage/{{$media->img_path}}" alt="">
+					<img src="{{isset($media) ? '/storage/'.$media->img_path : 'img/logo.png'}}" alt="">
 				</div>
 			@endforeach
 		</div>
@@ -62,10 +62,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<p>{{ $home->texte_gauche != null ? $home->texte_gauche : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequat ante ac congue. Quisque porttitor porttitor tempus. Donec maximus ipsum non ornare vporttitor porttitorestibulum. Sed libero nibh, feugiat at enim id, bibendum sollicitudin arcu.'}}</p>
+						<p>{{ isset($home) ? $home->texte_gauche : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequat ante ac congue. Quisque porttitor porttitor tempus. Donec maximus ipsum non ornare vporttitor porttitorestibulum. Sed libero nibh, feugiat at enim id, bibendum sollicitudin arcu.'}}</p>
 					</div>
 					<div class="col-md-6">
-						<p>{{ $home->texte_droite != null ? $home->texte_droite : 'Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum. Nam convallis vel erat id dictum. Sed ut risus in orci convallis viverra a eget nisi. Aenean pellentesque elit vitae eros dignissim ultrices. Quisque porttitor porttitorlaoreet vel risus et luctus.'}}</p>
+						<p>{{ isset($home) ? $home->texte_droite : 'Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum. Nam convallis vel erat id dictum. Sed ut risus in orci convallis viverra a eget nisi. Aenean pellentesque elit vitae eros dignissim ultrices. Quisque porttitor porttitorlaoreet vel risus et luctus.'}}</p>
 					</div>
 				</div>
 				<div class="text-center mt60">
@@ -76,7 +76,7 @@
 					<div class="row">
 						<div class="col-md-8 offset-md-2">
 							<img src="img/video.jpg" alt="">
-								<a href="{{$home->url_video != null ? $home->url_video : 'https://www.youtube.com/watch?v=X1ydNGz4rPM&t'}}" class="video-popup">
+								<a href="{{isset($home) ? $home->url_video : 'https://www.youtube.com/watch?v=X1ydNGz4rPM'}}" class="video-popup">
 								<i class="fa fa-play"></i>
 							</a>
 						</div>

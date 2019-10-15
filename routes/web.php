@@ -64,23 +64,19 @@ Auth::routes();
 
 
 Route::get('/home/index/edit','HomeController@edit');
-
 Route::put('/home/index/update','HomeController@update');
 
 Route::resource('services','ServicesController')->middleware('auth');
-
 Route::get('/home/services','ServicesController@index')->middleware('auth');
 
 Route::resource('projets','ProjetsController')->middleware('auth');
-
 Route::get('/home/projets','ProjetsController@index')->middleware('auth');
 
 Route::resource('medias','MediasController')->middleware('auth');
-
 Route::get('/home/medias','MediasController@index')->middleware('auth');
 
 Route::resource('testimonials','TestimonialsController')->middleware('auth');
-
 Route::get('/home/testimonials','TestimonialsController@index')->middleware('auth');
 
-
+Route::resource('teams','TeamsController')->middleware('auth');
+Route::get('/home/teams','TeamsController@index')->middleware('auth');

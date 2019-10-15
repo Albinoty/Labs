@@ -6,7 +6,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Medias</h1>
+    <h1>Teams</h1>
 @stop
 
 @section('content')
@@ -15,24 +15,26 @@
             <thead class="thead-light">
                 <tr>
                     <th class="text-center">Id</th>
-                    <th class="text-center">titre</th>
-                    <th class="text-center">Image</th>
+                    <th class="text-center">Photo</th>
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Fonction</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($medias as $media)
+                @foreach ($teams as $team)
                     <tr>
-                        <td>{{$media->id}}</td>
-                        <td>{{$media->titre}}</td>
-                        <td><img src="/storage/{{$media->img_path}}" class="w-50 d-block mx-auto"></td>
+                        <td>{{$team->id}}</td>
+                        <td><img src="/storage/{{$team->image}}" class="w-50 d-block mx-auto"></td>
+                        <td>{{$team->nom}}</td>
+                        <td>{{$team->fonction}}</td>
                         <td class="d-flex justify-content-center">
-                            <form action="{{route('medias.edit',$media->id)}}">
+                            <form action="{{route('teams.edit',$team->id)}}">
                                 @csrf
                                 @method('get')
                                 <button class="btn btn-warning mx-2">Update</button>
                             </form>
-                            <form action="{{route('medias.destroy',$media->id)}}" method="POST">
+                            <form action="{{route('teams.destroy',$team->id)}}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-danger mx-2">Delete</button>

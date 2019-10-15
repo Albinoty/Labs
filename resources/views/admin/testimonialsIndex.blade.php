@@ -6,7 +6,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>testimonials</h1>
+    <h1>Testimonials</h1>
 @stop
 
 @section('content')

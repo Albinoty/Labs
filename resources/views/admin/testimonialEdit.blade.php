@@ -7,7 +7,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Ajout d'un image pour le carousel</h1>
+    <h1>Modification d'un testimonial</h1>
 @stop
 
 @section('content')

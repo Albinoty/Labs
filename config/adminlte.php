@@ -164,6 +164,22 @@ return [
                 ]
             ]
         ],
+        [
+            'text' => 'Section Team',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Ajout un membre de la team',
+                    'icon' => 'fas fa-plus',
+                    'url' => 'teams/create'
+                ],
+                [
+                    'text' => 'Afficher les membres de la team',
+                    'icon' => 'far fa-eye',
+                    'url' => 'home/teams'
+                ]
+            ]
+        ],
         ['header' => 'Page Services'],
         [
             'text' => 'Services',

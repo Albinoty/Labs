@@ -99,7 +99,7 @@ class ProjetsController extends Controller
         $projet::find($projet->id);
         Storage::delete($projet->image);
 
-        $projet->titre = $request->input('titre');
+        $projet->nom = $request->input('nom');
         $projet->description = $request->input('description');
 
         $this->storageFile($request,$projet);

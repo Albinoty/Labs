@@ -7,7 +7,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Ajout d'une image pour le carousel</h1>
+    <h1>Modification d'un membre de la team</h1>
 @stop
 
 @section('content')
@@ -19,18 +19,21 @@
                     @endforeach
                 </div>
             @endif
-        <form action="{{route('medias.store')}}" method="POST" enctype="multipart/form-data">    
+        <form action="{{route('teams.update',$team->id)}}" method="POST" enctype="multipart/form-data">    
             @csrf
-            @method('post')
+            @method('put')
             <div class="form-group">
-                <label for="titre">Titre</label>
-                <input type="text" class="form-control" name="titre" id="" value="{{old('titre')}}">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" class="form-control" value="{{$team->nom}}">
             </div>
             <div class="form-group">
-                <label for="photo">Image</label>
-                <input type="file" class="form-control" name="image" id="">
+                <label for="fonction">Fonction</label>
+                <input type="text" name="fonction" id="fonction" class="form-control" value="{{$team->fonction}}">
             </div>
-            
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image" class="form-control">
+            </div>
             <button class="btn btn-success d-block mx-auto mb-5">Enregistrer</button>
         </form>
     </div>

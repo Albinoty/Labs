@@ -8,6 +8,7 @@ use App\Service;
 use App\Media;
 use App\Home;
 use App\Testimonial;
+use App\Team;
 use Storage;
 
 class HomeController extends Controller
@@ -34,9 +35,11 @@ class HomeController extends Controller
         $home = Home::find(1);
 
         $testimonials = Testimonial::all();
+
+        $teams = Team::all();
         
 
-        return view('index',compact('actif','servicesTop','services','medias','home','testimonials'));
+        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams'));
 
     }
 
@@ -60,10 +63,10 @@ class HomeController extends Controller
         if(count($home) === 0){
             $home = new Home();
             
-            if(($requete->input('logo') != null) && ($requete->input('logo_carousel') != null)){
-                $this->storageFile($requete,$home,'logo');
-                $this->storageFile($requete,$home,'logo_carousel');
-            }
+            
+            $this->storageFile($requete,$home,'logo');
+            $this->storageFile($requete,$home,'logo_carousel');
+            
 
 
             $home->texte_carousel = $requete->input('texte_gauche');
@@ -83,10 +86,10 @@ class HomeController extends Controller
 
             Storage::delete($home->logo);
             Storage::delete($home->logo_carousel);
-
-            $this->storageFile($requete,$home,'logo');
-            $this->storageFile($requete,$home,'logo_carousel');
-
+            if(($requete->input('logo') != null) && ($requete->input('logo_carousel') != null)){
+                $this->storageFile($requete,$home,'logo');
+                $this->storageFile($requete,$home,'logo_carousel');
+            }
 
             $home->texte_carousel = $requete->input('texte_gauche');
             $home->texte_gauche = $requete->input('texte_gauche');

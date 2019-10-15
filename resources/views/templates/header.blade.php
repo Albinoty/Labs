@@ -2,7 +2,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="/storage/{{$home->logo}}" alt="">
+			<img src="{{isset($home) ? '/storage/'.$home->logo : 'img/logo.png'}}" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
