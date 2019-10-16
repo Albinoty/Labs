@@ -1,4 +1,8 @@
 <?php
+use App\User;
+use App\Providers\AuthServiceProvider;
+
+
 
 return [
 
@@ -126,15 +130,22 @@ return [
     */
 
     'menu' => [
-        ['header' => 'Page Home'],
+        //ADMIN
+        [
+            'header' => 'Page Home',
+            'can' => 'admin',
+        ],
         [
             'text' => 'Contenu Textuel',
             'icon' => 'fas fa-pencil-alt',
-            'url' => '/home/index/edit'
+            'url' => '/home/index/edit',
+            'can' => 'admin',
+            
         ],
         [
             'text' => 'Carousel',
             'icon' => 'far fa-images',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajout d\'une image',
@@ -151,6 +162,7 @@ return [
         [
             'text' => 'Testimonials',
             'icon' => 'fas fa-user-tag',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter un testimonial',
@@ -167,6 +179,7 @@ return [
         [
             'text' => 'Section Team',
             'icon' => 'fas fa-users',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajout un membre de la team',
@@ -183,12 +196,17 @@ return [
         [
             'text' => 'Section Contact',
             'icon' => 'fas fa-address-card',
-            'url' => '/home/contact/edit'
+            'url' => '/home/contact/edit',
+            'can' => 'admin',
         ],
-        ['header' => 'Page Services'],
+        [
+            'header' => 'Page Services',
+            'can' => 'admin',
+        ],
         [
             'text' => 'Services',
             'icon' => 'fas fa-tools',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter un Service',
@@ -205,6 +223,7 @@ return [
         [
             'text' => 'Projet',
             'icon' => 'fas fa-project-diagram',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter un projet',

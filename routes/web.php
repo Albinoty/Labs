@@ -11,6 +11,7 @@
 |
 */
 
+use App\User;
 use App\Projet;
 
 
@@ -56,7 +57,8 @@ Route::get('/contact', function(){
 
 //Back Office
 Route::get('/home', function() {
-    return view('home');
+    $user = User::find(auth()->user()->id);
+    return view('home', compact('user'));
 })->name('home')->middleware('auth');
 
 Auth::routes();

@@ -7,5 +7,6 @@
 @stop
 
 @section('content')
-    <p>You are logged in!</p>
+    
+    <p>Hello, {{$user->name}}.You are logged in!</p>
 @stop
