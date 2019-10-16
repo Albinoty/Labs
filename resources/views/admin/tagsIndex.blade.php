@@ -6,7 +6,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Teams</h1>
+    <h1>Tags</h1>
 @stop
 
 @section('content')
@@ -14,29 +14,23 @@
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Photo</th>
-                    <th class="text-center">Nom</th>
-                    <th class="text-center">Fonction</th>
-                    <th class="text-center">Team Leader</th>
+                    <th>Id</th>
+                    <th>Nom</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($teams as $team)
+                @foreach ($tags as $tag)
                     <tr>
-                        <td>{{$team->id}}</td>
-                        <td><img src="/storage/{{$team->image}}" class="w-50 d-block mx-auto"></td>
-                        <td>{{$team->nom}}</td>
-                        <td>{{$team->fonction}}</td>
-                        <td>{{$team->teamleader}}</td>
+                        <td>{{$tag->id}}</td>
+                        <td>{{$tag->nom}}</td>
                         <td class="d-flex justify-content-center">
-                            <form action="{{route('teams.edit',$team->id)}}">
+                            <form action="{{route('tags.edit',$tag->id)}}">
                                 @csrf
                                 @method('get')
                                 <button class="btn btn-warning mx-2">Update</button>
                             </form>
-                            <form action="{{route('teams.destroy',$team->id)}}" method="POST">
+                            <form action="{{route('tags.destroy',$tag->id)}}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-danger mx-2">Delete</button>

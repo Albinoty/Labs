@@ -65,8 +65,8 @@ Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
 
-Route::get('/home/index/edit','HomeController@edit');
-Route::put('/home/index/update','HomeController@update');
+Route::get('/home/index/edit','HomeController@edit')->middleware(['auth','IsAdmin']);
+Route::put('/home/index/update','HomeController@update')->middleware('auth');
 
 Route::resource('services','ServicesController')->middleware('auth');
 Route::get('/home/services','ServicesController@index')->middleware('auth');
@@ -83,5 +83,8 @@ Route::get('/home/testimonials','TestimonialsController@index')->middleware('aut
 Route::resource('teams','TeamsController')->middleware('auth');
 Route::get('/home/teams','TeamsController@index')->middleware('auth');
 
-Route::get('/home/contact/edit','ContactController@edit');
-Route::put('/home/contact/update','ContactController@update');
+Route::get('/home/contact/edit','ContactController@edit')->middleware('auth');
+Route::put('/home/contact/update','ContactController@update')->middleware('auth');
+
+Route::resource('tags','TagController')->middleware(['auth','IsAdmin']);
+Route::get('/home/tags','TagController@index')->middleware(['auth','IsAdmin']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Team;
 use Illuminate\Http\Request;
 use Storage;
+use DB;
 
 class TeamsController extends Controller
 {
@@ -101,10 +102,25 @@ class TeamsController extends Controller
         $team->nom = $request->input('nom');
         $team->fonction = $request->input('fonction');
         
-        if($team->image !=null){
+        if($request->hasfile('image') != null){
             Storage::delete($team->image);
             $this->storageFile($request, $team);
         }
+
+
+
+        if($request->input('teamleader') == "Oui"){
+            // Idem mais reconnait pas le update ...
+            // $oldTeamLeader = Team::all();
+            // $oldTeamLeader->where('teamleader','=','Oui');
+            // $oldTeamLeader->update(['teamleader' => 'Non']);
+
+            DB::table('teams')
+            ->where('teamleader','=','Oui')
+            ->update(['teamleader' => 'Non']);
+        }
+
+        $team->teamleader = $request->input('teamleader');
 
         $team->save();
         

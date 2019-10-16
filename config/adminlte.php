@@ -3,7 +3,6 @@ use App\User;
 use App\Providers\AuthServiceProvider;
 
 
-
 return [
 
     /*
@@ -129,8 +128,9 @@ return [
     | layout. The 'can' is a filter on Laravel's built in Gate functionality.
     */
 
-    'menu' => [
-        //ADMIN
+    'menu' =>     
+    [   
+        // ADMIN
         [
             'header' => 'Page Home',
             'can' => 'admin',
@@ -238,6 +238,39 @@ return [
             ]
            
         ],
+        //article
+        [
+            'header' => 'Article',
+            'can' => 'admin'
+        ],
+        [
+            'text' => 'Ajouter un article',
+            'icon' => 'fas fa-plus',
+            'can' => 'admin',
+            'url' => ''
+        ],
+        [
+            'text' => 'Ajouter un tag',
+            'icon' => 'fas fa-plus',
+            'can' => 'admin',
+            'url' => 'tags/create'
+        ],
+        [
+            'text' => 'Afficher les tags',
+            'icon' => 'fas fa-eye',
+            'can' => 'admin',
+            'url' => 'tags'
+        ],
+
+        //Editeur
+        [
+            'header' => 'Articles',
+            'can' => 'editeur',
+        ],
+        [
+            'text' => 'Ajouter un article',
+            'can' => 'editeur'
+        ]
     ],
 
     /*
