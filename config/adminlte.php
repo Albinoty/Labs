@@ -180,6 +180,11 @@ return [
                 ]
             ]
         ],
+        [
+            'text' => 'Section Contact',
+            'icon' => 'fas fa-address-card',
+            'url' => '/home/contact/edit'
+        ],
         ['header' => 'Page Services'],
         [
             'text' => 'Services',

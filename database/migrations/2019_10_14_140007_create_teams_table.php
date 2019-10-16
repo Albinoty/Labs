@@ -17,6 +17,7 @@ class CreateTeamsTable extends Migration
             $table->Increments('id');
             $table->string('nom',50);
             $table->string('fonction',50);
+            $table->string('teamleader',5);
             $table->string('image',100);
             $table->timestamps();
         });

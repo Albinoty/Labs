@@ -34,7 +34,9 @@ class TeamsController extends Controller
      */
     public function create()
     {
-        return view('admin.teamCreate');
+        $teams = Team::all();
+
+        return view('admin.teamCreate',compact('teams'));
     }
 
     /**
@@ -49,6 +51,9 @@ class TeamsController extends Controller
 
         $team->nom = $request->input('nom');
         $team->fonction = $request->input('fonction');
+        $team->teamleader = $request->input('teamleader');
+
+        // dd($team);
 
         $this->storageFile($request, $team);
 
@@ -96,8 +101,10 @@ class TeamsController extends Controller
         $team->nom = $request->input('nom');
         $team->fonction = $request->input('fonction');
         
-        if($team->image !=null)
+        if($team->image !=null){
+            Storage::delete($team->image);
             $this->storageFile($request, $team);
+        }
 
         $team->save();
         

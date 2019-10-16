@@ -30,6 +30,23 @@
                 <label for="fonction">Fonction</label>
                 <input type="text" name="fonction" id="fonction" class="form-control" value="{{old('fonction')}}">
             </div>
+            <?php
+                $isTeamLeader = false;
+
+                foreach($teams as $team){
+                    if($team->teamleader == "Oui")
+                        $isTeamLeader = true;
+                }
+            ?>
+            @if (!$isTeamLeader == true)
+                <div class="form-group d-flex flex-column">
+                    <label for="">Team Leader</label>
+                    <span><input type="radio"" name="teamleader" id="teamleader" value="Oui"> Oui</span>
+                    <span><input type="radio" name="teamleader" id="teamleader" value="Non" checked> Non</span>
+                </div>
+            @else
+                <input type="hidden" name="teamleader" id="teamleader" value="Non">
+            @endif
             <div class="form-group">
                 <label for="image">Image</label>
                 <input type="file" name="image" id="image" class="form-control">

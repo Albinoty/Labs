@@ -10,6 +10,7 @@ use App\Home;
 use App\Testimonial;
 use App\Team;
 use Storage;
+use App\Contact;
 
 class HomeController extends Controller
 {
@@ -28,18 +29,25 @@ class HomeController extends Controller
         $services = DB::table('services')->paginate(9);
         $servicesTop = Service::all();
         $medias = Media::all();
+        $teams = Team::all()->where('teamleader','=','Non');
+        $testimonials = Testimonial::all();
+        $contact = Contact::find(1);
 
+
+        //Condtion des imports
         if(count($servicesTop) >=3)
             $servicesTop = $servicesTop->random(3);
 
         $home = Home::find(1);
 
-        $testimonials = Testimonial::all();
 
-        $teams = Team::all();
+        if(count($teams) >= 2)
+            $teams = $teams->random(2);
+
+        $leaders = Team::all()->where('teamleader','=','Oui');
         
-
-        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams'));
+        
+        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams','leaders','contact'));
 
     }
 

@@ -80,3 +80,6 @@ Route::get('/home/testimonials','TestimonialsController@index')->middleware('aut
 
 Route::resource('teams','TeamsController')->middleware('auth');
 Route::get('/home/teams','TeamsController@index')->middleware('auth');
+
+Route::get('/home/contact/edit','ContactController@edit');
+Route::put('/home/contact/update','ContactController@update');

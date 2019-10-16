@@ -134,29 +134,54 @@
 			</div>
 			<div class="row">
 				<!-- single member -->
-				<div class="col-sm-4">
-					<div class="member">
-						<img src="img/team/1.jpg" alt="">
-						<h2>Christinne Williams</h2>
-						<h3>Project Manager</h3>
+				<?php $i=1; ?>
+				@if (isset($teams))
+					@foreach ($teams as $team)
+						<div class="col-sm-4 d-flex order-{{$i}}">
+							<div class="member">
+								<img src="/storage/{{$team->image}}" alt="">
+								<h2>{{$team->nom}}</h2>
+								<h3>{{$team->fonction}}</h3>
+								<?php $i = $i+2; ?>
+							</div>
+						</div>
+					@endforeach
+				@else
+					<div class="col-sm-4">
+						<div class="member">
+							<img src="img/team/1.jpg" alt="">
+							<h2>Christinne Williams</h2>
+							<h3>Project Manager</h3>
+						</div>
 					</div>
-				</div>
-				<!-- single member -->
-				<div class="col-sm-4">
-					<div class="member">
-						<img src="img/team/2.jpg" alt="">
-						<h2>Christinne Williams</h2>
-						<h3>Junior developer</h3>
+					<!-- single member -->
+					<div class="col-sm-4">
+						<div class="member">
+							<img src="img/team/2.jpg" alt="">
+							<h2>Christinne Williams</h2>
+							<h3>Junior developer</h3>
+						</div>
 					</div>
-				</div>
-				<!-- single member -->
-				<div class="col-sm-4">
-					<div class="member">
-						<img src="img/team/3.jpg" alt="">
-						<h2>Christinne Williams</h2>
-						<h3>Digital designer</h3>
+					<!-- single member -->
+					<div class="col-sm-4">
+						<div class="member">
+							<img src="img/team/3.jpg" alt="">
+							<h2>Christinne Williams</h2>
+							<h3>Digital designer</h3>
+						</div>
 					</div>
-				</div>
+				@endif
+				@if ($leaders != null)
+					@foreach ($leaders as $leader)
+						<div class="col-sm-4 d-flex order-2">
+							<div class="member">
+								<img src="/storage/{{$leader->image}}" alt="">
+								<h2>{{$leader->nom}}</h2>
+								<h3>{{$leader->fonction}}</h3>
+							</div>
+						</div>
+					@endforeach
+				@endif
 			</div>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 	<!-- Header section -->
 	<header class="header-section">
 		<div class="logo">
-			<img src="{{isset($home) ? '/storage/'.$home->logo : 'img/big-logo.png'}}" alt=""><!-- Logo -->
+			<img src="{{isset($home) ? '/storage/'.$home->logo : 'img/logo.png'}}" alt=""><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>

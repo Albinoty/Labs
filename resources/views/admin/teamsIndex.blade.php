@@ -18,6 +18,7 @@
                     <th class="text-center">Photo</th>
                     <th class="text-center">Nom</th>
                     <th class="text-center">Fonction</th>
+                    <th class="text-center">Team Leader</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{$team->id}}</td>
                         <td><img src="/storage/{{$team->image}}" class="w-50 d-block mx-auto"></td>
                         <td>{{$team->nom}}</td>
+                        <td>{{$team->teamleader}}</td>
                         <td>{{$team->fonction}}</td>
                         <td class="d-flex justify-content-center">
                             <form action="{{route('teams.edit',$team->id)}}">

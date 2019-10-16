@@ -16,6 +16,7 @@ class CreateContactTable extends Migration
         Schema::create('contact', function (Blueprint $table) {
             $table->Increments('id');
             $table->text('titre',30);
+            $table->text('texte',200);
             $table->text('sous_titre',30);
             $table->text('adresse',50);
             $table->text('localite',50);
