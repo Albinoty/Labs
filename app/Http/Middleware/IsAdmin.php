@@ -20,8 +20,9 @@ class IsAdmin
         if(Auth::user()->role == "admin"){
 
             return $next($request);
+            
         }
 
-        return redirect()->route('login');
+        return redirect("/");
     }
 }

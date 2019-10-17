@@ -247,7 +247,19 @@ return [
             'text' => 'Ajouter un article',
             'icon' => 'fas fa-plus',
             'can' => 'admin',
-            'url' => ''
+            'url' => 'articles/create'
+        ],
+        [
+            'text' => 'Ajouter une categorie',
+            'icon' => 'fas fa-plus',
+            'can' => 'admin',
+            'url' => 'categories/create'
+        ],
+        [
+            'text' => 'Afficher les categories',
+            'icon' => 'fas fa-eye',
+            'can' => 'admin',
+            'url' => 'categories'
         ],
         [
             'text' => 'Ajouter un tag',

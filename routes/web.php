@@ -65,26 +65,37 @@ Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
 
+
+
+
 Route::get('/home/index/edit','HomeController@edit')->middleware(['auth','IsAdmin']);
-Route::put('/home/index/update','HomeController@update')->middleware('auth');
+Route::put('/home/index/update','HomeController@update')->middleware(['auth','IsAdmin']);
 
-Route::resource('services','ServicesController')->middleware('auth');
-Route::get('/home/services','ServicesController@index')->middleware('auth');
+Route::resource('services','ServicesController')->middleware(['auth','IsAdmin']);
+Route::get('/home/services','ServicesController@index')->middleware(['auth','IsAdmin']);
 
-Route::resource('projets','ProjetsController')->middleware('auth');
-Route::get('/home/projets','ProjetsController@index')->middleware('auth');
+Route::resource('projets','ProjetsController')->middleware(['auth','IsAdmin']);
+Route::get('/home/projets','ProjetsController@index')->middleware(['auth','IsAdmin']);
 
-Route::resource('medias','MediasController')->middleware('auth');
-Route::get('/home/medias','MediasController@index')->middleware('auth');
+Route::resource('medias','MediasController')->middleware(['auth','IsAdmin']);
+Route::get('/home/medias','MediasController@index')->middleware(['auth','IsAdmin']);
 
-Route::resource('testimonials','TestimonialsController')->middleware('auth');
-Route::get('/home/testimonials','TestimonialsController@index')->middleware('auth');
+Route::resource('testimonials','TestimonialsController')->middleware(['auth','IsAdmin']);
+Route::get('/home/testimonials','TestimonialsController@index')->middleware(['auth','IsAdmin']);
 
-Route::resource('teams','TeamsController')->middleware('auth');
-Route::get('/home/teams','TeamsController@index')->middleware('auth');
+Route::resource('teams','TeamsController')->middleware(['auth','IsAdmin']);
+Route::get('/home/teams','TeamsController@index')->middleware(['auth','IsAdmin']);
 
-Route::get('/home/contact/edit','ContactController@edit')->middleware('auth');
-Route::put('/home/contact/update','ContactController@update')->middleware('auth');
+Route::get('/home/contact/edit','ContactController@edit')->middleware(['auth','IsAdmin']);
+Route::put('/home/contact/update','ContactController@update')->middleware(['auth','IsAdmin']);
 
-Route::resource('tags','TagController')->middleware(['auth','IsAdmin']);
-Route::get('/home/tags','TagController@index')->middleware(['auth','IsAdmin']);
+Route::resource('tags','TagController')->middleware('auth');
+Route::get('/home/tags','TagController@index')->middleware('auth');
+
+Route::resource('articles','ArticleController')->middleware('auth');
+Route::get('/home/articles','ArticleController@index')->middleware('auth');
+
+Route::resource('categories','CategorieController')->middleware('auth');
+Route::get('/home/catergories','CategorieController@index')->middleware('auth');
+
+Route::put('/articleTag/{$tag}','ArticleTagController@store')->middleware(['auth','IsAdmin']);

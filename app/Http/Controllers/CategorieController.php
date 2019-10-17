@@ -3,22 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Article;
-use App\ArticleTag;
 use App\Categorie;
-use App\Tag;
-use Auth;
 
-class ArticleController extends Controller
+class CategorieController extends Controller
 {
-    public function storageFile(Request $request, $article){
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $article->img_path = $filename;
-        }
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +14,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $categories = Categorie::all();
 
-        return view('admin.articlesView');
+        return view('admin.categoriesIndex',compact('categories'));
+        
     }
 
     /**
@@ -38,10 +27,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Categorie::all();
-        $tags = Tag::all();
-
-        return view('admin.articleCreate',compact('categories','tags'));
+        return view('admin.categorieCreate');
     }
 
     /**
@@ -52,41 +38,16 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article();
-        
+        $categorie = new Categorie();
 
-        $user = User::find(Auth::user()->id);
-        $categorie = Categorie::find($request->input('categorie'));
+        $categorie->nom = $request->input('nom');
 
-        $article->nom = $request->input('titre');
-        $article->texte = $request->input ('texte');
-        $article->id_user = $user->id;
-        $article->id_categorie = $categorie->id;
-        
+        $categorie->save();
 
-        $this->storageFile($request,$article);
-        
-
-        // dd($article);
-
-        $article->save();
-
-        // $this->couille();
-
-        // return redirect(url('articleTag'));
-
-        // foreach($request->input('tags') as $tag){
-        //     $articleTag->id_tag = $tag
-            
-        // }
+        return redirect(route('categories.index'));
 
     }
-
-    public function couille(){
-        // $article = Article::all();
-
-        // dd($article);
-    }
+    
 
     /**
      * Display the specified resource.
@@ -119,7 +80,13 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categorie = Categorie::find($id);
+
+        $categorie->nom = $request->input('nom');
+
+        $categorie->save();
+
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -130,6 +97,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categorie = Categorie::find($id)->delete();
+
+        return redirect(route('categories.index'));
     }
 }

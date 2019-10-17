@@ -19,6 +19,12 @@ class UsersTableSeeder extends Seeder
             'role' => 'admin',
             'email' => 'albi@admin.com',
             'password' => password_hash('58626682',PASSWORD_BCRYPT)
+        ],
+        [
+            'name' => 'John',
+            'role' => 'editeur',
+            'email' => 'albinotnoty@gmail.com',
+            'password' => password_hash('58626682',PASSWORD_BCRYPT)
         ]);
         
     }
