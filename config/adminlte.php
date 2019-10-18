@@ -250,6 +250,12 @@ return [
             'url' => 'articles/create'
         ],
         [
+            'text' => 'Afficher l articles',
+            'icon' => 'fas fa-eye',
+            'can' => 'admin',
+            'url' => 'articles'
+        ],
+        [
             'text' => 'Ajouter une categorie',
             'icon' => 'fas fa-plus',
             'can' => 'admin',

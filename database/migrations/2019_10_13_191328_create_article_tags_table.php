@@ -15,15 +15,15 @@ class CreateArticleTagsTable extends Migration
     {
         Schema::create('article_tags', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('id_tag')->unsigned();
-            $table->foreign('id_tag')
-                ->on('tags')
+            $table->integer('article_id')->unsigned();
+            $table->foreign('article_id')
+                ->on('articles')
                 ->references('id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('id_article')->unsigned();
-            $table->foreign('id_article')
-                ->on('articles')
+            $table->integer('tag_id')->unsigned();
+            $table->foreign('tag_id')
+                ->on('tags')
                 ->references('id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

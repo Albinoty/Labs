@@ -9,6 +9,7 @@ use App\ArticleTag;
 use App\Categorie;
 use App\Tag;
 use Auth;
+use Storage;
 
 class ArticleController extends Controller
 {
@@ -16,7 +17,7 @@ class ArticleController extends Controller
         if($request->hasfile('image')){
             $file = $request->file('image');
             $filename = $file->store(env('IMG_DIR'));
-            $article->img_path = $filename;
+            $article->img_article = $filename;
         }
     }
     /**
@@ -28,7 +29,13 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('admin.articlesView');
+        $articleTags = ArticleTag::all();
+        
+        $tags = Tag::all();
+
+        $categories = Categorie::all();
+
+        return view('admin.articlesIndex',compact('articles','articleTags','tags','categories'));
     }
 
     /**
@@ -53,39 +60,30 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $article = new Article();
-        
 
         $user = User::find(Auth::user()->id);
         $categorie = Categorie::find($request->input('categorie'));
 
-        $article->nom = $request->input('titre');
+        $article->titre = $request->input('titre');
         $article->texte = $request->input ('texte');
         $article->id_user = $user->id;
         $article->id_categorie = $categorie->id;
         
-
         $this->storageFile($request,$article);
         
-
-        // dd($article);
-
         $article->save();
 
-        // $this->couille();
+        $article = Article::orderBy('id','desc')
+            ->where('id_user','=',Auth::user()->id)
+            ->first();
 
-        // return redirect(url('articleTag'));
+        foreach($request->input('tags') as $tag){
+           $article->tags()->attach($tag);
+           $article->save();
+        }
 
-        // foreach($request->input('tags') as $tag){
-        //     $articleTag->id_tag = $tag
-            
-        // }
+        return redirect(route('articles.index'));
 
-    }
-
-    public function couille(){
-        // $article = Article::all();
-
-        // dd($article);
     }
 
     /**
@@ -107,7 +105,15 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+
+        $articleTags = ArticleTag::all()->where('article_id','=',$id);
+        
+        $tags = Tag::all();
+
+        $categories = Categorie::all();
+
+        return view('admin.articleEdit',compact('article','articleTags','tags','categories'));
     }
 
     /**
@@ -119,7 +125,38 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        
+
+        $user = User::find(Auth::user()->id);
+        $categorie = Categorie::find($request->input('categorie'));
+
+        $article->titre = $request->input('titre');
+        $article->texte = $request->input ('texte');
+        $article->id_user = $id;
+        $article->id_categorie = $categorie->id;
+        
+        
+        if($request->hasfile('image') != null){
+            Storage::delete($article->img_article);
+            $this->storageFile($request,$article);
+        }
+        
+        $articleTags = ArticleTag::all()->where('article_id','=',$id);
+
+        $article = Article::find($id);
+
+        foreach($articleTags as $tag){
+            $tag->delete();
+        }
+
+    
+        foreach($request->input('tags') as $tag){
+            $article->tags()->attach($tag);
+            $article->save();
+        }
+
+        return redirect(route('articles.index'));
     }
 
     /**
@@ -130,6 +167,18 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        Storage::delete($article->img_article);
+        
+        $articleTags = ArticleTag::all()->where('article_id','=',$id);
+
+        foreach($articleTags as $tag){
+            $article->tags()->detach($tag);
+        }
+
+        $article->delete();
+
+        return redirect(route('articles.index'));
+
     }
 }

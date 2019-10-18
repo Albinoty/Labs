@@ -65,9 +65,6 @@ Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
 
-
-
-
 Route::get('/home/index/edit','HomeController@edit')->middleware(['auth','IsAdmin']);
 Route::put('/home/index/update','HomeController@update')->middleware(['auth','IsAdmin']);
 

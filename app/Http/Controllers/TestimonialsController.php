@@ -99,7 +99,7 @@ class TestimonialsController extends Controller
         $testimonial->fonction = $request->input('fonction');
         $testimonial->texte = $request->input('texte');
     
-        if($testimonial->image !=null){
+        if($request->image !=null){
             Storage::delete($testimonial->image);
             $this->storageFile($request,$testimonial);
         }

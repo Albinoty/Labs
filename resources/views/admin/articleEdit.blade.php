@@ -7,7 +7,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Ajout d'une image pour le carousel</h1>
+    <h1>Editer l'article</h1>
 @stop
 
 @section('content')
@@ -19,20 +19,21 @@
                     @endforeach
                 </div>
             @endif
-        <form action="{{route('articles.store')}}" method="POST" enctype="multipart/form-data">    
+        <form action="{{route('articles.update',$article->id)}}" method="POST" enctype="multipart/form-data">    
             @csrf
-            @method('post')
+            @method('put')
             <div class="form-group">
                 <label for="titre">Titre de l'article</label>
-                <input type="text" class="form-control" name="titre" id="titre">
+                <input type="text" class="form-control" name="titre" id="titre" value="{{$article->titre}}">
             </div>
             <div class="form-group">
                     <label for="image">Image de l'article</label>
                     <input type="file" class="form-control" name="image" id="image">
+                    <img src="/storage/{{$article->img_article}}" alt="">
                 </div>
             <div class="form-group">
                 <label for="texte">Contenu du texte</label>
-                <textarea name="texte" id="texte" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="texte" id="texte" cols="30" rows="10" class="form-control">{{$article->texte}}</textarea>
             </div>
             <div class="form-group">
                 <div class="row">
@@ -41,15 +42,18 @@
                         @if (isset($tags) == null)
                             <p>Il n'y pas de tags, aller en <a href="{{route('tags.create')}}">rajouter</a></p>
                         @else
-                            {{-- <select name="tags[]" id="" class="form-control">
-                                <div class="d-flex flex-row">
-                                    @foreach ($tags as $tag)    
-                                        <option value="{{$tag->id}}" class="d-block"> <input type="checkbox" name="" id="" class="d-block" />{{$tag->nom}}</option>
-                                    @endforeach
-                                </div>
-                            </select> --}}
                             @foreach ($tags as $tag)
-                                <span class="d-flex"><input type="checkbox" name="tags[]" id="" class="d-block my-auto mr-2" value="{{$tag->id}}" />   {{$tag->nom}} </span>
+                                <span class="d-flex">
+                                    <input type="checkbox" name="tags[]" id="" class="d-block my-auto mr-2" value="{{$tag->id}}"
+                                    @foreach ($articleTags as $articleTag)
+                                        @if ($articleTag->tag_id == $tag->id)
+                                            checked
+                                        @else
+                                            
+                                        @endif
+                                    @endforeach/>
+                                    {{$tag->nom}}
+                                </span>
                             @endforeach
                         @endif
                     </div>
