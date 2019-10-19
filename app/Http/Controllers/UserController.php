@@ -15,6 +15,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+
+        return view('admin.adminUsers',compact('users'));
     }
 
     /**
@@ -57,7 +59,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('admin.adminUserRole',compact('user'));
     }
 
     /**
@@ -69,7 +73,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->role = $request->input('role');
+        $user->save();
+
+        return redirect(route('users.index'));
     }
 
     /**
@@ -80,6 +89,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->delete();
+
+        return redirect(route('users.index'));
     }
 }

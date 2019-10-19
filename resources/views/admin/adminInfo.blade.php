@@ -22,8 +22,8 @@
             <div class="form-group">
                 <label for="img_user">Image Profil</label>
                 <input type="file" class="form-control" id="img_user" name="img_user">
-                @if (substr($user->img_user,0,5) == "images")
-                    <img src="/storage/{{$user->img_user}}" alt="">
+                @if (substr($user->img_user,0,6) == "images")
+                    <img src="/storage/{{$user->img_user}}" alt="" class="d-block w-25">
                 @else
                     <img src="/img/avatar/john-doe.png" alt="" class="d-block w-25">
                 @endif

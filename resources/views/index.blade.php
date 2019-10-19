@@ -76,7 +76,7 @@
 					<div class="row">
 						<div class="col-md-8 offset-md-2">
 							<img src="img/video.jpg" alt="">
-								<a href="{{isset($home) ? $home->url_video : 'https://www.youtube.com/watch?v=X1ydNGz4rPM'}}" class="video-popup">
+								<a href="{{isset($home) ? $home->url_video : 'https://www.youtube.com/watch?v=gFO3EKlZDao'}}" class="video-popup" allow="autoplay">
 								<i class="fa fa-play"></i>
 							</a>
 						</div>

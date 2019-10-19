@@ -14,7 +14,9 @@
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
-                    <th>Id</th>
+                    @if (auth()->user()->role == "admin")
+                        <th>Id</th>
+                    @endif
                     <th>Nom</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -22,7 +24,9 @@
             <tbody>
                 @foreach ($tags as $tag)
                     <tr>
-                        <td>{{$tag->id}}</td>
+                        @if (auth()->user()->role == "admin")
+                            <td>{{$tag->id}}</td>    
+                        @endif
                         <td>{{$tag->nom}}</td>
                         <td class="d-flex justify-content-center">
                             <form action="{{route('tags.edit',$tag->id)}}">

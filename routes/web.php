@@ -17,6 +17,7 @@ use App\Article;
 use App\Tag;
 use App\ArticleTag;
 use App\Commentaire;
+use App\Categorie;
 
 
 //View Labs
@@ -40,12 +41,14 @@ Route::get('/blog', function(){
     $name = "Blog";
     $actif = "blog";
 
-    $articles = DB::table('articles')->orderBy('id','desc')->paginate(3);
+    $articles = Article::where('etat','=','Publié')->orderBy('id','desc')->paginate(3);
     $tags = Tag::all();
     $articleTags = ArticleTag::all();
     $users = User::all();
+    $commentaires = count(Commentaire::all());
+    $categories = Categorie::all();
 
-    return view('blog',compact('name','actif','articles','tags','users','articleTags'));
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
 });
 
 Route::get('/blog-post/{id}', function(){
@@ -66,6 +69,7 @@ Route::get('/blog-post/{id}', function(){
 
 Route::resource('commentaires','CommentaireController');
 Route::post('/blog-post/{id}/commentaire','CommentaireController@store');
+Route::delete('/blog-post/{id}/commentaire/delete','CommentaireController@destroy');
 
 Route::get('/contact', function(){
     //Je fais passer le nom pour pourvoir dynamiser chemin.blade
@@ -76,22 +80,6 @@ Route::get('/contact', function(){
     return view('contact',compact('name','actif'));
 });
 
-//Back Office
-Route::get('/home', function() {
-    $user = User::find(auth()->user()->id);
-    return view('home', compact('user'));
-})->name('home')->middleware('auth');
-
-Auth::routes();
-//Passer le auth et le role  pour determiner qui se connecte
-
-Route::get('/home/info',function(){
-
-    $user = User::find(auth()->user()->id);
-
-    return view('admin.adminInfo',compact('user'));    
-
-})->middleware(['auth','IsAdmin']);
 
 Route::put('/home/info/update',function(){
     $user = User::find(auth()->user()->id);
@@ -125,34 +113,66 @@ Route::put('/home/info/update',function(){
 
 });
 
-Route::get('/home/index/edit','HomeController@edit')->middleware(['auth','IsAdmin']);
-Route::put('/home/index/update','HomeController@update')->middleware(['auth','IsAdmin']);
+//Back Office
+Route::get('/home', function() {
+    $user = User::find(auth()->user()->id);
+    return view('home', compact('user'));
+})->name('home')->middleware('auth');
 
-Route::resource('services','ServicesController')->middleware(['auth','IsAdmin']);
-Route::get('/home/services','ServicesController@index')->middleware(['auth','IsAdmin']);
+Auth::routes();
+//Passer le auth et le role  pour determiner qui se connecte
 
-Route::resource('projets','ProjetsController')->middleware(['auth','IsAdmin']);
-Route::get('/home/projets','ProjetsController@index')->middleware(['auth','IsAdmin']);
 
-Route::resource('medias','MediasController')->middleware(['auth','IsAdmin']);
-Route::get('/home/medias','MediasController@index')->middleware(['auth','IsAdmin']);
+Route::middleware(['auth','IsAdmin'])->group(function (){
 
-Route::resource('testimonials','TestimonialsController')->middleware(['auth','IsAdmin']);
-Route::get('/home/testimonials','TestimonialsController@index')->middleware(['auth','IsAdmin']);
+    Route::get('/home/info',function(){
+        $user = User::find(auth()->user()->id);
+        return view('admin.adminInfo',compact('user'));    
+    });
 
-Route::resource('teams','TeamsController')->middleware(['auth','IsAdmin']);
-Route::get('/home/teams','TeamsController@index')->middleware(['auth','IsAdmin']);
+    Route::resource('users','UserController');
 
-Route::get('/home/contact/edit','ContactController@edit')->middleware(['auth','IsAdmin']);
-Route::put('/home/contact/update','ContactController@update')->middleware(['auth','IsAdmin']);
+    Route::get('/home/index/edit','HomeController@edit');
+    Route::put('/home/index/update','HomeController@update');
 
-Route::resource('tags','TagController')->middleware('auth');
-Route::get('/home/tags','TagController@index')->middleware('auth');
+    Route::resource('services','ServicesController');
+    Route::get('/home/services','ServicesController@index');
 
-Route::resource('articles','ArticleController')->middleware('auth');
-Route::get('/home/articles','ArticleController@index')->middleware('auth');
+    Route::resource('projets','ProjetsController');
+    Route::get('/home/projets','ProjetsController@index');
 
-Route::resource('categories','CategorieController')->middleware('auth');
-Route::get('/home/catergories','CategorieController@index')->middleware('auth');
+    Route::resource('medias','MediasController');
+    Route::get('/home/medias','MediasController@index');
 
-Route::put('/articleTag/{$tag}','ArticleTagController@store')->middleware(['auth','IsAdmin']);
+    Route::resource('testimonials','TestimonialsController');
+    Route::get('/home/testimonials','TestimonialsController@index');
+
+    Route::resource('teams','TeamsController');
+    Route::get('/home/teams','TeamsController@index');
+
+    Route::get('/home/contact/edit','ContactController@edit');
+    Route::put('/home/contact/update','ContactController@update');
+
+    Route::get('/articles/validation',function(){
+
+        $articles = Article::where('etat','=','Pending');
+
+        return view('admin.articleValidation',compact('$articles'));
+
+    });
+
+});
+
+Route::middleware(['auth','IsAdmin','IsEditeur'])->group(function(){
+    Route::resource('tags','TagController');
+    Route::get('/home/tags','TagController@index');
+    
+    Route::resource('articles','ArticleController');
+    Route::get('/home/articles','ArticleController@index');
+    
+    Route::resource('categories','CategorieController');
+    Route::get('/home/catergories','CategorieController@index');
+    
+    Route::put('/articleTag/{$tag}','ArticleTagController@store');
+});
+

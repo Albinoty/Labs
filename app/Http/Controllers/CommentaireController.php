@@ -115,6 +115,11 @@ class CommentaireController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commentaire = Commentaire::find($id);
+        $article = Article::find($commentaire->id_article);
+
+        $commentaire->delete();
+
+        return redirect();
     }
 }

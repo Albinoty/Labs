@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('titre');
             $table->text('texte');
             $table->text('img_article',125);
+            $table->string('etat',15);
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')
                 ->on('users')

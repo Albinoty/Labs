@@ -143,6 +143,30 @@ return [
             'can' => 'admin'
         ],
         [
+            'header' => 'Gestion du site',
+            'can' => 'admin'
+        ],
+        [
+        
+            'text' => 'Afficher les users du site',
+            'icon' => 'fas fa-user',
+            'url' => 'users',
+            'can' => 'admin'
+            
+        ],
+        [
+            'text' => 'Afficher les articles',
+            'icon' => 'fas fa-eye',
+            'can' => 'admin',
+            'url' => 'articles'
+        ],
+        [
+            'text' => 'Validation des articles',
+            'icon' => 'fas fa-check',
+            'can' => 'admin',
+            'url' => ''
+        ],
+        [
             'header' => 'Page Home',
             'can' => 'admin',
         ],
@@ -257,6 +281,7 @@ return [
         [
             'text' => 'Articles',
             'icon' => 'fas fa-newspaper',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter un article',
@@ -265,7 +290,7 @@ return [
                     'url' => 'articles/create'
                 ],
                 [
-                    'text' => 'Afficher l articles',
+                    'text' => 'Afficher les articles',
                     'icon' => 'fas fa-eye',
                     'can' => 'admin',
                     'url' => 'articles'
@@ -275,6 +300,7 @@ return [
         [
             'text' => 'Categories',
             'icon' => 'fas fa-th',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter une categorie',
@@ -293,6 +319,7 @@ return [
         [
             'text' => 'Tags',
             'icon' => 'fas fa-tags',
+            'can' => 'admin',
             'submenu' => [
                 [
                     'text' => 'Ajouter un tag',
@@ -317,9 +344,62 @@ return [
             'can' => 'editeur',
         ],
         [
-            'text' => 'Ajouter un article',
-            'can' => 'editeur'
-        ]
+            'text' => 'Articles',
+            'icon' => 'fas fa-newspaper',
+            'can' => 'editeur',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un article',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'editeur',
+                    'url' => 'articles/create'
+                ],
+                [
+                    'text' => 'Afficher les articles',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'editeur',
+                    'url' => 'articles'
+                ],
+            ]
+        ],
+        [
+            'text' => 'Categories',
+            'icon' => 'fas fa-th',
+            'can' => 'editeur',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter une categorie',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'editeur',
+                    'url' => 'categories/create'
+                ],
+                [
+                    'text' => 'Afficher les categories',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'editeur',
+                    'url' => 'categories'
+                ],
+            ]
+        ],
+        [
+            'text' => 'Tags',
+            'icon' => 'fas fa-tags',
+            'can' => 'editeur',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un tag',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'editeur',
+                    'url' => 'tags/create'
+                ],
+                [
+                    'text' => 'Afficher les tags',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'editeur',
+                    'url' => 'tags'
+                ],
+            ]
+        ],
     ],
 
     /*

@@ -28,14 +28,12 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('id','desc')->paginate(5);
-
         $articleTags = ArticleTag::all();
-        
         $tags = Tag::all();
-
         $categories = Categorie::all();
+        $users = User::all();
 
-        return view('admin.articlesIndex',compact('articles','articleTags','tags','categories'));
+        return view('admin.articlesIndex',compact('articles','articleTags','tags','categories','users'));
     }
 
     /**
@@ -69,6 +67,11 @@ class ArticleController extends Controller
         $article->id_user = $user->id;
         $article->id_categorie = $categorie->id;
         
+        if(auth()->user()->role == "admin")
+            $article->etat = "Publié";
+        else
+            $article->etat = "Pending";
+
         $this->storageFile($request,$article);
         
         $article->save();

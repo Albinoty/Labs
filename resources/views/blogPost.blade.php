@@ -68,7 +68,7 @@
                                             @endif
                                         @endforeach
                                     @endforeach</a>
-                                <a href="">2 Comments</a>
+                                <a href="">{{count($commentaires)}} Comments</a>
                             </div>
                             <p>
                                 {{$article->texte}}
@@ -79,7 +79,11 @@
                         @foreach ($users as $user)
                             @if ($user->id == $article->id_user)
                                 <div class="avatar w-25 ">
-                                    <img src="/storage/{{$user->img_user}}" class="img-fluid" alt="">
+                                    @if ($user->img_user == null)
+                                        <img src="/img/avatar/john-doe.png" class="img-fluid" alt="">
+                                    @else
+                                        <img src="/storage/{{$user->img_user}}" class="img-fluid" alt="">
+                                    @endif
                                 </div>
                                 <div class="author-info w-75">
                                     <h2>{{$user->name}}, <span>{{$user->role}}</span></h2>
@@ -90,7 +94,7 @@
                     </div>
                     <!-- Post Comments -->
                     <div class="comments">
-                        <h2>Comments (2)</h2>
+                        <h2>Comments ({{count($commentaires)}})</h2>
                         <ul class="comment-list">
                             @forelse ($commentaires as $commentaire)
                                 <li>
@@ -102,7 +106,7 @@
                                         @endif
                                     </div>
                                     <div class="commetn-text">
-                                        <h3>{{$commentaire->nom}} | 
+                                        <h3 class="d-flex align-items-center">{{$commentaire->nom}} | 
                                             {{-- date --}}
                                             {{substr($article->created_at,8,2)}}
                                             {{-- mois --}}
@@ -112,7 +116,16 @@
                                                 @endif
                                             @endforeach
                                             {{-- annee --}}
-                                            {{substr($article->created_at,0,4)}}</h3>
+                                            {{substr($article->created_at,0,4)}}
+                                            | 
+                                            @if (Auth()->user()->email == $commentaire->email)
+                                                <form action="/blog-post/{{$commentaire->id}}/commentaire/delete" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn">Delete</button>
+                                                </form>
+                                            @endif
+                                        </h3>
                                         <p>{{$commentaire->commentaire}}</p>
                                     </div>
                                 </li>
