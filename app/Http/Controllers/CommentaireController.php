@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Commentaire;
 use Auth;
+use App\Article;
+
 
 class CommentaireController extends Controller
 {
@@ -116,10 +118,9 @@ class CommentaireController extends Controller
     public function destroy($id)
     {
         $commentaire = Commentaire::find($id);
-        $article = Article::find($commentaire->id_article);
 
         $commentaire->delete();
 
-        return redirect();
+        return redirect(route('/'));
     }
 }

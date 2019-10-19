@@ -12,7 +12,7 @@
         <h2 class="widget-title">Categories</h2>
         <ul>
             @foreach ($categories as $categorie)
-                <li><a href="#">{{$categorie->name}}</a></li>
+                <li><a href="#">{{$categorie->nom}}</a></li>
             @endforeach
         </ul>
     </div>

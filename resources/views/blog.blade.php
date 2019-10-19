@@ -69,7 +69,19 @@
                                                     @endif
                                                 @endforeach
                                             @endforeach</a>
-                                        <a href="">{{$commentaires}} Comments</a>
+                                        <a href="">
+                                            <?php
+                                                $i = 0;
+
+                                                foreach($commentaires as $commentaire){
+                                                    if($commentaire->id_article == $article->id)
+                                                        $i++;
+                                                }
+
+                                                echo $i;
+
+                                            ?>
+                                            Comments</a>
                                     </div>
                                     <p>
                                         @if (strlen($article->texte) >= 150)

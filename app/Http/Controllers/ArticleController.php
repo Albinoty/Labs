@@ -10,6 +10,8 @@ use App\Categorie;
 use App\Tag;
 use Auth;
 use Storage;
+use App\Mail\ArticleValidation;
+use Illuminate\Support\Facades\Mail;
 
 class ArticleController extends Controller
 {
@@ -84,6 +86,8 @@ class ArticleController extends Controller
            $article->tags()->attach($tag);
            $article->save();
         }
+        if(auth()->user()->role == "editeur")
+            Mail::to('exemple@exmple.com')->send(new ArticleValidation($user));
 
         return redirect(route('articles.index'));
 

@@ -122,16 +122,21 @@
                                 @endforeach
                             </td>
                             <td class="d-flex justify-content-center">
-                                <form action="{{route('articles.edit',$article->id)}}">
-                                    @csrf
-                                    @method('get')
-                                    <button class="btn btn-warning mx-2">Update</button>
-                                </form>
-                                <form action="{{route('articles.destroy',$article->id)}}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger mx-2">Delete</button>
-                                </form>
+                                @if ($article->etat == "Publié")
+                                    <form action="{{route('articles.edit',$article->id)}}">
+                                        @csrf
+                                        @method('get')
+                                        <button class="btn btn-warning mx-2">Update</button>
+                                    </form>
+                                    <form action="{{route('articles.destroy',$article->id)}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger mx-2">Delete</button>
+                                    </form>
+                                @else
+                                    <p>Votre est en cours de validation</p>
+                                @endif
+                                
                             </td>
                         </tr> 
                     @endif                      

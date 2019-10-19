@@ -164,7 +164,7 @@ return [
             'text' => 'Validation des articles',
             'icon' => 'fas fa-check',
             'can' => 'admin',
-            'url' => ''
+            'url' => '/articles/validation'
         ],
         [
             'header' => 'Page Home',

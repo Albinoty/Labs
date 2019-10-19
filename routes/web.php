@@ -18,6 +18,8 @@ use App\Tag;
 use App\ArticleTag;
 use App\Commentaire;
 use App\Categorie;
+use App\Mail\ArticleValidation;
+use Illuminate\Support\Facades\Mail;
 
 
 //View Labs
@@ -45,7 +47,7 @@ Route::get('/blog', function(){
     $tags = Tag::all();
     $articleTags = ArticleTag::all();
     $users = User::all();
-    $commentaires = count(Commentaire::all());
+    $commentaires = Commentaire::all();
     $categories = Categorie::all();
 
     return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
@@ -59,12 +61,13 @@ Route::get('/blog-post/{id}', function(){
     $tags = Tag::all();
     $articleTags = ArticleTag::all();
     $users = User::all();
+    $categories = Categorie::all();
     $commentaires = Commentaire::where('id_article','=',$article->id)
         ->orderBy('id','desc')
         ->paginate(5);  
     
 
-    return view('blogPost',compact('name','actif','article','tags','users','articleTags','commentaires'));
+    return view('blogPost',compact('name','actif','article','tags','users','articleTags','commentaires','categories'));
 });
 
 Route::resource('commentaires','CommentaireController');
@@ -155,15 +158,26 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
 
     Route::get('/articles/validation',function(){
 
-        $articles = Article::where('etat','=','Pending');
+        $articles = Article::where('etat','=','Pending')->get();
 
-        return view('admin.articleValidation',compact('$articles'));
+        return view('admin.articleValidation',compact('articles'));
+
+    });
+
+    Route::put('article/{id}/valider',function(){
+        
+        $article = Article::find(request('id'));
+        $article->etat = "Publié";
+
+        $article->save();
+
+        return redirect(route('articles.index'));
 
     });
 
 });
 
-Route::middleware(['auth','IsAdmin','IsEditeur'])->group(function(){
+Route::middleware(['auth','IsEditeur'])->group(function(){
     Route::resource('tags','TagController');
     Route::get('/home/tags','TagController@index');
     
