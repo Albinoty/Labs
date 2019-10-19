@@ -2,7 +2,7 @@
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader">
-			<img src="{{isset($home) ? '/storage/'.$home->logo : 'img/logo.png'}}" alt="">
+			<img src="{{isset($home) ? '/storage/'.$home->logo : '/img/logo.png'}}" alt="">
 			<h2>Loading.....</h2>
 		</div>
 	</div>
@@ -11,7 +11,7 @@
 	<!-- Header section -->
 	<header class="header-section">
 		<div class="logo">
-			<img src="{{isset($home) ? '/storage/'.$home->logo : 'img/logo.png'}}" alt=""><!-- Logo -->
+			<img src="{{isset($home) ? '/storage/'.$home->logo : '/img/logo.png'}}" alt=""><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>

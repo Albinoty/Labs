@@ -132,6 +132,17 @@ return [
     [   
         // ADMIN
         [
+            'header' => 'User',
+            'can' => 'admin'
+        ],
+        [
+            'text' => 'Information profil',
+            'icon' => 'far fa-question-circle',
+
+            'url' => '/home/info',
+            'can' => 'admin'
+        ],
+        [
             'header' => 'Page Home',
             'can' => 'admin',
         ],
@@ -240,45 +251,65 @@ return [
         ],
         //article
         [
-            'header' => 'Article',
+            'header' => 'Page Blog',
             'can' => 'admin'
         ],
         [
-            'text' => 'Ajouter un article',
-            'icon' => 'fas fa-plus',
-            'can' => 'admin',
-            'url' => 'articles/create'
+            'text' => 'Articles',
+            'icon' => 'fas fa-newspaper',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un article',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'admin',
+                    'url' => 'articles/create'
+                ],
+                [
+                    'text' => 'Afficher l articles',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'admin',
+                    'url' => 'articles'
+                ],
+            ]
         ],
         [
-            'text' => 'Afficher l articles',
-            'icon' => 'fas fa-eye',
-            'can' => 'admin',
-            'url' => 'articles'
+            'text' => 'Categories',
+            'icon' => 'fas fa-th',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter une categorie',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'admin',
+                    'url' => 'categories/create'
+                ],
+                [
+                    'text' => 'Afficher les categories',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'admin',
+                    'url' => 'categories'
+                ],
+            ]
         ],
         [
-            'text' => 'Ajouter une categorie',
-            'icon' => 'fas fa-plus',
-            'can' => 'admin',
-            'url' => 'categories/create'
+            'text' => 'Tags',
+            'icon' => 'fas fa-tags',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un tag',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'admin',
+                    'url' => 'tags/create'
+                ],
+                [
+                    'text' => 'Afficher les tags',
+                    'icon' => 'fas fa-eye',
+                    'can' => 'admin',
+                    'url' => 'tags'
+                ],
+            ]
         ],
-        [
-            'text' => 'Afficher les categories',
-            'icon' => 'fas fa-eye',
-            'can' => 'admin',
-            'url' => 'categories'
-        ],
-        [
-            'text' => 'Ajouter un tag',
-            'icon' => 'fas fa-plus',
-            'can' => 'admin',
-            'url' => 'tags/create'
-        ],
-        [
-            'text' => 'Afficher les tags',
-            'icon' => 'fas fa-eye',
-            'can' => 'admin',
-            'url' => 'tags'
-        ],
+        
+        
 
         //Editeur
         [

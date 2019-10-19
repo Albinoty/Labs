@@ -27,7 +27,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::orderBy('id','desc')->paginate(5);
 
         $articleTags = ArticleTag::all();
         
@@ -132,8 +132,8 @@ class ArticleController extends Controller
         $categorie = Categorie::find($request->input('categorie'));
 
         $article->titre = $request->input('titre');
-        $article->texte = $request->input ('texte');
-        $article->id_user = $id;
+        $article->texte = $request->input('texte');
+        $article->id_user = $user->id;
         $article->id_categorie = $categorie->id;
         
         
@@ -141,6 +141,8 @@ class ArticleController extends Controller
             Storage::delete($article->img_article);
             $this->storageFile($request,$article);
         }
+        
+        $article->save();
         
         $articleTags = ArticleTag::all()->where('article_id','=',$id);
 

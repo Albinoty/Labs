@@ -20,7 +20,73 @@
                 <div class="row">
                     <div class="col-md-8 col-sm-7 blog-posts">
                         <!-- Post item -->
-                        <div class="post-item">
+                        <?php
+                            $mois = [
+                                '01' => 'Jan',
+                                '02' => 'Feb',
+                                '03' => 'Mar',
+                                '04' => 'Apr',
+                                '05' => 'May', 
+                                '06' => 'Jun',
+                                '07' => 'Jul',
+                                '08' => 'Aug',
+                                '09' => 'Sep',
+                                '10' => 'Oct',
+                                '11' => 'Nov',
+                                '12' => 'Dec'
+                            ]
+                        ?>
+                        @foreach ($articles as $article)
+                            <div class="post-item">
+                                <div class="post-thumbnail">
+                                    <img src="/storage/{{$article->img_article}}" alt="">
+                                    <div class="post-date">
+                                        <h2>{{substr($article->created_at,8,2)}}</h2>
+                                        <h3>
+                                            @foreach ($mois as $key => $item )
+                                                @if ($key == substr($article->created_at,5,2))
+                                                    {{$item}}
+                                                @endif
+                                            @endforeach
+                                            {{substr($article->created_at,0,4)}}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="post-content">
+                                    <h2 class="post-title">{{$article->titre}}</h2>
+                                    <div class="post-meta">
+                                        <a href="">
+                                            @foreach ($users as $user)
+                                                @if ($user->id == $article->id_user)
+                                                    {{$user->name}}
+                                                @endif
+                                            @endforeach
+                                        </a>
+                                        <a href="">@foreach ($articleTags as $articleTag)
+                                                @foreach ($tags as $tag)
+                                                @if (($articleTag->article_id == $article->id) &&($articleTag->tag_id == $tag->id))
+                                                        {{$tag->nom}}
+                                                    @endif
+                                                @endforeach
+                                            @endforeach</a>
+                                        <a href="">2 Comments</a>
+                                    </div>
+                                    <p>
+                                        @if (strlen($article->texte) >= 150)
+                                            {{substr($article->texte,0,149)}}...
+                                        @else
+                                            {{$article->texte}}
+                                        @endif
+                                    </p>
+                                    <a href="/blog-post/{{$article->id}}" class="read-more">Read More</a>
+                                </div>
+                            </div>
+                        @endforeach
+                        <!-- Pagination -->
+                        <div class="col-12 d-flex">
+                            {{$articles->links('vendor.pagination.bootstrap-4')}}
+                        </div>
+                        {{-- <div class="post-item">
                             <div class="post-thumbnail">
                                 <img src="img/blog/blog-2.jpg" alt="">
                                 <div class="post-date">
@@ -28,7 +94,7 @@
                                     <h3>Nov 2017</h3>
                                 </div>
                             </div>
-                            <div class="post-content">
+                             <div class="post-content">
                                 <h2 class="post-title">Just a simple blog post</h2>
                                 <div class="post-meta">
                                     <a href="">Loredana Papp</a>
@@ -37,54 +103,8 @@
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
                                 <a href="/blog-post" class="read-more">Read More</a>
-                            </div>
-                        </div>
-                        <!-- Post item -->
-                        <div class="post-item">
-                            <div class="post-thumbnail">
-                                <img src="img/blog/blog-1.jpg" alt="">
-                                <div class="post-date">
-                                    <h2>03</h2>
-                                    <h3>Nov 2017</h3>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">Just a simple blog post</h2>
-                                <div class="post-meta">
-                                    <a href="">Loredana Papp</a>
-                                    <a href="">Design, Inspiration</a>
-                                    <a href="">2 Comments</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-                                <a href="/blog-post" class="read-more">Read More</a>
-                            </div>
-                        </div>
-                        <!-- Post item -->
-                        <div class="post-item">
-                            <div class="post-thumbnail">
-                                <img src="img/blog/blog-3.jpg" alt="">
-                                <div class="post-date">
-                                    <h2>03</h2>
-                                    <h3>Nov 2017</h3>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                <h2 class="post-title">Just a simple blog post</h2>
-                                <div class="post-meta">
-                                    <a href="">Loredana Papp</a>
-                                    <a href="">Design, Inspiration</a>
-                                    <a href="">2 Comments</a>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-                                <a href="/blog-post" class="read-more">Read More</a>
-                            </div>
-                        </div>
-                        <!-- Pagination -->
-                        <div class="page-pagination">
-                            <a class="active" href="">01.</a>
-                            <a href="">02.</a>
-                            <a href="">03.</a>
-                        </div>
+                            </div> 
+                        </div> --}}
                     </div>
                     <!-- Sidebar area -->
                     @include('templates.sidebar')                        

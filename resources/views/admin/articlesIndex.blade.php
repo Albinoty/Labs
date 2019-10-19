@@ -68,5 +68,9 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination -->
+        <div class="col-12 d-flex justify-content-center">
+            {{$articles->links('vendor.pagination.bootstrap-4')}}
+        </div>
     </div>
 @stop

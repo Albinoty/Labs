@@ -13,6 +13,10 @@
 
 use App\User;
 use App\Projet;
+use App\Article;
+use App\Tag;
+use App\ArticleTag;
+use App\Commentaire;
 
 
 //View Labs
@@ -36,15 +40,32 @@ Route::get('/blog', function(){
     $name = "Blog";
     $actif = "blog";
 
-    return view('blog',compact('name','actif'));
+    $articles = DB::table('articles')->orderBy('id','desc')->paginate(3);
+    $tags = Tag::all();
+    $articleTags = ArticleTag::all();
+    $users = User::all();
+
+    return view('blog',compact('name','actif','articles','tags','users','articleTags'));
 });
 
-Route::get('/blog-post', function(){
+Route::get('/blog-post/{id}', function(){
     $name = "Blog";
     $actif = "blog";
 
-    return view('blogPost',compact('name','actif'));
+    $article = Article::find(request('id'));
+    $tags = Tag::all();
+    $articleTags = ArticleTag::all();
+    $users = User::all();
+    $commentaires = Commentaire::where('id_article','=',$article->id)
+        ->orderBy('id','desc')
+        ->paginate(5);  
+    
+
+    return view('blogPost',compact('name','actif','article','tags','users','articleTags','commentaires'));
 });
+
+Route::resource('commentaires','CommentaireController');
+Route::post('/blog-post/{id}/commentaire','CommentaireController@store');
 
 Route::get('/contact', function(){
     //Je fais passer le nom pour pourvoir dynamiser chemin.blade
@@ -64,6 +85,45 @@ Route::get('/home', function() {
 Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
+Route::get('/home/info',function(){
+
+    $user = User::find(auth()->user()->id);
+
+    return view('admin.adminInfo',compact('user'));    
+
+})->middleware(['auth','IsAdmin']);
+
+Route::put('/home/info/update',function(){
+    $user = User::find(auth()->user()->id);
+
+    $user->name = request()->input('nom');
+    $user->bio = request()->input('bio');
+
+    //Si l'user ne mets rien et dans la db ya rien
+    if(request()->hasfile('img_user') == null && $user->img_user == null){
+
+        $user->img_path = 'img/avatar/john-doe.png';
+
+    }
+    // Si l'user met une photo mais qu'il n'a rien dans la db
+    else if(request()->hasfile('img_user') && $user->img_user == null){
+        $file = request()->file('img_user');
+        $filename = $file->store(env('IMG_DIR'));
+        $user->img_user = $filename;
+    }
+    // sinon on supprime dans le storage l'image et on mets le nv path de l'image
+    else {
+        Storage::delete($user->img_user);
+        $file = request()->file('img_user');
+        $filename = $file->store(env('IMG_DIR'));
+        $user->img_user = $filename;
+    }
+
+    $user->save();
+
+    return redirect(url('/home'));
+
+});
 
 Route::get('/home/index/edit','HomeController@edit')->middleware(['auth','IsAdmin']);
 Route::put('/home/index/update','HomeController@update')->middleware(['auth','IsAdmin']);
