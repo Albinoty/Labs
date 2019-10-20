@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contact;
+use App\Http\Requests\ContactRequest;
 
 
 class ContactController extends Controller
@@ -20,7 +21,7 @@ class ContactController extends Controller
 
     }
 
-    public function update(Request $request){
+    public function update(ContactRequest $request){
 
         $contact = Contact::all();
 

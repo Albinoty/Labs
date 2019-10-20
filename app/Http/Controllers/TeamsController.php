@@ -6,10 +6,11 @@ use App\Team;
 use Illuminate\Http\Request;
 use Storage;
 use DB;
+use App\Http\Requests\TeamRequest;
 
 class TeamsController extends Controller
 {
-    public static function storageFile(Request $request, $team){
+    public static function storageFile(TeamRequest $request, $team){
         if($request->hasfile('image')){
             $file = $request->file('image');
             $filename = $file->store(env('IMG_DIR'));
@@ -46,7 +47,7 @@ class TeamsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
         $team = new Team();
 
@@ -95,7 +96,7 @@ class TeamsController extends Controller
      * @param  \App\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(TeamRequest $request, Team $team)
     {
         $team = $team::find($team->id);
 

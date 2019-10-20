@@ -15,6 +15,13 @@
         <form action="{{route('services.update',$service->id)}}" method="POST">    
             @csrf
             @method('put')
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </div>
+            @endif
             <div class="form-group">
                 <label for="">Titre</label>
                 <input type="text" class="form-control" name="titre" value="{{$service->titre}}">

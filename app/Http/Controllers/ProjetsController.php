@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Projet;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProjetsRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProjetRequest;
 
 
 class ProjetsController extends Controller
 {
 
-    public static function storageFile(ProjetsRequest $request, $projet){
+    public static function storageFile(ProjetRequest $request, $projet){
 
         if($request->hasfile('image')){
             $file = $request->file('image');
@@ -48,7 +48,7 @@ class ProjetsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProjetsRequest $request)
+    public function store(ProjetRequest $request)
     {
         $projet = new Projet();
 
@@ -94,7 +94,7 @@ class ProjetsController extends Controller
      * @param  \App\Projet  $projet
      * @return \Illuminate\Http\Response
      */
-    public function update(ProjetsRequest $request, Projet $projet)
+    public function update(ProjetRequest $request, Projet $projet)
     {
         $projet::find($projet->id);
         Storage::delete($projet->image);

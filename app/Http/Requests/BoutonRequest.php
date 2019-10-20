@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MediaRequest extends FormRequest
+class BoutonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,13 @@ class MediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required'
+            'texte' => 'required|min:5|max:20'
         ];
     }
-
-    public function messages(){
+    public function messages()
+    {
         return [
-            'image.required' => 'Il y\'a un probleme avec l\'image upload'
+            'texte.required' => 'Le texte doit être entre 5 et 20 caractères.'
         ];
     }
 }

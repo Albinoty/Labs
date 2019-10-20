@@ -12,6 +12,7 @@ use App\Team;
 use App\Bouton;
 use Storage;
 use App\Contact;
+use App\Http\Requests\HomeRequest;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,7 @@ class HomeController extends Controller
         
     }
 
-    public static function storageFile(Request $requete, $home, $column){
+    public static function storageFile(HomeRequest $requete, $home, $column){
 
         if($requete->hasfile($column)){
             $file = $requete->file($column);
@@ -70,7 +71,7 @@ class HomeController extends Controller
 
     }
 
-    public function update(Request $requete){
+    public function update(HomeRequest $requete){
 
         $home = Home::all();
 

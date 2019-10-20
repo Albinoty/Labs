@@ -13,10 +13,11 @@ use Storage;
 use App\Mail\ArticleValidation;
 use App\Mail\ArticleNew;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
-    public function storageFile(Request $request, $article){
+    public function storageFile(ArticleRequest $request, $article){
         if($request->hasfile('image')){
             $file = $request->file('image');
             $filename = $file->store(env('IMG_DIR'));
@@ -58,7 +59,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         $article = new Article();
 
@@ -134,7 +135,7 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
         $article = Article::find($id);
         

@@ -21,9 +21,7 @@
 		<div id="hero-slider" class="owl-carousel">
 
 			@foreach ($medias as $media)
-				<div class="item  hero-item" data-bg="storage/{{$media->img_path}}">
-					<img src="{{isset($media) ? '/storage/'.$media->img_path : 'img/logo.png'}}" alt="">
-				</div>
+				<div class="item  hero-item" data-bg="storage/{{$media->img_path}}"></div>
 			@endforeach
 		</div>
 	</div>

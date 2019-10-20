@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categorie;
+use App\Http\Requests\CategorieRequest;
 
 class CategorieController extends Controller
 {
@@ -27,7 +28,9 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        return view('admin.categorieCreate');
+        $categories = Categorie::all();
+
+        return view('admin.categorieCreate',compact('categories'));
     }
 
     /**
@@ -36,7 +39,7 @@ class CategorieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategorieRequest $request)
     {
         $categorie = new Categorie();
 
@@ -78,7 +81,7 @@ class CategorieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategorieRequest $request, $id)
     {
         $categorie = Categorie::find($id);
 

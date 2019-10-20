@@ -24,7 +24,7 @@
             @method('post')
             <div class="form-group">
                 <label for="titre">Titre de l'article</label>
-                <input type="text" class="form-control" name="titre" id="titre">
+                <input type="text" class="form-control" name="titre" id="titre" value="{{old('titre')}}">
             </div>
             <div class="form-group">
                     <label for="image">Image de l'article</label>
@@ -32,7 +32,7 @@
                 </div>
             <div class="form-group">
                 <label for="texte">Contenu du texte</label>
-                <textarea name="texte" id="texte" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="texte" id="texte" cols="30" rows="10" class="form-control">{{old('texte')}}</textarea>
             </div>
             <div class="form-group">
                 <div class="row">
@@ -41,13 +41,6 @@
                         @if (isset($tags) == null)
                             <p>Il n'y pas de tags, aller en <a href="{{route('tags.create')}}">rajouter</a></p>
                         @else
-                            {{-- <select name="tags[]" id="" class="form-control">
-                                <div class="d-flex flex-row">
-                                    @foreach ($tags as $tag)    
-                                        <option value="{{$tag->id}}" class="d-block"> <input type="checkbox" name="" id="" class="d-block" />{{$tag->nom}}</option>
-                                    @endforeach
-                                </div>
-                            </select> --}}
                             @foreach ($tags as $tag)
                                 <span class="d-flex"><input type="checkbox" name="tags[]" id="" class="d-block my-auto mr-2" value="{{$tag->id}}" />   {{$tag->nom}} </span>
                             @endforeach

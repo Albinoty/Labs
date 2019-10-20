@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Media;
 use Illuminate\Http\Request;
-use App\Http\Requests\MediaRequest;
+use App\Http\Requests\CarouselRequest;
 use Illuminate\Support\Facades\Storage;
 
 class MediasController extends Controller
 {
-    public static function storageFile(MediaRequest $request, $media){
+    public static function storageFile(CarouselRequest $request, $media){
 
         if($request->hasfile('image')){
             $file = $request->file('image');
@@ -46,7 +46,7 @@ class MediasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MediaRequest $request)
+    public function store(CarouselRequest $request)
     {
         $media = new Media();
 
@@ -91,7 +91,7 @@ class MediasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MediaRequest $request, $id)
+    public function update(CarouselRequest $request, $id)
     {
 
 

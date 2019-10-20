@@ -1,5 +1,5 @@
 @component('mail::message')
-# Nouveav Article
+# Nouvea Article
 
 Un nouvel article était créé. Soyez le premier le consulter à le consulter et a commenté.
 

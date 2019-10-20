@@ -15,6 +15,13 @@
         <form action="{{route('services.store')}}" method="POST">    
             @csrf
             @method('post')
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </div>
+            @endif
             <div class="form-group">
                 <label for="">Titre</label>
                 <input type="text" class="form-control" name="titre">

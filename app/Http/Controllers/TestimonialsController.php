@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Testimonial;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\TestimonialRequest;
 
 class TestimonialsController extends Controller
 {
-    public static function storageFile(Request $request, $testimonial){
+    public static function storageFile(TestimonialRequest $request, $testimonial){
 
         if($request->hasfile('image')){
             $file = $request->file('image');
@@ -44,7 +45,7 @@ class TestimonialsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TestimonialRequest $request)
     {
         $testimonial = new Testimonial();
 
@@ -91,7 +92,7 @@ class TestimonialsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TestimonialRequest $request, $id)
     {
         $testimonial = Testimonial::find($id);
 

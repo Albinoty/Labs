@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label for="video">URL d'une video youtube (Il faudra juste copier le lien de la video)</label>
-                <input type="text" class="form-control" name="video" id="video" value="{{ isset($home) != null ? $home->url_video : ''}}">
+                <input type="text" class="form-control" name="video" id="video" value="{{ isset($home) != null ? $home->url_video : ''}}" placeholder="https://www.youtube.com/..">
             </div>
             <button class="btn btn-success d-block mx-auto mb-5">Enregistrer</button>
         </form>
