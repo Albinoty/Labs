@@ -235,6 +235,13 @@ return [
             'can' => 'admin',
         ],
         [
+            'text' => 'Bouton Browse',
+            'icon' => '',
+            'url' => '',
+            'can' => 'admin'
+
+        ],
+        [
             'header' => 'Page Services',
             'can' => 'admin',
         ],

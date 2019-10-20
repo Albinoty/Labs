@@ -19,7 +19,10 @@ use App\ArticleTag;
 use App\Commentaire;
 use App\Categorie;
 use App\Mail\ArticleValidation;
+use App\Mail\ArticleNew;
+use App\Mail\SendMessage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Request;
 
 
 //View Labs
@@ -83,6 +86,30 @@ Route::get('/contact', function(){
     return view('contact',compact('name','actif'));
 });
 
+//Route pour faire une query pour chercher un mot clé dans le titre d'article
+Route::get('/search',function (){
+    
+    $name = "Blog";
+    $actif = "blog";
+
+    $articles = Article::where('titre','like',request()->input('search'))
+        ->paginate(3);
+    //permet d'ajouter les liens de la pagination
+    $articles->appends(['search' => request()->input('search')]);
+
+    $tags = Tag::all();
+    $articleTags = ArticleTag::all();
+    $users = User::all();
+    $commentaires = Commentaire::all();
+    $categories = Categorie::all();
+
+    if(count($articles) == null){
+        $errors = "Il n'y a rien avec le mot '".request()->input('search')."'";
+        return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
+    }
+
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
+});
 
 Route::put('/home/info/update',function(){
     $user = User::find(auth()->user()->id);
@@ -126,6 +153,14 @@ Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
 
+Route::post('/sendMessage', function(){
+    
+    Mail::to('labs@admin.com')
+    ->send(new SendMessage(request()));
+
+});
+
+
 Route::middleware(['auth','IsAdmin'])->group(function (){
 
     Route::get('/home/info',function(){
@@ -164,6 +199,21 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
 
     });
 
+    //Envoi de mail
+    Route::get('/sendNewArticle',function(){
+
+        $users = User::all();
+
+        foreach($users as $user){
+            Mail::to($user->email)->send(new ArticleNew(request()));
+            sleep(5);
+        }
+
+        return redirect(route('articles.index'));
+
+    });
+
+    //Route pour la validation est à true et envoi un mail a chaque user
     Route::put('article/{id}/valider',function(){
         
         $article = Article::find(request('id'));
@@ -171,6 +221,13 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
 
         $article->save();
 
+        // Envoi de mail quand l'article est validé
+        $users = User::all();
+
+        foreach($users as $user){
+            Mail::to($user->email)->later(now()->addMinutes(1),new ArticleNew(request()));
+        }
+        
         return redirect(route('articles.index'));
 
     });

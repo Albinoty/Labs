@@ -8,7 +8,7 @@
 				<div class="col-md-9">
 					<!-- newsletter form -->
 					<form class="nl-form">
-						<input type="text" placeholder="Your e-mail here">
+						<input type="text" placeholder="Your e-mail here" class="mx-0">
 						<button class="site-btn btn-2">Newsletter</button>
 					</form>
 				</div>

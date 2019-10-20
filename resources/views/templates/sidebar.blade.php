@@ -2,9 +2,11 @@
 <div class="col-md-4 col-sm-5 sidebar">
     <!-- Single widget -->
     <div class="widget-item">
-        <form action="#" class="search-form">
-            <input type="text" placeholder="Search">
-            <button class="search-btn"><i class="flaticon-026-search"></i></button>
+        <form action="{{url('/search')}}" class="search-form" method="GET">
+            @csrf
+            @method('get')
+            <input type="text" placeholder="Search" name="search">
+            <button class="search-btn h-100"><i class="flaticon-026-search"></i></button>
         </form>
     </div>
     <!-- Single widget -->

@@ -17,6 +17,14 @@
     <!-- page section -->
 	<div class="page-section spad">
             <div class="container">
+                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-8 col-sm-7 blog-posts">
                         <!-- Post item -->

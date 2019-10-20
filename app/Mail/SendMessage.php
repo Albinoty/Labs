@@ -7,9 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Http\Request;
-use App\User;
 
-class ArticleValidation extends Mailable
+class SendMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,9 +19,9 @@ class ArticleValidation extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Request $request)
     {
-        $this->email = $user;
+        $this->email = $request;
     }
 
     /**
@@ -32,6 +31,9 @@ class ArticleValidation extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.articleValidation');
+        return $this
+            ->from($this->email->email)
+            ->subject($this->email->sujet)
+            ->markdown('emails.sendMessage');
     }
 }

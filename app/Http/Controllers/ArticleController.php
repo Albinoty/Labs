@@ -11,6 +11,7 @@ use App\Tag;
 use Auth;
 use Storage;
 use App\Mail\ArticleValidation;
+use App\Mail\ArticleNew;
 use Illuminate\Support\Facades\Mail;
 
 class ArticleController extends Controller
@@ -86,8 +87,11 @@ class ArticleController extends Controller
            $article->tags()->attach($tag);
            $article->save();
         }
+        //Si l'user qui créé un poste est un editeur, envoi un mail chez l'admin
         if(auth()->user()->role == "editeur")
             Mail::to('exemple@exmple.com')->send(new ArticleValidation($user));
+        else
+            return redirect(url('/sendNewArticle'));
 
         return redirect(route('articles.index'));
 
