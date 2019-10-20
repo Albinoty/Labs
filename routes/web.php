@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Modem
 use App\User;
 use App\Projet;
 use App\Article;
@@ -18,9 +18,13 @@ use App\Tag;
 use App\ArticleTag;
 use App\Commentaire;
 use App\Categorie;
+use App\Bouton;
+use App\Newsletter;
+//Mail
 use App\Mail\ArticleValidation;
 use App\Mail\ArticleNew;
 use App\Mail\SendMessage;
+use App\Mail\WelcomeNewsletter;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Request;
 
@@ -35,11 +39,12 @@ Route::get('/service', function(){
     $actif = "services";
     $services = DB::table('services')->paginate(9);
     $projets = Projet::all();
+    $bouton = Bouton::find(1);
 
     if(count($projets)>=3)
         $projets = $projets->random(3);
 
-    return view('service',compact('name','actif','services','projets'));
+    return view('service',compact('name','actif','services','projets','bouton'));
 });
 
 Route::get('/blog', function(){
@@ -158,6 +163,10 @@ Route::post('/sendMessage', function(){
     Mail::to('labs@admin.com')
     ->send(new SendMessage(request()));
 
+    $message = "Merci de votre message";
+
+    return redirect()->back()->with('msg',$message);
+
 });
 
 
@@ -167,6 +176,8 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
         $user = User::find(auth()->user()->id);
         return view('admin.adminInfo',compact('user'));    
     });
+
+    Route::resource('bouton','BoutonController');
 
     Route::resource('users','UserController');
 
@@ -208,6 +219,13 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
             Mail::to($user->email)->send(new ArticleNew(request()));
             sleep(5);
         }
+        
+        $newsletters = Newsletter::all();
+
+        foreach($newsletters as $newsletter){
+            Mail::to($newsletter->email)->send(new ArticleNew(request()));
+            sleep(5);
+        }
 
         return redirect(route('articles.index'));
 
@@ -225,7 +243,15 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
         $users = User::all();
 
         foreach($users as $user){
-            Mail::to($user->email)->later(now()->addMinutes(1),new ArticleNew(request()));
+            Mail::to($user->email)->send(new ArticleNew(request()));
+            sleep(5);
+        }
+
+        $newsletters = Newsletter::all();
+
+        foreach($newsletters as $newsletter){
+            Mail::to($newsletter->email)->send(new ArticleNew(request()));
+            sleep(5);
         }
         
         return redirect(route('articles.index'));
@@ -247,3 +273,16 @@ Route::middleware(['auth','IsEditeur'])->group(function(){
     Route::put('/articleTag/{$tag}','ArticleTagController@store');
 });
 
+//Newsletter
+Route::post('/newsletter',function(){
+    $newsletter = new Newsletter();
+
+    $newsletter->email = request()->input('email');
+
+    $newsletter->save();
+
+    Mail::to(request()->input('email'))->send(new WelcomeNewsletter(request()));
+
+    return redirect()->back();
+
+});

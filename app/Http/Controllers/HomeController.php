@@ -9,6 +9,7 @@ use App\Media;
 use App\Home;
 use App\Testimonial;
 use App\Team;
+use App\Bouton;
 use Storage;
 use App\Contact;
 
@@ -36,6 +37,7 @@ class HomeController extends Controller
         $teams = Team::all()->where('teamleader','=','Non');
         $testimonials = Testimonial::all();
         $contact = Contact::find(1);
+        $bouton = Bouton::find(1);
 
 
         //Condtion des imports
@@ -51,7 +53,7 @@ class HomeController extends Controller
         $leaders = Team::all()->where('teamleader','=','Oui');
         
         
-        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams','leaders','contact'));
+        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams','leaders','contact','bouton'));
 
     }
 

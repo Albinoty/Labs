@@ -9,7 +9,7 @@
 
 
 	<!-- Header section -->
-	<header class="header-section">
+	<header class="header-section" id="top">
 		<div class="logo">
 			<img src="{{isset($home) ? '/storage/'.$home->logo : '/img/logo.png'}}" alt=""><!-- Logo -->
 		</div>

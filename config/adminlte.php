@@ -236,8 +236,8 @@ return [
         ],
         [
             'text' => 'Bouton Browse',
-            'icon' => '',
-            'url' => '',
+            'icon' => 'fas fa-mouse',
+            'url' => 'bouton',
             'can' => 'admin'
 
         ],

@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div class="text-center mt60">
-					<a href="" class="site-btn">Browse</a>
+					<a href="#top" class="site-btn">{{isset($bouton) != null ? $bouton->texte : 'browse'}}</a>
 				</div>
 				<!-- popup video -->
 				<div class="intro-video">
@@ -198,7 +198,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="promo-btn-area">
-						<a href="" class="site-btn btn-2">Browse</a>
+						<a href="#top" class="site-btn btn-2">{{isset($bouton) != null ? $bouton->texte : 'browse'}}</a>
 					</div>
 				</div>
 			</div>

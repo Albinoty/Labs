@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="" class="site-btn">Browse</a>
+            <a href="#top" class="site-btn">{{isset($bouton) != null ? $bouton->texte : 'browse'}}</a>
         </div>
     </div>
 </div>

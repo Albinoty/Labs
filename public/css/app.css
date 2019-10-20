@@ -1234,7 +1234,7 @@ ul {
 	text-align: right;
 }
 
-.nl-form input[type="text"] {
+.nl-form input[type="email"] {
 	border: none;
 	padding: 15px 30px;
 	height: 51px;
@@ -1906,7 +1906,7 @@ ul {
 	.nl-form {
 		text-align: center;
 	}
-	.nl-form input[type="text"] {
+	.nl-form input[type="email"] {
 		margin-bottom: 30px;
 		width: 100%;
 	}
@@ -18480,6 +18480,10 @@ readers do not read off random characters that represent icons */
 .fas {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .logo {
