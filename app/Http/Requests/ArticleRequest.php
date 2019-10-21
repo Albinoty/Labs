@@ -24,8 +24,8 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'titre' => 'required|min:10|max:40',
-            'image' => 'required|image',
+            'titre' => 'required|min:3|max:40',
+            // 'image' => 'required|image',
             'texte' => 'required|min:50',
             'tags' => 'required',
             'categorie' =>  'required'
@@ -34,7 +34,7 @@ class ArticleRequest extends FormRequest
     public function messages(){
         return [
             'titre.required' => 'Le titre doit etre requis, minimum 10 et maximum 40.',
-            'image.required' => 'Le fichier doit être une image',
+            // 'image.required' => 'Le fichier doit être une image',
             'texte.required' => 'Le champs est requis, minimum 50 caractères',
             'tags[].required' => 'Un tag minimum est requis.',
             'categorie.required' => 'La categorie est requis.'

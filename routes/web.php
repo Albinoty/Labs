@@ -97,10 +97,13 @@ Route::get('/search',function (){
     $name = "Blog";
     $actif = "blog";
 
-    $articles = Article::where('titre','like',request()->input('search'))
+    $articles = Article::where('titre','like','%'.request()->input('search').'%')
         ->paginate(3);
     //permet d'ajouter les liens de la pagination
     $articles->appends(['search' => request()->input('search')]);
+
+
+    // dd('%'.request()->input('search').'%');
 
     $tags = Tag::all();
     $articleTags = ArticleTag::all();

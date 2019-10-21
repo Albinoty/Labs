@@ -17,7 +17,7 @@
 				<p>{{ isset($home) ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
 			</div>
 		</div>
-		<!-- slider -->
+		<!-- slider -->	
 		<div id="hero-slider" class="owl-carousel">
 
 			@foreach ($medias as $media)
