@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Http\Request;
+use App\Http\Requests\MessageRequest;
+
 
 class SendMessage extends Mailable
 {
@@ -19,7 +21,7 @@ class SendMessage extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(MessageRequest $request)
     {
         $this->email = $request;
     }

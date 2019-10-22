@@ -14,7 +14,7 @@
 		<div class="hero-content">
 			<div class="hero-center">
 				<img src="{{isset($home) ? '/storage/'.$home->logo_carousel : 'img/big-logo.png'}}" alt="">
-				<p>{{ isset($home) ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
+				<p class="{{count($medias) != null ? 'intro' : ''}}">{{ isset($home) ? $home->texte_carousel : 'Get your freebie template now!'}}</p>
 			</div>
 		</div>
 		<!-- slider -->	
@@ -97,22 +97,52 @@
 					</div>
 					<div class="owl-carousel" id="testimonial-slide">
 						<!-- single testimonial -->
-
-						@foreach ($testimonials as $testimonial)
-							<div class="testimonial">
-								<span>‘​‌‘​‌</span>
-								<p>{{$testimonial->texte}}</p>
-								<div class="client-info">
-									<div class="avatar">
-										<img src="/storage/{{$testimonial->image}}" alt="">
-									</div>
-									<div class="client-name">
-										<h2>{{$testimonial->auteur}}</h2>
-										<p>{{$testimonial->fonction}}</p>
+						@if (isset($tesimonials))
+							@foreach ($testimonials as $testimonial)
+								<div class="testimonial">
+									<span>‘​‌‘​‌</span>
+									<p>{{$testimonial->texte}}</p>
+									<div class="client-info">
+										<div class="avatar">
+											<img src="/storage/{{$testimonial->image}}" alt="">
+										</div>
+										<div class="client-name">
+											<h2>{{$testimonial->auteur}}</h2>
+											<p>{{$testimonial->fonction}}</p>
+										</div>
 									</div>
 								</div>
+							@endforeach
+						@else
+						<div class="testimonial">
+							<span>‘​‌‘​‌</span>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
+							<div class="client-info">
+								<div class="avatar">
+									<img src="img/avatar/01.jpg" alt="">
+								</div>
+								<div class="client-name">
+									<h2>Michael Smith</h2>
+									<p>CEO Company</p>
+								</div>
 							</div>
-						@endforeach
+						</div>
+						<!-- single testimonial -->
+						<div class="testimonial">
+							<span>‘​‌‘​‌</span>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
+							<div class="client-info">
+								<div class="avatar">
+									<img src="img/avatar/02.jpg" alt="">
+								</div>
+								<div class="client-name">
+									<h2>Michael Smith</h2>
+									<p>CEO Company</p>
+								</div>
+							</div>
+						</div>
+						@endif
+						
 					</div>
 				</div>
 			</div>
@@ -133,7 +163,7 @@
 			<div class="row">
 				<!-- single member -->
 				<?php $i=1; ?>
-				@if (isset($teams))
+				@if (count($teams) != null || count($leaders) != null)
 					@foreach ($teams as $team)
 						<div class="col-sm-4 d-flex order-{{$i}}">
 							<div class="member">
@@ -141,6 +171,15 @@
 								<h2>{{$team->nom}}</h2>
 								<h3>{{$team->fonction}}</h3>
 								<?php $i = $i+2; ?>
+							</div>
+						</div>
+					@endforeach
+					@foreach ($leaders as $leader)
+						<div class="col-sm-4 d-flex order-2">
+							<div class="member">
+								<img src="/storage/{{$leader->image}}" alt="">
+								<h2>{{$leader->nom}}</h2>
+								<h3>{{$leader->fonction}}</h3>
 							</div>
 						</div>
 					@endforeach
@@ -169,17 +208,6 @@
 						</div>
 					</div>
 				@endif
-				@if ($leaders != null)
-					@foreach ($leaders as $leader)
-						<div class="col-sm-4 d-flex order-2">
-							<div class="member">
-								<img src="/storage/{{$leader->image}}" alt="">
-								<h2>{{$leader->nom}}</h2>
-								<h3>{{$leader->fonction}}</h3>
-							</div>
-						</div>
-					@endforeach
-				@endif
 			</div>
 		</div>
 	</div>
@@ -207,7 +235,7 @@
 
 @section('contact')
 	<!-- Contact section -->
-	<div class="contact-section spad fix">
+	<div class="contact-section spad fix" id="contact">
 		<div class="container">
 			<div class="row">
 				@include('templates.contact')

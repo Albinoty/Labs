@@ -27,7 +27,8 @@ use App\Mail\SendMessage;
 use App\Mail\WelcomeNewsletter;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Request;
-
+use App\Http\Requests\MessageRequest;
+use App\Http\Requests\NewsletterRequest;
 
 //View Labs
 Route::get('/','HomeController@index')->name('index');
@@ -103,7 +104,6 @@ Route::get('/search',function (){
     $articles->appends(['search' => request()->input('search')]);
 
 
-    // dd('%'.request()->input('search').'%');
 
     $tags = Tag::all();
     $articleTags = ArticleTag::all();
@@ -161,10 +161,10 @@ Auth::routes();
 //Passer le auth et le role  pour determiner qui se connecte
 
 
-Route::post('/sendMessage', function(){
-    
+Route::post('/sendMessage', function(MessageRequest $request){
+
     Mail::to('labs@admin.com')
-    ->send(new SendMessage(request()));
+    ->send(new SendMessage($request));
 
     $message = "Merci de votre message";
 
@@ -277,15 +277,15 @@ Route::middleware(['auth','IsEditeur'])->group(function(){
 });
 
 //Newsletter
-Route::post('/newsletter',function(){
+Route::post('/newsletter',function(NewsletterRequest $request){
     $newsletter = new Newsletter();
 
-    $newsletter->email = request()->input('email');
+    $newsletter->email = $request->input('mail');
 
     $newsletter->save();
 
-    Mail::to(request()->input('email'))->send(new WelcomeNewsletter(request()));
+    Mail::to(request()->input('mail'))->send(new WelcomeNewsletter($request));
 
-    return redirect()->back();
+    return redirect()->back()->with('newsletter','Merci d\'être inscrit à la newsletter')->withErrors('newsletter','Erreur');
 
 });

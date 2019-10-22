@@ -18490,6 +18490,15 @@ html {
   font-size: 40px;
 }
 
+.intro {
+  background-color: rgba(255, 255, 255, 0.5);
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  padding: 10px 50px;
+  margin: 0 auto;
+}
+
 .page-item.active .page-link {
   background-color: #2be6ab !important;
   border-color: #2be6ab !important;

@@ -1,7 +1,17 @@
 <div class="col-md-6 col-pull">
-    <form class="form-class" id="con_form" action="/sendMessage" method="POST" id="msg">
+    <form class="form-class" id="con_form" action="/sendMessage" method="POST" >
         @csrf
         @method('post')
+        @if ($errors->any())
+            <div class="alert alert-danger" id="msg">
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </div>
+        @endif
+        @if (Session::has('msg') != null)
+            <div class="alert alert-success" id="msg">Merci de votre message.</div>
+        @endif
         <div class="row">
             <div class="col-sm-6">
                 <input type="text" name="name" placeholder="Your name">
@@ -12,7 +22,7 @@
             <div class="col-sm-12">
                 <input type="text" name="sujet" placeholder="Subject">
                 <textarea name="message" placeholder="Message"></textarea>
-                <button class="site-btn">send</button>
+                <button type="submit" class="site-btn">send</button>
             </div>
         </div>
     </form>
