@@ -17,6 +17,7 @@ use App\Article;
 use App\Tag;
 use App\ArticleTag;
 use App\Commentaire;
+use App\Service;
 use App\Categorie;
 use App\Bouton;
 use App\Newsletter;
@@ -41,11 +42,12 @@ Route::get('/service', function(){
     $services = DB::table('services')->paginate(9);
     $projets = Projet::all();
     $bouton = Bouton::find(1);
+    $smartphone = Service::select('*')->orderBy('id','desc')->get();
 
     if(count($projets)>=3)
         $projets = $projets->random(3);
 
-    return view('service',compact('name','actif','services','projets','bouton'));
+    return view('service',compact('name','actif','services','projets','bouton','smartphone'));
 });
 
 Route::get('/blog', function(){
@@ -98,11 +100,90 @@ Route::get('/search',function (){
     $name = "Blog";
     $actif = "blog";
 
-    $articles = Article::where('titre','like','%'.request()->input('search').'%')
+    $input = request()->input('search');
+
+    if($input == null){
+        $articles = null;
+        $errors = "Il n'y a rien avec le mot '".$input."'";
+        return redirect(url('/blog'))->withErrors($errors);
+    }
+
+    
+    $articles = Article::where('titre','like','%'.$input.'%')->orderBy('id','desc')
         ->paginate(3);
     //permet d'ajouter les liens de la pagination
     $articles->appends(['search' => request()->input('search')]);
 
+
+
+    $tags = Tag::all();
+    $articleTags = ArticleTag::all();
+    $users = User::all();
+    $commentaires = Commentaire::all();
+    $categories = Categorie::all();
+
+    if(count($articles) == null){
+        $errors = "Il n'y a rien avec le mot '".$input."'";
+        return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
+    }
+
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
+});
+
+//Route pour faire une query pour chercher un mot clé dans le titre d'article
+Route::get('/search/{categorie}',function ($url){
+    
+    $name = "Blog";
+    $actif = "blog";
+
+    $categorie = Categorie::select('*')->where('nom','=',$url)->get();
+    
+
+    $articles = Article::where('id_categorie','=',$categorie[0]->id)->orderBy('id','desc')
+        ->paginate(3);
+    //permet d'ajouter les liens de la pagination
+    $articles->appends(['search' => $url]);
+    
+
+    $tags = Tag::all();
+    $articleTags = ArticleTag::all();
+    $users = User::all();
+    $commentaires = Commentaire::all();
+    $categories = Categorie::all();
+
+    if(count($articles) == null){
+        $errors = "Il n'y a rien avec le mot \"".$url()."\"";
+        return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
+    }
+
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
+});
+
+//BUG
+Route::get('/search/tag/{tag}',function ($url){
+    
+    $name = "Blog";
+    $actif = "blog";
+   
+
+    $tags = ArticleTag::select('*')->where('tag_id','=',$url)->get();
+    
+    // dd($tags[0]->id);
+
+    $articles = collect([]);
+    
+
+    foreach($tags as $tag){
+        //array_push($articles,Article::find($tag->article_id));
+        // dd(Article::where('id','=',$tag->article_id)->paginate(3));
+        $articles->push(Article::where('id','=',$tag->article_id)->paginate(3));
+    }
+    
+    // dd($collection=collect($articles));
+    
+    $collection=collect($articles);
+    
+    $collection->paginate(3);
 
 
     $tags = Tag::all();
@@ -118,6 +199,7 @@ Route::get('/search',function (){
 
     return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
 });
+
 
 Route::put('/home/info/update',function(){
     $user = User::find(auth()->user()->id);
@@ -286,6 +368,9 @@ Route::post('/newsletter',function(NewsletterRequest $request){
 
     Mail::to(request()->input('mail'))->send(new WelcomeNewsletter($request));
 
-    return redirect()->back()->with('newsletter','Merci d\'être inscrit à la newsletter')->withErrors('newsletter','Erreur');
+    return redirect()
+        ->back()
+        ->with('newsletter','Merci d\'être inscrit à la newsletter')
+        ->withErrors('newsletter','Erreur');
 
 });

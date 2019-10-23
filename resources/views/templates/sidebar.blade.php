@@ -14,7 +14,7 @@
         <h2 class="widget-title">Categories</h2>
         <ul>
             @foreach ($categories as $categorie)
-                <li><a href="#">{{$categorie->nom}}</a></li>
+                <li><a href="{{url('/search',$categorie->nom)}}">{{$categorie->nom}}</a></li>
             @endforeach
         </ul>
     </div>
@@ -35,7 +35,7 @@
         <h2 class="widget-title">Tags</h2>
         <ul class="tag">
             @foreach ($tags as $tag)
-                <li><a href="#">{{$tag->nom}}</a></li>
+                <li><a href="{{url('/search/tag',$tag->id)}}">{{$tag->nom}}</a></li>
             @endforeach
         </ul>
     </div>

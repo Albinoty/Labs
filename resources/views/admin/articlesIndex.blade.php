@@ -38,7 +38,13 @@
                                 @endif
                             @endforeach       
                             <td>{{$article->titre}}</td>
-                            <td>{{$article->texte}}</td>
+                            <td>
+                                @if (strlen($article->texte)>100)
+                                    {{substr($article->texte,0,100)}}...
+                                @else
+                                    {{$article->texte}}
+                                @endif
+                            </td>
                             <td class="w-25"><img src="/storage/{{$article->img_article}}" class="d-block mx-auto"></td>
                             <td>
                                 @if ($article->etat == "Pending")

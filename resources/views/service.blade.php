@@ -24,35 +24,56 @@
             <div class="row">
                 <!-- feature item -->
                 <div class="col-md-4 col-sm-4 features">
-                    <div class="icon-box light left">
-                        <div class="service-text">
-                            <h2>Get in the lab</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                    @if (isset($smartphone) != null)
+                        {{-- {{dd($smartphone)}} --}}
+                        @for ($i = 0; $i <= 2; $i++)
+                            <div class="icon-box light left">
+                                <div class="service-text">
+                                    <h2>{{$smartphone[$i]->titre}}</h2>
+                                    <p>
+                                        @if (strlen($smartphone[$i]->description)>88)
+                                            {{substr($smartphone[$i]->description,0,87)}}...
+                                        @else
+                                            {{$smartphone[$i]->description}}
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="{{$smartphone[$i]->logo}}"></i>
+                                </div>
+                            </div>
+                        @endfor
+                    @else
+                        <div class="icon-box light left">
+                            <div class="service-text">
+                                <h2>Get in the lab</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-002-caliper"></i>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="flaticon-002-caliper"></i>
+                        <!-- feature item -->
+                        <div class="icon-box light left">
+                            <div class="service-text">
+                                <h2>Projects online</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-019-coffee-cup"></i>
+                            </div>
                         </div>
-                    </div>
-                    <!-- feature item -->
-                    <div class="icon-box light left">
-                        <div class="service-text">
-                            <h2>Projects online</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                        <!-- feature item -->
+                        <div class="icon-box light left">
+                            <div class="service-text">
+                                <h2>SMART MARKETING</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-020-creativity"></i>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="flaticon-019-coffee-cup"></i>
-                        </div>
-                    </div>
-                    <!-- feature item -->
-                    <div class="icon-box light left">
-                        <div class="service-text">
-                            <h2>SMART MARKETING</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
-                        </div>
-                        <div class="icon">
-                            <i class="flaticon-020-creativity"></i>
-                        </div>
-                    </div>
+                    @endif
                 </div>
                 <!-- Devices -->
                 <div class="col-md-4 col-sm-4 devices">
@@ -62,35 +83,55 @@
                 </div>
                 <!-- feature item -->
                 <div class="col-md-4 col-sm-4 features">
-                    <div class="icon-box light">
-                        <div class="icon">
-                            <i class="flaticon-037-idea"></i>
+                    @if (isset($smartphone) != null && count($smartphone)>3)
+                        @for ($i = 3; $i <= 5; $i++)
+                            <div class="icon-box light left">
+                                <div class="service-text">
+                                    <h2>{{$smartphone[$i]->titre}}</h2>
+                                    <p>
+                                        @if (strlen($smartphone[$i]->description)>88)
+                                            {{substr($smartphone[$i]->description,0,87)}}...
+                                        @else
+                                            {{$smartphone[$i]->description}}
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="{{$smartphone[$i]->logo}}"></i>
+                                </div>
+                            </div>
+                        @endfor
+                    @else
+                        <div class="icon-box light">
+                            <div class="icon">
+                                <i class="flaticon-037-idea"></i>
+                            </div>
+                            <div class="service-text">
+                                <h2>Get in the lab</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
                         </div>
-                        <div class="service-text">
-                            <h2>Get in the lab</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                        <!-- feature item -->
+                        <div class="icon-box light">
+                            <div class="icon">
+                                <i class="flaticon-025-imagination"></i>
+                            </div>
+                            <div class="service-text">
+                                <h2>Projects online</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- feature item -->
-                    <div class="icon-box light">
-                        <div class="icon">
-                            <i class="flaticon-025-imagination"></i>
+                        <!-- feature item -->
+                        <div class="icon-box light">
+                            <div class="icon">
+                                <i class="flaticon-008-team"></i>
+                            </div>
+                            <div class="service-text">
+                                <h2>SMART MARKETING</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
+                            </div>
                         </div>
-                        <div class="service-text">
-                            <h2>Projects online</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
-                        </div>
-                    </div>
-                    <!-- feature item -->
-                    <div class="icon-box light">
-                        <div class="icon">
-                            <i class="flaticon-008-team"></i>
-                        </div>
-                        <div class="service-text">
-                            <h2>SMART MARKETING</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur ad ipiscing elit. Curabitur leo est, feugiat nec</p>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
             <div class="text-center mt100">

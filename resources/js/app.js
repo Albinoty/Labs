@@ -9,15 +9,9 @@ require('./owl.carousel.min.js');
 require('jquery-circle-progress/dist/circle-progress');
 require('./main');
 
-    console.log(window.location.href)
-
 // substr()
     
-if 
-(window.location.href == "http://127.0.0.1:8000/?page=1" 
-|| window.location.href == "http://127.0.0.1:8000/service?page=2"
-|| window.location.href == "http://127.0.0.1:8000/?page=2"
-|| window.location.href == "http://127.0.0.1:8000/service?page=1"){
+if (window.location.href == "http://127.0.0.1:8000/?page=1" || window.location.href == "http://127.0.0.1:8000/service?page=2"|| window.location.href == "http://127.0.0.1:8000/?page=2"|| window.location.href == "http://127.0.0.1:8000/service?page=1"){
     window.location = '#service';
 }
 
@@ -26,5 +20,5 @@ let newsletter = document.querySelector('#newsletter')
 
 if(contact != null)
     window.location = "#con_form"
-if(newsletter != null)
-    window.location = "#news"
+// if(newsletter != null)
+//     window.location = "#news"

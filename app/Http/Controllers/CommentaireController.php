@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Commentaire;
 use Auth;
 use App\Article;
+use App\Http\Requests\CommentaireRequest;
 
 
 class CommentaireController extends Controller
@@ -36,7 +37,7 @@ class CommentaireController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentaireRequest $request)
     {
 
         $commentaire = new Commentaire();
@@ -121,6 +122,6 @@ class CommentaireController extends Controller
 
         $commentaire->delete();
 
-        return redirect(route('/'));
+        return redirect()->back();
     }
 }

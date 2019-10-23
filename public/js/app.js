@@ -46378,8 +46378,8 @@ if (window.location.href == "http://127.0.0.1:8000/?page=1" || window.location.h
 
 var contact = document.querySelector('#msg');
 var newsletter = document.querySelector('#newsletter');
-if (contact != null) window.location = "#con_form";
-if (newsletter != null) window.location = "#news";
+if (contact != null) window.location = "#con_form"; // if(newsletter != null)
+//     window.location = "#news"
 
 /***/ }),
 

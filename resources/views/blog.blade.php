@@ -77,7 +77,7 @@
                                                     @endif
                                                 @endforeach
                                             @endforeach</a>
-                                        <a href="">
+                                        <a href="/blog-post/{{$article->id}}/#comments">
                                             <?php
                                                 $i = 0;
 
@@ -104,7 +104,7 @@
                         @endforeach
                         <!-- Pagination -->
                         <div class="col-12 d-flex">
-                            {{$articles->links('vendor.pagination.bootstrap-4')}}
+                            {{-- {{$articles->links('vendor.pagination.bootstrap-4')}} --}}
                         </div>
                     </div>
                     <!-- Sidebar area -->

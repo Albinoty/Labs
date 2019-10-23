@@ -60,11 +60,10 @@
                                         @endif
                                     @endforeach
                                 </a>
-                                <a href="">
                                     @foreach ($articleTags as $articleTag)
                                         @foreach ($tags as $tag)
                                             @if (($articleTag->article_id == $article->id) &&($articleTag->tag_id == $tag->id))
-                                                {{$tag->nom}},
+                                            <a href="{{$tag->nom}}">{{$tag->nom}}</a>
                                             @endif
                                         @endforeach
                                     @endforeach</a>
@@ -93,7 +92,7 @@
                         @endforeach
                     </div>
                     <!-- Post Comments -->
-                    <div class="comments">
+                    <div class="comments" id="comments">
                         <h2>Comments ({{count($commentaires)}})</h2>
                         <ul class="comment-list">
                             @forelse ($commentaires as $commentaire)
@@ -152,6 +151,9 @@
                                         <div class="col-sm-6">
                                             <input type="text" name="email" placeholder="Your email">
                                         </div>
+                                    @else
+                                        <input type="hidden" name="name" value="{{Auth::user()->name}}">
+                                        <input type="hidden" name="email" value="{{Auth::user()->email}}">
                                     @endif
                                     <div class="col-sm-12">
                                         <textarea name="message" placeholder="Message"></textarea>
