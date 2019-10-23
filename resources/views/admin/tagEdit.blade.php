@@ -12,13 +12,13 @@
 
 @section('content')
     <div class="container">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </div>
-            @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </div>
+        @endif
         <form action="{{route('tags.update',$tag->id)}}" method="POST">    
             @csrf
             @method('put')

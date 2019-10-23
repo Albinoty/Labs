@@ -78,7 +78,7 @@
                         @foreach ($users as $user)
                             @if ($user->id == $article->id_user)
                                 <div class="avatar w-25 ">
-                                    @if ($user->img_user == null)
+                                    @if ($user->img_user == null || $user->img_user == "img/avatar/john-doe.png")
                                         <img src="/img/avatar/john-doe.png" class="img-fluid" alt="">
                                     @else
                                         <img src="/storage/{{$user->img_user}}" class="img-fluid" alt="">
@@ -137,6 +137,13 @@
                         </div>
                     </div>
                     <!-- Commert Form -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger" id="com">
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-9 comment-from">
                             <h2>Leave a comment</h2>

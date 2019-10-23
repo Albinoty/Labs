@@ -16,9 +16,12 @@ if (window.location.href == "http://127.0.0.1:8000/?page=1" || window.location.h
 }
 
 let contact = document.querySelector('#msg')
+let commentaire = document.querySelector('#com')
 let newsletter = document.querySelector('#newsletter')
 
 if(contact != null)
     window.location = "#con_form"
+if(commentaire != null)
+    window.location = "#com"
 // if(newsletter != null)
 //     window.location = "#news"

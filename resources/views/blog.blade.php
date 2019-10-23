@@ -17,7 +17,6 @@
     <!-- page section -->
 	<div class="page-section spad">
             <div class="container">
-                
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -104,7 +103,8 @@
                         @endforeach
                         <!-- Pagination -->
                         <div class="col-12 d-flex">
-                            {{-- {{$articles->links('vendor.pagination.bootstrap-4')}} --}}
+                            {{-- {{dd($articles)}} --}}
+                            {{$articles->links('vendor.pagination.bootstrap-4')}}
                         </div>
                     </div>
                     <!-- Sidebar area -->

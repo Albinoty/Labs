@@ -24,7 +24,7 @@
             <div class="row">
                 <!-- feature item -->
                 <div class="col-md-4 col-sm-4 features">
-                    @if (isset($smartphone) != null)
+                    @if (count($smartphone) != null)
                         {{-- {{dd($smartphone)}} --}}
                         @for ($i = 0; $i <= 2; $i++)
                             <div class="icon-box light left">

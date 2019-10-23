@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\User;
 
 class UserController extends Controller
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+        return view('admin.adminUserCreate');
     }
 
     /**
@@ -35,9 +36,30 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $user = new User();
+
+        $user->name = $request->input('nom');
+        $user->email = $request->input('email');
+        $user->password = password_hash($request->input('password'),PASSWORD_BCRYPT);
+        $user->role = $request->input('role');
+
+        if(request()->hasfile('img_user') == null){
+
+            $user->img_user = 'img/avatar/john-doe.png';
+    
+        }
+        else{
+            $file = request()->file('img_user');
+            $filename = $file->store(env('IMG_DIR'));
+            $user->img_user = $filename;
+        }
+
+        $user->save();
+
+        return redirect(route('users.index'));
+
     }
 
     /**

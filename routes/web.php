@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Request;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\NewsletterRequest;
+use Illuminate\Contracts\Pagination\Paginator;
 
 //View Labs
 Route::get('/','HomeController@index')->name('index');
@@ -164,26 +165,41 @@ Route::get('/search/tag/{tag}',function ($url){
     
     $name = "Blog";
     $actif = "blog";
-   
-
-    $tags = ArticleTag::select('*')->where('tag_id','=',$url)->get();
     
+    // dd($tag);
+
     // dd($tags[0]->id);
+    
+    // $articles = collect();
 
-    $articles = collect([]);
+    // foreach($tags as $tag){
+    //     //array_push($articles,Article::find($tag->article_id));
+    //     // dd(Article::where('id','=',$tag->article_id)->paginate(3));
+    //     $articles->push(Article::all()->where('id','=',$tag->article_id));
+        
+    // }
     
+    // // dd($collection=collect($articles));
+    
+    // dd($articles->paginate(3));
+    
+    // $articles = Article::with('tags','article')->whereHas('tags',function($query) use ($lol){
+    //     foreach($lol as $a){
 
-    foreach($tags as $tag){
-        //array_push($articles,Article::find($tag->article_id));
-        // dd(Article::where('id','=',$tag->article_id)->paginate(3));
-        $articles->push(Article::where('id','=',$tag->article_id)->paginate(3));
-    }
-    
-    // dd($collection=collect($articles));
-    
-    $collection=collect($articles);
-    
-    $collection->paginate(3);
+    //         $query->where('article_id','=',$a->id);
+    //     }
+    //     dd($query);
+    // })->paginate(3);
+
+    $articles = (collect(DB::select('select * from articles AS A, article_tags as AT, tags as T where T.id  = '.$url.' and AT.tag_id = T.id and AT.article_id = A.id ORDER BY A.id DESC')));
+
+    $lol =  $articles->forPage(1,3);
+
+    // dd($articles->forPage(1,3));
+
+    // $articles->all();
+
+    // dd($articles->all());
 
 
     $tags = Tag::all();
@@ -197,9 +213,14 @@ Route::get('/search/tag/{tag}',function ($url){
         return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
     }
 
-    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories','lol'));
 });
 
+
+Route::get('/home/info',function(){
+    $user = User::find(auth()->user()->id);
+    return view('admin.adminInfo',compact('user'));    
+});
 
 Route::put('/home/info/update',function(){
     $user = User::find(auth()->user()->id);
@@ -210,8 +231,12 @@ Route::put('/home/info/update',function(){
     //Si l'user ne mets rien et dans la db ya rien
     if(request()->hasfile('img_user') == null && $user->img_user == null){
 
-        $user->img_path = 'img/avatar/john-doe.png';
+        $user->img_user = 'img/avatar/john-doe.png';
 
+    }
+    else if (request()->hasfile('img_user') == null && $user->img_user == "img/avatar/john-doe.png"){
+        $user->save();
+        return redirect(url('/home'));
     }
     // Si l'user met une photo mais qu'il n'a rien dans la db
     else if(request()->hasfile('img_user') && $user->img_user == null){
@@ -257,10 +282,6 @@ Route::post('/sendMessage', function(MessageRequest $request){
 
 Route::middleware(['auth','IsAdmin'])->group(function (){
 
-    Route::get('/home/info',function(){
-        $user = User::find(auth()->user()->id);
-        return view('admin.adminInfo',compact('user'));    
-    });
 
     Route::resource('bouton','BoutonController');
 

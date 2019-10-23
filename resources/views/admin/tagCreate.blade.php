@@ -19,7 +19,6 @@
                     @endforeach
                 </div>
             @endif
-            
             @if(count($tags)>=6)
                 <p>La limite de tags a été atteint.</p>
             @else

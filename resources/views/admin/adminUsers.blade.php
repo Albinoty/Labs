@@ -28,7 +28,7 @@
                     <tr>
                         <td>{{$user->id}}</td>
                         <td class="w-25">
-                            @if ($user->img_user == null)
+                            @if ($user->img_user == null || $user->img_user == 'img/avatar/john-doe.png')
                                 <img src="/img/avatar/john-doe.png" class="w-50 d-block mx-auto">
                             @else
                                 <img src="/storage/{{$user->img_user}}" class="w-50 d-block mx-auto">
@@ -46,8 +46,7 @@
                             <form action="{{route('users.destroy',$user->id)}}" method="POST">
                                 @csrf
                                 @method('delete')
-                                @if ($user->id == Auth()->user()->id)
-                                    <button class="btn btn-danger mx-2" disabled>Delete</button>    
+                                @if ($user->id == Auth()->user()->id && Auth()->user()->role == 'admin')                                 
                                 @else
                                     <button class="btn btn-danger mx-2">Delete</button>   
                                 @endif

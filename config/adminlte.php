@@ -138,21 +138,30 @@ return [
         [
             'text' => 'Information profil',
             'icon' => 'far fa-question-circle',
-
-            'url' => '/home/info',
-            'can' => 'admin'
+            'url' => '/home/info'
         ],
         [
             'header' => 'Gestion du site',
             'can' => 'admin'
         ],
         [
-        
-            'text' => 'Afficher les users du site',
+            'text' => 'Utilisateur',
             'icon' => 'fas fa-user',
-            'url' => 'users',
-            'can' => 'admin'
-            
+            'can' => 'admin',
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un User',
+                    'icon' => 'fas fa-plus',
+                    'can' => 'admin',
+                    'url' => 'users/create'
+                ],
+                [
+                    'text' => 'Afficher les users du site',
+                    'icon' => 'fas fa-user',
+                    'url' => 'users',
+                    'can' => 'admin'
+                ]
+            ]
         ],
         [
             'text' => 'Afficher les articles',
