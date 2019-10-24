@@ -53,6 +53,9 @@
                                 @if ($article->etat == "Publié")
                                     <span class="badge badge-success">Publié</span>
                                 @endif
+                                @if ($article->etat == "Non Publié")
+                                    <span class="badge badge-danger">Non Publié</span>
+                                @endif
                             </td>
                             <td>
                                 @foreach ($articleTags as $articleTag)
@@ -93,7 +96,13 @@
                     @if(Auth()->user()->role == "editeur" && Auth()->user()->id == $article->id_user)
                         <tr>
                             <td>{{$article->titre}}</td>
-                            <td>{{$article->texte}}</td>
+                            <td>
+                                @if (strlen($article->texte)>100)
+                                    {{substr($article->texte,0,100)}}...
+                                @else
+                                    {{$article->texte}}
+                                @endif
+                            </td>
                             <td>
                                 <img src="/storage/{{$article->img_article}}" class="w-50 d-block mx-auto">
                             </td>
@@ -103,6 +112,9 @@
                                 @endif
                                 @if ($article->etat == "Publié")
                                     <span class="badge badge-success">Publié</span>
+                                @endif
+                                @if ($article->etat == "Non Publié")
+                                    <span class="badge badge-danger">Non Publié</span>
                                 @endif
                             </td>
                             <td>
@@ -129,6 +141,18 @@
                             </td>
                             <td class="d-flex justify-content-center">
                                 @if ($article->etat == "Publié")
+                                    <form action="{{route('articles.edit',$article->id)}}">
+                                        @csrf
+                                        @method('get')
+                                        <button class="btn btn-warning mx-2">Update</button>
+                                    </form>
+                                    <form action="{{route('articles.destroy',$article->id)}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger mx-2">Delete</button>
+                                    </form>
+                                @endif
+                                @if($article->etat == "Non Publié")
                                     <form action="{{route('articles.edit',$article->id)}}">
                                         @csrf
                                         @method('get')

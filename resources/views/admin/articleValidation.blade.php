@@ -30,9 +30,9 @@
                                     @method('put')
                                     <button class="btn btn-success mx-2">Valider</button>
                                 </form>
-                                <form action="{{route('articles.destroy',$article->id)}}" method="POST">
+                                <form action="{{route('articles.userModif',$article->id)}}" method="POST">
                                     @csrf
-                                    @method('delete')
+                                    @method('put')
                                     <button class="btn btn-danger mx-2">Delete</button>
                                 </form>
                             </div>

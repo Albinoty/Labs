@@ -43,69 +43,131 @@
                                 '12' => 'Dec'
                             ]
                         ?>
-                        @foreach ($articles as $article)
-                            <div class="post-item">
-                                <div class="post-thumbnail">
-                                    <img src="/storage/{{$article->img_article}}" alt="">
-                                    <div class="post-date">
-                                        <h2>{{substr($article->created_at,8,2)}}</h2>
-                                        <h3>
-                                            @foreach ($mois as $key => $item )
-                                                @if ($key == substr($article->created_at,5,2))
-                                                    {{$item}}
-                                                @endif
-                                            @endforeach
-                                            {{substr($article->created_at,0,4)}}
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="post-content">
-                                    <h2 class="post-title">{{$article->titre}}</h2>
-                                    <div class="post-meta">
-                                        <a href="">
-                                            @foreach ($users as $user)
-                                                @if ($user->id == $article->id_user)
-                                                    {{$user->name}}
-                                                @endif
-                                            @endforeach
-                                        </a>
-                                        <a href="">@foreach ($articleTags as $articleTag)
-                                                @foreach ($tags as $tag)
-                                                @if (($articleTag->article_id == $article->id) &&($articleTag->tag_id == $tag->id))
-                                                        {{$tag->nom}}
+                        {{-- {{dd($articles)}} --}}
+                        @if(isset($lols) != null)
+                            @foreach ($lols as $article)
+                                {{-- {{dd($article)}} --}}
+                                <div class="post-item">
+                                    <div class="post-thumbnail">
+                                        <img src="/storage/{{$article->img_article}}" alt="">
+                                        <div class="post-date">
+                                            <h2>{{substr($article->created_at,8,2)}}</h2>
+                                            <h3>
+                                                @foreach ($mois as $key => $item )
+                                                    @if ($key == substr($article->created_at,5,2))
+                                                        {{$item}}
                                                     @endif
                                                 @endforeach
-                                            @endforeach</a>
-                                        <a href="/blog-post/{{$article->id}}/#comments">
-                                            <?php
-                                                $i = 0;
-
-                                                foreach($commentaires as $commentaire){
-                                                    if($commentaire->id_article == $article->id)
-                                                        $i++;
-                                                }
-
-                                                echo $i;
-
-                                            ?>
-                                            Comments</a>
+                                                {{substr($article->created_at,0,4)}}
+                                            </h3>
+                                        </div>
                                     </div>
-                                    <p>
-                                        @if (strlen($article->texte) >= 150)
-                                            {{substr($article->texte,0,149)}}...
-                                        @else
-                                            {{$article->texte}}
-                                        @endif
-                                    </p>
-                                    <a href="/blog-post/{{$article->id}}" class="read-more">Read More</a>
+                                    <div class="post-content">
+                                        <h2 class="post-title">{{$article->titre}}</h2>
+                                        <div class="post-meta">
+                                            <a href="">
+                                                @foreach ($users as $user)
+                                                    @if ($user->id == $article->id_user)
+                                                        {{$user->name}}
+                                                    @endif
+                                                @endforeach
+                                            </a>
+                                            <a href="">@foreach ($articleTags as $articleTag)
+                                                    @foreach ($tags as $tag)
+                                                        @if (($articleTag->article_id == $article->id) && ($article->tag_id == $tag->id))
+                                                            {{$tag->nom}}
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach</a>
+                                            <a href="/blog-post/{{$article->id}}/#comments">
+                                                <?php
+                                                    $i = 0;
+
+                                                    foreach($commentaires as $commentaire){
+                                                        if($commentaire->id_article == $article->id)
+                                                            $i++;
+                                                    }
+
+                                                    echo $i;
+
+                                                ?>
+                                                Comments</a>
+                                        </div>
+                                        <p>
+                                            @if (strlen($article->texte) >= 150)
+                                                {{substr($article->texte,0,149)}}...
+                                            @else
+                                                {{$article->texte}}
+                                            @endif
+                                        </p>
+                                        <a href="/blog-post/{{$article->id}}" class="read-more">Read More</a>
+                                    </div>
                                 </div>
+                            @endforeach
+                        @else
+                            @foreach ($articles as $article)
+                                <div class="post-item">
+                                    <div class="post-thumbnail">
+                                        <img src="/storage/{{$article->img_article}}" alt="">
+                                        <div class="post-date">
+                                            <h2>{{substr($article->created_at,8,2)}}</h2>
+                                            <h3>
+                                                @foreach ($mois as $key => $item )
+                                                    @if ($key == substr($article->created_at,5,2))
+                                                        {{$item}}
+                                                    @endif
+                                                @endforeach
+                                                {{substr($article->created_at,0,4)}}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="post-content">
+                                        <h2 class="post-title">{{$article->titre}}</h2>
+                                        <div class="post-meta">
+                                            <a href="">
+                                                @foreach ($users as $user)
+                                                    @if ($user->id == $article->id_user)
+                                                        {{$user->name}}
+                                                    @endif
+                                                @endforeach
+                                            </a>
+                                            <a href="">@foreach ($articleTags as $articleTag)
+                                                    @foreach ($tags as $tag)
+                                                        @if (($articleTag->article_id == $article->id) && ($articleTag->tag_id == $tag->id))
+                                                            {{$tag->nom}}
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach</a>
+                                            <a href="/blog-post/{{$article->id}}/#comments">
+                                                <?php
+                                                    $i = 0;
+
+                                                    foreach($commentaires as $commentaire){
+                                                        if($commentaire->id_article == $article->id)
+                                                            $i++;
+                                                    }
+
+                                                    echo $i;
+
+                                                ?>
+                                                Comments</a>
+                                        </div>
+                                        <p>
+                                            @if (strlen($article->texte) >= 150)
+                                                {{substr($article->texte,0,149)}}...
+                                            @else
+                                                {{$article->texte}}
+                                            @endif
+                                        </p>
+                                        <a href="/blog-post/{{$article->id}}" class="read-more">Read More</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="col-12 d-flex">
+                                <!-- Pagination -->
+                                {{$articles->links('vendor.pagination.bootstrap-4')}}
                             </div>
-                        @endforeach
-                        <!-- Pagination -->
-                        <div class="col-12 d-flex">
-                            {{-- {{dd($articles)}} --}}
-                            {{$articles->links('vendor.pagination.bootstrap-4')}}
-                        </div>
+                        @endif
                     </div>
                     <!-- Sidebar area -->
                     @include('templates.sidebar')                        

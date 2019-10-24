@@ -27,10 +27,10 @@ use App\Mail\ArticleNew;
 use App\Mail\SendMessage;
 use App\Mail\WelcomeNewsletter;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Request;
 use App\Http\Requests\MessageRequest;
 use App\Http\Requests\NewsletterRequest;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
 
 //View Labs
 Route::get('/','HomeController@index')->name('index');
@@ -166,41 +166,15 @@ Route::get('/search/tag/{tag}',function ($url){
     $name = "Blog";
     $actif = "blog";
     
-    // dd($tag);
+    $lols = (new Collection(DB::select('select * from articles AS A, article_tags as AT, tags as T where T.id  = '.$url.' and AT.tag_id = T.id and AT.article_id = A.id ORDER BY A.id DESC')));
+    // $articles->appends(['search' => $url]);
 
-    // dd($tags[0]->id);
+    // $perPage = 3;
+    // $currentPage = Request::input('page') - 1;
+    // $pagedData = $articles->slice($currentPage * $perPage,$perPage)->all();
+    // $articles = new Paginator($pagedData, count($articles), $perPage);
+
     
-    // $articles = collect();
-
-    // foreach($tags as $tag){
-    //     //array_push($articles,Article::find($tag->article_id));
-    //     // dd(Article::where('id','=',$tag->article_id)->paginate(3));
-    //     $articles->push(Article::all()->where('id','=',$tag->article_id));
-        
-    // }
-    
-    // // dd($collection=collect($articles));
-    
-    // dd($articles->paginate(3));
-    
-    // $articles = Article::with('tags','article')->whereHas('tags',function($query) use ($lol){
-    //     foreach($lol as $a){
-
-    //         $query->where('article_id','=',$a->id);
-    //     }
-    //     dd($query);
-    // })->paginate(3);
-
-    $articles = (collect(DB::select('select * from articles AS A, article_tags as AT, tags as T where T.id  = '.$url.' and AT.tag_id = T.id and AT.article_id = A.id ORDER BY A.id DESC')));
-
-    $lol =  $articles->forPage(1,3);
-
-    // dd($articles->forPage(1,3));
-
-    // $articles->all();
-
-    // dd($articles->all());
-
 
     $tags = Tag::all();
     $articleTags = ArticleTag::all();
@@ -208,12 +182,13 @@ Route::get('/search/tag/{tag}',function ($url){
     $commentaires = Commentaire::all();
     $categories = Categorie::all();
 
-    if(count($articles) == null){
-        $errors = "Il n'y a rien avec le mot '".request()->input('search')."'";
+    if(count($lols) == null){
+        $errors = "Il n'y a rien avec le mot '".$url."'";
         return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
     }
+    
 
-    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories','lol'));
+    return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories','lols'));
 });
 
 
@@ -316,21 +291,30 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
 
     });
 
+    Route::put('/articles/nonValide/{id}','ArticleController@userModif')->name('articles.userModif');
+
     //Envoi de mail
     Route::get('/sendNewArticle',function(){
 
         $users = User::all();
 
+        
+
+        function envoi($type){
+            
+            // $when = Carbon\Carbon::now()->addMinutes(10);
+
+            Mail::to($type)->send(new ArticleNew(request()));
+        }
+
         foreach($users as $user){
-            Mail::to($user->email)->send(new ArticleNew(request()));
-            sleep(5);
+            envoi($user->email);
         }
         
         $newsletters = Newsletter::all();
 
         foreach($newsletters as $newsletter){
-            Mail::to($newsletter->email)->send(new ArticleNew(request()));
-            sleep(5);
+            envoi($newsletter->email);
         }
 
         return redirect(route('articles.index'));

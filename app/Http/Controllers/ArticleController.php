@@ -12,6 +12,7 @@ use Auth;
 use Storage;
 use App\Mail\ArticleValidation;
 use App\Mail\ArticleNew;
+use App\Mail\EditionArticle;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ArticleRequest;
 
@@ -31,7 +32,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('id','desc')->paginate(5);
+        if(Auth::user()->role == 'admin')
+            $articles = Article::orderBy('id','desc')->paginate(5);
+        else
+            $articles = Article::where('id_user','=',Auth::user()->id)->orderBy('id','desc')->paginate(5);
         $articleTags = ArticleTag::all();
         $tags = Tag::all();
         $categories = Categorie::all();
@@ -135,7 +139,7 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $article = Article::find($id);
         
@@ -154,7 +158,13 @@ class ArticleController extends Controller
             $this->storageFile($request,$article);
         }
         
-        $article->save();
+
+        if($article->etat == "Non Publié")
+            $article->etat = "Pending";
+        else if($article->etat == "Pending" && Auth::user()->role == "admin")
+            $article->etat = "Publié";
+
+        $article->save();   
         
         $articleTags = ArticleTag::all()->where('article_id','=',$id);
 
@@ -171,6 +181,21 @@ class ArticleController extends Controller
         }
 
         return redirect(route('articles.index'));
+    }
+
+    public function userModif($id){
+        $article = Article::find($id);
+
+        $user = User::all()->where('id','=',$article->id_user);
+
+        $article->etat = "Non Publié";
+
+        $article->save();
+
+        Mail::to($user[1]->email)->send(new EditionArticle(request()));
+
+        return redirect(route('articles.index'));
+
     }
 
     /**
