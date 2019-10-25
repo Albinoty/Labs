@@ -175,27 +175,7 @@
 			<div class="row">
 				<!-- single member -->
 				<?php $i=1; ?>
-				@if (count($teams) != null || count($leaders) != null)
-					@foreach ($teams as $team)
-						<div class="col-sm-4 d-flex order-{{$i}}">
-							<div class="member">
-								<img src="/storage/{{$team->image}}" alt="">
-								<h2>{{$team->nom}}</h2>
-								<h3>{{$team->fonction}}</h3>
-								<?php $i = $i+2; ?>
-							</div>
-						</div>
-					@endforeach
-					@foreach ($leaders as $leader)
-						<div class="col-sm-4 d-flex order-2">
-							<div class="member">
-								<img src="/storage/{{$leader->image}}" alt="">
-								<h2>{{$leader->nom}}</h2>
-								<h3>{{$leader->fonction}}</h3>
-							</div>
-						</div>
-					@endforeach
-				@else
+				@if (count($teams) == null && count($leaders) != null)
 					<div class="col-sm-4">
 						<div class="member">
 							<img src="img/team/1.jpg" alt="">
@@ -205,11 +185,17 @@
 					</div>
 					<!-- single member -->
 					<div class="col-sm-4">
-						<div class="member">
-							<img src="img/team/2.jpg" alt="">
-							<h2>Christinne Williams</h2>
-							<h3>Junior developer</h3>
-						</div>
+						@foreach ($leaders as $leader)
+							<div class="col-sm-4 d-flex order-2 {{isset($teams) == 1 ? 'offset-sm-4' : ''}}">
+								<div class="member">
+									<img src="/storage/{{$leader->image}}" alt="">
+									<div class="mt-5">
+										<h2>{{$leader->nom}}</h2>
+										<h3>{{$leader->fonction}}</h3>
+									</div>
+								</div>
+							</div>
+						@endforeach
 					</div>
 					<!-- single member -->
 					<div class="col-sm-4">
@@ -219,6 +205,56 @@
 							<h3>Digital designer</h3>
 						</div>
 					</div>
+				@else
+					@if (count($teams) != null && count($leaders) != null)
+						@foreach ($teams as $team)
+							<div class="col-sm-4 d-flex order-{{$i}}">
+								<div class="member">
+									<img src="/storage/{{$team->image}}" alt="">
+									<div class="mt-5">
+										<h2>{{$team->nom}}</h2>
+										<h3>{{$team->fonction}}</h3>
+									</div>
+									<?php $i = $i+2; ?>
+								</div>
+							</div>
+						@endforeach
+						@foreach ($leaders as $leader)
+							<div class="col-sm-4 d-flex order-2">
+								<div class="member">
+									<img src="/storage/{{$leader->image}}" alt="">
+									<div class="mt-5">
+										<h2>{{$leader->nom}}</h2>
+										<h3>{{$leader->fonction}}</h3>
+									</div>
+								</div>
+							</div>
+						@endforeach
+					@else
+						<div class="col-sm-4">
+							<div class="member">
+								<img src="img/team/1.jpg" alt="">
+								<h2>Christinne Williams</h2>
+								<h3>Project Manager</h3>
+							</div>
+						</div>
+						<!-- single member -->
+						<div class="col-sm-4">
+							<div class="member">
+								<img src="img/team/2.jpg" alt="">
+								<h2>Christinne Williams</h2>
+								<h3>Junior developer</h3>
+							</div>
+						</div>
+						<!-- single member -->
+						<div class="col-sm-4">
+							<div class="member">
+								<img src="img/team/3.jpg" alt="">
+								<h2>Christinne Williams</h2>
+								<h3>Digital designer</h3>
+							</div>
+						</div>
+					@endif
 				@endif
 			</div>
 		</div>

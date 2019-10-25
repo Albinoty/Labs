@@ -303,16 +303,15 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
         $users = User::all();
 
         
-
         function envoi($type){
-            
-            // $when = Carbon\Carbon::now()->addMinutes(10);
 
             Mail::to($type)->send(new ArticleNew(request()));
+
         }
 
         foreach($users as $user){
-            envoi($user->email);
+            if($user->role == 'admin')
+                    envoi($user->email);
         }
         
         $newsletters = Newsletter::all();
@@ -337,15 +336,16 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
         $users = User::all();
 
         foreach($users as $user){
+            if($user->role == 'admin')
             Mail::to($user->email)->send(new ArticleNew(request()));
-            sleep(5);
+            // sleep(5);
         }
 
         $newsletters = Newsletter::all();
 
         foreach($newsletters as $newsletter){
             Mail::to($newsletter->email)->send(new ArticleNew(request()));
-            sleep(5);
+            // sleep(5);
         }
         
         return redirect(route('articles.index'));

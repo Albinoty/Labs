@@ -26,7 +26,7 @@ class TeamRequest extends FormRequest
         return [
             'nom' => 'required|required|min:10|max:50',
             'fonction' => 'required|required|min:10|max:25',
-            'image' => 'required|image'
+            // 'image' => 'required|image'
         ];
     }
     public function messages()
@@ -34,7 +34,7 @@ class TeamRequest extends FormRequest
         return [
             'nom.required' => 'Le nom d\'auteur est de minimum 10 et maximum 50 caractères.',
             'fonction.required' => 'Le fonction est de minimum 10 et maximum 25 caractères.',
-            'image.required' => 'Le fichier doit être une image'
+            // 'image.required' => 'Le fichier doit être une image'
         ];
     }
 }

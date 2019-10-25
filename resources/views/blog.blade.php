@@ -66,10 +66,8 @@
                                         <h2 class="post-title">{{$article->titre}}</h2>
                                         <div class="post-meta">
                                             <a href="">
-                                                @foreach ($users as $user)
-                                                    @if ($user->id == $article->id_user)
-                                                        {{$user->name}}
-                                                    @endif
+                                                @foreach ($categories as $categorie)
+                                                    {{dd($categorie)}}
                                                 @endforeach
                                             </a>
                                             <a href="">@foreach ($articleTags as $articleTag)
@@ -125,9 +123,9 @@
                                         <h2 class="post-title">{{$article->titre}}</h2>
                                         <div class="post-meta">
                                             <a href="">
-                                                @foreach ($users as $user)
-                                                    @if ($user->id == $article->id_user)
-                                                        {{$user->name}}
+                                                @foreach ($categories as $categorie)
+                                                    @if($article->id_categorie == $categorie->id)    
+                                                        {{$categorie->nom}}
                                                     @endif
                                                 @endforeach
                                             </a>
