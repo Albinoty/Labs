@@ -46390,9 +46390,16 @@ if (window.location.href == "http://127.0.0.1:8000/?page=1" || window.location.h
 var contact = document.querySelector('#msg');
 var commentaire = document.querySelector('#com');
 var newsletter = document.querySelector('#newsletter');
+var close = document.querySelector('#close');
 if (contact != null) window.location = "#con_form";
 if (commentaire != null) window.location = "#com"; // if(newsletter != null)
 //     window.location = "#news"
+
+if (close != null) {
+  close.addEventListener('click', function () {
+    contact.classList.add('d-none');
+  });
+}
 
 /***/ }),
 

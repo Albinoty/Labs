@@ -43,7 +43,7 @@
                                 '12' => 'Dec'
                             ]
                         ?>
-                        {{-- {{dd($articles)}} --}}
+                        {{-- {{dd($lols)}} --}}
                         @if(isset($lols) != null)
                             @foreach ($lols as $article)
                                 {{-- {{dd($article)}} --}}

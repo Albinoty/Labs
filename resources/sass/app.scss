@@ -42,3 +42,11 @@ html {
         border-color: #2be6ab !important;
     }
 }
+
+#msg{
+    display: block;
+    position: fixed;
+    z-index: 5;
+    top: 50px;
+    left: 50px;
+}

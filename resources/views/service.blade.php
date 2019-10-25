@@ -13,6 +13,18 @@
 @endsection
 
 @section('contenu')
+    @if ($errors->any())
+    <div class="alert alert-danger" id="msg">
+        <div>
+            <button type="button" class="ml-2 mb-1 close" id="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </div>
+    @endif
     @include('templates.services')
     <!-- features section -->
     <div class="team-section spad">

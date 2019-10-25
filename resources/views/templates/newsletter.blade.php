@@ -6,13 +6,6 @@
 					<h2>Newsletter</h2>
 				</div>
 				<div class="col-md-9">
-					@if ($errors->any())
-						<div class="alert alert-danger" id="newsletter">
-							@foreach ($errors->	all() as $error)
-								<li>{{$error}}</li>
-							@endforeach
-						</div>
-					@endif
 					@if (Session::has('newsletter') != null)
 						<div class="alert alert-success" id="newsletter">Merci de votre message.</div>
 					@endif

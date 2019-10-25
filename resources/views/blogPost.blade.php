@@ -117,12 +117,14 @@
                                             {{-- annee --}}
                                             {{substr($article->created_at,0,4)}}
                                             | 
-                                            @if (Auth()->user()->email == $commentaire->email)
-                                                <form action="/blog-post/{{$commentaire->id}}/commentaire/delete" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button class="btn">Delete</button>
-                                                </form>
+                                            @if(Auth()->user()!= null)
+                                                @if (Auth()->user()->email == $commentaire->email)
+                                                    <form action="/blog-post/{{$commentaire->id}}/commentaire/delete" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn">Delete</button>
+                                                    </form>
+                                                @endif
                                             @endif
                                         </h3>
                                         <p>{{$commentaire->commentaire}}</p>

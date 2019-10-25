@@ -2,13 +2,6 @@
     <form class="form-class" id="con_form" action="/sendMessage" method="POST" >
         @csrf
         @method('post')
-        @if ($errors->any())
-            <div class="alert alert-danger" id="msg">
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </div>
-        @endif
         @if (Session::has('msg') != null)
             <div class="alert alert-success" id="msg">Merci de votre message.</div>
         @endif

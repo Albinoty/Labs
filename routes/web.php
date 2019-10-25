@@ -182,8 +182,12 @@ Route::get('/search/tag/{tag}',function ($url){
     $commentaires = Commentaire::all();
     $categories = Categorie::all();
 
-    if(count($lols) == null){
-        $errors = "Il n'y a rien avec le mot '".$url."'";
+    
+
+    if(count($lols) == 0){
+        $articles = Article::where('etat','=','Publié')->orderBy('id','desc')->paginate(3);
+        $tag = Tag::find($url);
+        $errors = "Il n'y a rien avec le mot '".$tag->nom."'";
         return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
     }
     
