@@ -18513,7 +18513,8 @@ html {
 }
 
 p,
-.service-text {
+.service-text,
+.text {
   word-break: break-word;
 }
 

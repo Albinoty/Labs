@@ -298,14 +298,15 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
     Route::put('/articles/nonValide/{id}','ArticleController@userModif')->name('articles.userModif');
 
     //Envoi de mail
-    Route::get('/sendNewArticle',function(){
+    Route::get('/sendNewArticle/{id}',function(){
 
         $users = User::all();
+        
 
         
         function envoi($type){
-
-            Mail::to($type)->send(new ArticleNew(request()));
+            $id = request('id');
+            Mail::to($type)->send(new ArticleNew(request(),$id));
 
         }
 

@@ -20,7 +20,7 @@
                     @endif
                     <th class="text-center">Titre</th>
                     <th class="text-center">Text</th>
-                    <th class="text-center">Image</th>
+                    <th class="text-center w-25">Image</th>
                     <th class="text-center">Publier</th>
                     <th class="text-center">Tags</th>
                     <th class="text-center">Catégorie</th>
@@ -38,7 +38,7 @@
                                 @endif
                             @endforeach       
                             <td>{{$article->titre}}</td>
-                            <td>
+                            <td class="text">
                                 @if (strlen($article->texte)>100)
                                     {{substr($article->texte,0,100)}}...
                                 @else
@@ -96,7 +96,7 @@
                     @if(Auth()->user()->role == "editeur" && Auth()->user()->id == $article->id_user)
                         <tr>
                             <td>{{$article->titre}}</td>
-                            <td>
+                            <td class="text">
                                 @if (strlen($article->texte)>100)
                                     {{substr($article->texte,0,100)}}...
                                 @else
@@ -163,7 +163,8 @@
                                         @method('delete')
                                         <button class="btn btn-danger mx-2">Delete</button>
                                     </form>
-                                @else
+                                @endif
+                                @if ($article->etat == "Pending")
                                     <p>Votre est en cours de validation</p>
                                 @endif
                                 

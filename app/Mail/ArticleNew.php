@@ -13,15 +13,18 @@ class ArticleNew extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+    public $id;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request,$id)
     {
         $this->email = $request;
+        $this->id = $id;
     }
 
     /**
