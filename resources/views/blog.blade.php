@@ -122,13 +122,13 @@
                                     <div class="post-content">
                                         <h2 class="post-title">{{$article->titre}}</h2>
                                         <div class="post-meta">
-                                            <a href="">
-                                                @foreach ($categories as $categorie)
-                                                    @if($article->id_categorie == $categorie->id)    
+                                            @foreach ($categories as $categorie)
+                                                @if($article->id_categorie == $categorie->id)    
+                                                    <a href="{{url('/search',$categorie->nom)}}">
                                                         {{$categorie->nom}}
-                                                    @endif
-                                                @endforeach
-                                            </a>
+                                                    </a>
+                                                @endif
+                                            @endforeach
                                             <a href="">@foreach ($articleTags as $articleTag)
                                                     @foreach ($tags as $tag)
                                                         @if (($articleTag->article_id == $article->id) && ($articleTag->tag_id == $tag->id))

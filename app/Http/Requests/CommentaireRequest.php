@@ -24,7 +24,7 @@ class CommentaireRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
+            'email' => 'required|email',
             'name' => 'required',
             'message' => 'required'
         ];

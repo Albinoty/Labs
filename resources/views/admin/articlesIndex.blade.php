@@ -35,6 +35,8 @@
                             @foreach ($users as $user)
                                 @if ($article->id_user == $user->id)
                                     <td>{{$user->name}}</td>                 
+                                @else
+                                    <td>User Suprimé</td>
                                 @endif
                             @endforeach       
                             <td>{{$article->titre}}</td>

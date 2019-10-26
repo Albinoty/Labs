@@ -178,7 +178,7 @@
 				@if (count($teams) == null && count($leaders) != null)
 					<div class="col-sm-4">
 						<div class="member">
-							<img src="img/team/1.jpg" alt="">
+							<img src="img/team/1.jpg" class="d-block img-fluid" alt="">
 							<h2>Christinne Williams</h2>
 							<h3>Project Manager</h3>
 						</div>
@@ -186,21 +186,17 @@
 					<!-- single member -->
 					<div class="col-sm-4">
 						@foreach ($leaders as $leader)
-							<div class="col-sm-4 d-flex order-2 {{isset($teams) == 1 ? 'offset-sm-4' : ''}}">
-								<div class="member">
-									<img src="/storage/{{$leader->image}}" alt="">
-									<div class="mt-5">
-										<h2>{{$leader->nom}}</h2>
-										<h3>{{$leader->fonction}}</h3>
-									</div>
-								</div>
+							<div class="member">
+								<img src="/storage/{{$leader->image}}" class="d-block img-fluid" style="height:436px;" alt="">
+									<h2>{{$leader->nom}}</h2>
+									<h3>{{$leader->fonction}}</h3>
 							</div>
 						@endforeach
 					</div>
 					<!-- single member -->
 					<div class="col-sm-4">
 						<div class="member">
-							<img src="img/team/3.jpg" alt="">
+							<img src="img/team/3.jpg" class="d-block img-fluid" alt="">
 							<h2>Christinne Williams</h2>
 							<h3>Digital designer</h3>
 						</div>
@@ -210,7 +206,7 @@
 						@foreach ($teams as $team)
 							<div class="col-sm-4 d-flex order-{{$i}}">
 								<div class="member">
-									<img src="/storage/{{$team->image}}" alt="">
+									<img src="/storage/{{$team->image}}" class="d-block img-fluid" alt="">
 									<div class="mt-5">
 										<h2>{{$team->nom}}</h2>
 										<h3>{{$team->fonction}}</h3>
@@ -222,7 +218,7 @@
 						@foreach ($leaders as $leader)
 							<div class="col-sm-4 d-flex order-2">
 								<div class="member">
-									<img src="/storage/{{$leader->image}}" alt="">
+									<img src="/storage/{{$leader->image}}" class="d-block img-fluid" alt="">
 									<div class="mt-5">
 										<h2>{{$leader->nom}}</h2>
 										<h3>{{$leader->fonction}}</h3>
@@ -233,7 +229,7 @@
 					@else
 						<div class="col-sm-4">
 							<div class="member">
-								<img src="img/team/1.jpg" alt="">
+								<img src="img/team/1.jpg"  class="d-block img-fluid" alt="">
 								<h2>Christinne Williams</h2>
 								<h3>Project Manager</h3>
 							</div>
@@ -241,7 +237,7 @@
 						<!-- single member -->
 						<div class="col-sm-4">
 							<div class="member">
-								<img src="img/team/2.jpg" alt="">
+								<img src="img/team/2.jpg" class="d-block img-fluid" alt="">
 								<h2>Christinne Williams</h2>
 								<h3>Junior developer</h3>
 							</div>
@@ -249,7 +245,7 @@
 						<!-- single member -->
 						<div class="col-sm-4">
 							<div class="member">
-								<img src="img/team/3.jpg" alt="">
+								<img src="img/team/3.jpg" class="d-block img-fluid" alt="">
 								<h2>Christinne Williams</h2>
 								<h3>Digital designer</h3>
 							</div>

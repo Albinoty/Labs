@@ -32,14 +32,14 @@
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="text" class="form-control" name="password" id="password" value={{old('password')}}>
+                <input type="password" class="form-control" name="password" id="password" value={{old('password')}}>
             </div>
             <div class="form-group">
                 <label for="role">Role</label>
-                <select name="role" id="role" class="form-control">
+                <select name="role" id="role" class="form-control" >
                     <option value="admin">Admin</option>
                     <option value="editeur">Éditeur</option>
-                    <option value="guest">Guest</option>
+                    <option value="guest" selected="selected">Guest</option>
                 </select>
             </div>
             <div class="form-group">

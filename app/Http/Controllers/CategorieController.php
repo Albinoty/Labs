@@ -43,6 +43,12 @@ class CategorieController extends Controller
     {
         $categorie = new Categorie();
 
+        $categories = Categorie::where('nom','like','%'.$request->input('nom').'%')->get();
+
+        
+        if(count($categories) > 0)
+            return redirect()->back()->withErrors("Cette categorie existe deja");
+
         $categorie->nom = $request->input('nom');
 
         $categorie->save();

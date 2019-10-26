@@ -34,6 +34,6 @@ class ArticleNew extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.ArticleNew');
+        return $this->markdown('emails.ArticleNew',compact($this->id));
     }
 }

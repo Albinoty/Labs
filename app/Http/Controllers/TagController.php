@@ -42,6 +42,12 @@ class TagController extends Controller
     {
         $tag = New Tag();
 
+        $tags = Tag::where('nom','like','%'.$request->input('nom').'%')->get();
+
+        
+        if(count($tags) > 0)
+            return redirect()->back()->withErrors("Ce tag existe deja");
+
         $tag->nom = $request->input('nom');
 
         $tag->save();

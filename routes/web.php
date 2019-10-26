@@ -338,7 +338,7 @@ Route::middleware(['auth','IsAdmin'])->group(function (){
 
         foreach($users as $user){
             if($user->role == 'admin')
-            Mail::to($user->email)->send(new ArticleNew(request()));
+            Mail::to($user->email)->send(new ArticleNew(request(),$article->id));
             // sleep(5);
         }
 

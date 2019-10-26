@@ -24,13 +24,13 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'required|min:5|max:20'
+            'nom' => 'required|min:3|max:20'
         ];
     }
     public function messages()
     {
         return [
-            'nom.required' => 'Le tag doit être entre 5 et 20 caractères.'
+            'nom.required' => 'Le tag doit être entre 3 et 20 caractères.'
         ];
     }
 }

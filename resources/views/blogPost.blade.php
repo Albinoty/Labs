@@ -53,20 +53,20 @@
                     <div class="post-content">
                             <h2 class="post-title">{{$article->titre}}</h2>
                             <div class="post-meta">
-                                <a href="">
-                                    @foreach ($users as $user)
-                                        @if ($user->id == $article->id_user)
-                                            {{$user->name}}
+                                @foreach ($categories as $categorie)
+                                    @if($article->id_categorie == $categorie->id)    
+                                        <a href="{{url('/search',$categorie->nom)}}">
+                                            {{$categorie->nom}}
+                                        </a>
+                                    @endif
+                                @endforeach
+                                @foreach ($articleTags as $articleTag)
+                                    @foreach ($tags as $tag)
+                                        @if (($articleTag->article_id == $article->id) &&($articleTag->tag_id == $tag->id))
+                                        <a href="{{$tag->nom}}">{{$tag->nom}}</a>
                                         @endif
                                     @endforeach
-                                </a>
-                                    @foreach ($articleTags as $articleTag)
-                                        @foreach ($tags as $tag)
-                                            @if (($articleTag->article_id == $article->id) &&($articleTag->tag_id == $tag->id))
-                                            <a href="{{$tag->nom}}">{{$tag->nom}}</a>
-                                            @endif
-                                        @endforeach
-                                    @endforeach</a>
+                                @endforeach</a>
                                 <a href="">{{count($commentaires)}} Comments</a>
                             </div>
                             <p>
@@ -118,7 +118,7 @@
                                             {{substr($article->created_at,0,4)}}
                                             | 
                                             @if(Auth()->user()!= null)
-                                                @if (Auth()->user()->email == $commentaire->email)
+                                                @if (Auth()->user()->email == $commentaire->email || Auth()->user()->role == "admin")
                                                     <form action="/blog-post/{{$commentaire->id}}/commentaire/delete" method="POST">
                                                         @csrf
                                                         @method('delete')
