@@ -37,8 +37,9 @@ class CommentaireController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentaireRequest $request)
+    public function store(CommentaireRequest $request,Article $article)
     {
+
 
         $commentaire = new Commentaire();
 
@@ -56,7 +57,7 @@ class CommentaireController extends Controller
             }
 
             $commentaire->commentaire = $request->input('message');
-            $commentaire->id_article = request('id');
+            $commentaire->id_article = $article->id;
 
             $commentaire->save();
 
@@ -67,12 +68,12 @@ class CommentaireController extends Controller
             $commentaire->email = $request->input('email');
             $commentaire->img_user = 'img/avatar/john-doe.png';
             $commentaire->commentaire = $request->input('message');
-            $commentaire->id_article = request('id');
+            $commentaire->id_article = $article->id;
 
             $commentaire->save();
         }
 
-        return redirect(url('/blog-post/'.request('id')));
+        return redirect()->back();
         
     }
 

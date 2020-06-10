@@ -10,13 +10,6 @@ use App\Http\Requests\TeamRequest;
 
 class TeamsController extends Controller
 {
-    public static function storageFile(TeamRequest $request, $team){
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $team->image = $filename;
-        }
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +19,7 @@ class TeamsController extends Controller
     {
         $teams = Team::all();
 
-        return view('admin.teamsIndex',compact('teams'));
+        return view('admin.team.index',compact('teams'));
     }
 
     /**
@@ -38,7 +31,7 @@ class TeamsController extends Controller
     {
         $teams = Team::all();
 
-        return view('admin.teamCreate',compact('teams'));
+        return view('admin.team.create',compact('teams'));
     }
 
     /**
@@ -54,10 +47,7 @@ class TeamsController extends Controller
         $team->nom = $request->input('nom');
         $team->fonction = $request->input('fonction');
         $team->teamleader = $request->input('teamleader');
-
-        // dd($team);
-
-        $this->storageFile($request, $team);
+        $team->image = $request->file('image')->store('img/team');
 
         $team->save();
         
@@ -86,7 +76,7 @@ class TeamsController extends Controller
     {
         $team = $team::find($team->id);
 
-        return view('admin.teamEdit',compact('team'));
+        return view('admin.team.edit',compact('team'));
     }
 
     /**
@@ -102,24 +92,14 @@ class TeamsController extends Controller
 
         $team->nom = $request->input('nom');
         $team->fonction = $request->input('fonction');
-        
-        if($request->hasfile('image') != null){
-            Storage::delete($team->image);
-            $this->storageFile($request, $team);
-        }
+        $team->image = $request->file('image')->store('img/team');
 
-
-
-        if($request->input('teamleader') == "Oui"){
+        if($request->input('teamleader') == "Oui")
             // Idem mais reconnait pas le update ...
-            // $oldTeamLeader = Team::all();
-            // $oldTeamLeader->where('teamleader','=','Oui');
-            // $oldTeamLeader->update(['teamleader' => 'Non']);
-
             DB::table('teams')
             ->where('teamleader','=','Oui')
             ->update(['teamleader' => 'Non']);
-        }
+        
 
         $team->teamleader = $request->input('teamleader');
 

@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MediasController extends Controller
 {
-    public static function storageFile(CarouselRequest $request, $media){
-
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $media->img_path = $filename;
-        }
-    }
 
     /**
      * Display a listing of the resource.
@@ -27,7 +19,7 @@ class MediasController extends Controller
     {
         $medias = Media::all();
 
-        return view('admin.mediasIndex',compact('medias'));
+        return view('admin.carousel.index',compact('medias'));
     }
 
     /**
@@ -37,7 +29,7 @@ class MediasController extends Controller
      */
     public function create()
     {
-        return view('admin.mediaCreate');
+        return view('admin.carousel.create');
     }
 
     /**
@@ -51,8 +43,7 @@ class MediasController extends Controller
         $media = new Media();
 
         $media->titre = $request->input('titre');
-
-        $this->storageFile($request, $media);
+        $media->img_path = $request->file('image')->store('img/carousel');
 
         $media->save();
 
@@ -81,7 +72,7 @@ class MediasController extends Controller
     {
         $media = Media::find($id);
 
-        return view('admin.mediaEdit',compact('media'));
+        return view('admin.carousel.edit',compact('media'));
     }
 
     /**

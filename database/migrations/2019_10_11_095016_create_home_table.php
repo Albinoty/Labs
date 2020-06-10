@@ -18,8 +18,8 @@ class CreateHomeTable extends Migration
             $table->string('logo',125);
             $table->string('logo_carousel',125);
             $table->string('texte_carousel',125);
-            $table->string('texte_gauche',125);
-            $table->string('texte_droite',125);
+            $table->text('texte_gauche',125);
+            $table->text('texte_droite',125);
             $table->string('url_video',125);
             $table->timestamps();
         });

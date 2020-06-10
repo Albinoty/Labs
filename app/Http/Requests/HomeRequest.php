@@ -26,7 +26,7 @@ class HomeRequest extends FormRequest
 
         $regex = '~^(?:https?://)?(?:www[.])?(?:youtube[.]com/watch[?]v=)([^&]{11})~x';
         return [
-            'logo' => 'required|image|dimensions:max_width=120,min_height=35',
+            'logo' => 'required|image',
             'logo_carousel' => 'required|image',
             'texte_carousel' => 'required|max:50',
             'texte_droite' => 'required',

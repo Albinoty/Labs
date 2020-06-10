@@ -17,56 +17,15 @@ use App\Http\Requests\HomeRequest;
 class HomeController extends Controller
 {
 
-    public function __construct(){
-        
-    }
-
-    public static function storageFile(HomeRequest $requete, $home, $column){
-
-        if($requete->hasfile($column)){
-            $file = $requete->file($column);
-            $filename = $file->store(env('IMG_DIR'));
-            $home->$column = $filename;
-        }
-    }
-
-    public function index(){
-        $actif = "home";
-        $services = DB::table('services')->paginate(9);
-        $servicesTop = Service::all();
-        $medias = Media::all();
-        $teams = Team::all()->where('teamleader','=','Non');
-        $testimonials = Testimonial::all();
-        $contact = Contact::find(1);
-        $bouton = Bouton::find(1);
-
-
-        //Condtion des imports
-        if(count($servicesTop) >=3)
-            $servicesTop = $servicesTop->random(3);
-
-        $home = Home::find(1);
-
-
-        if(count($teams) >= 2)
-            $teams = $teams->random(2);
-
-        $leaders = Team::all()->where('teamleader','=','Oui');
-        
-        
-        return view('index',compact('actif','servicesTop','services','medias','home','testimonials','teams','leaders','contact','bouton'));
-
-    }
-
     public function edit (){
         
         $home = Home::find(1);
 
 
         if($home !== null)
-            return view('admin.adminHome',compact('home'));
+            return view('admin.home',compact('home'));
         else
-            return view('admin.adminHome');
+            return view('admin.home');
         
 
     }
@@ -77,18 +36,14 @@ class HomeController extends Controller
 
         if(count($home) === 0){
             $home = new Home();
-            
-            
-            $this->storageFile($requete,$home,'logo');
-            $this->storageFile($requete,$home,'logo_carousel');
-            
+        
 
-
-            $home->texte_carousel = $requete->input('texte_gauche');
+            $home->logo = $requete->file('logo')->store('img');
+            $home->logo_carousel = $requete->file('logo_carousel')->store('img');
+            $home->texte_carousel = $requete->input('texte_carousel');
             $home->texte_gauche = $requete->input('texte_gauche');
             $home->texte_droite = $requete->input('texte_droite');
             $home->url_video = $requete->input('video');
-            
             
             
             $home->save();
@@ -101,10 +56,8 @@ class HomeController extends Controller
 
             Storage::delete($home->logo);
             Storage::delete($home->logo_carousel);
-            if(($requete->input('logo') != null) && ($requete->input('logo_carousel') != null)){
-                $this->storageFile($requete,$home,'logo');
-                $this->storageFile($requete,$home,'logo_carousel');
-            }
+            $home->logo = $requete->file('logo')->store('img');
+            $home->logo_carousel = $requete->file('logo_carousel')->store('img');
 
             $home->texte_carousel = $requete->input('texte_gauche');
             $home->texte_gauche = $requete->input('texte_gauche');

@@ -3,8 +3,7 @@
 
 Un nouvel article était créé. Soyez le premier le consulter à le consulter et a commenté.
 
-
-@component('mail::button', ['url' => url('/blog-post',$id)])
+@component('mail::button', ['url' => route('post.show',$id)])
 Lire l'article
 @endcomponent
 

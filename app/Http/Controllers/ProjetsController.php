@@ -11,15 +11,6 @@ use App\Http\Requests\ProjetRequest;
 class ProjetsController extends Controller
 {
 
-    public static function storageFile(ProjetRequest $request, $projet){
-
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $projet->image = $filename;
-        }
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +20,7 @@ class ProjetsController extends Controller
     {
         $projets = Projet::all();
 
-        return view('admin.projetsIndex',compact('projets'));
+        return view('admin.projet.index',compact('projets'));
     }
 
     /**
@@ -39,7 +30,7 @@ class ProjetsController extends Controller
      */
     public function create()
     {
-        return view('admin.projetsCreate');
+        return view('admin.projet.create');
     }
 
     /**
@@ -50,12 +41,14 @@ class ProjetsController extends Controller
      */
     public function store(ProjetRequest $request)
     {
+        $request->validate(['image'=>'required|image'],['image.required' => 'Le choix d\'une image est obligatoire']);
+
         $projet = new Projet();
 
         $projet->titre = $request->input('titre');
         $projet->description = $request->input('description');
+        $projet->image = $request->file('image')->store('img/projets');
 
-        $this->storageFile($request,$projet);
 
         $projet->save();
 
@@ -84,7 +77,7 @@ class ProjetsController extends Controller
     {
         $projet::find($projet->id);
 
-        return view('admin.projetsEdit',compact('projet'));
+        return view('admin.projet.edit',compact('projet'));
     }
 
     /**
@@ -101,8 +94,7 @@ class ProjetsController extends Controller
 
         $projet->nom = $request->input('nom');
         $projet->description = $request->input('description');
-
-        $this->storageFile($request,$projet);
+        $projet->image = $request->file('image')->store('img/projets');
 
         $projet->save();
 

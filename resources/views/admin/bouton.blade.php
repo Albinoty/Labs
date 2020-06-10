@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@extends('templates.index')
-
-@include('templates.head')
-
 @section('title', 'AdminLTE')
 
 @section('content_header')

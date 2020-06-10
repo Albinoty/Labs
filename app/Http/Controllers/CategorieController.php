@@ -17,7 +17,7 @@ class CategorieController extends Controller
     {
         $categories = Categorie::all();
 
-        return view('admin.categoriesIndex',compact('categories'));
+        return view('admin.categorie.index',compact('categories'));
         
     }
 
@@ -30,7 +30,7 @@ class CategorieController extends Controller
     {
         $categories = Categorie::all();
 
-        return view('admin.categorieCreate',compact('categories'));
+        return view('admin.categorie.create',compact('categories'));
     }
 
     /**
@@ -77,7 +77,10 @@ class CategorieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categorie = Categorie::find($id);
+
+        return view('admin.categorie.edit',compact('categorie'));
+        
     }
 
     /**

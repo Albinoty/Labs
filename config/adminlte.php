@@ -1,7 +1,4 @@
 <?php
-use App\User;
-use App\Providers\AuthServiceProvider;
-
 
 return [
 
@@ -10,85 +7,141 @@ return [
     | Title
     |--------------------------------------------------------------------------
     |
-    | The default title of your admin panel, this goes into the title tag
-    | of your page. You can override it per page with the title section.
-    | You can optionally also specify a title prefix and/or postfix.
+    | Here you can change the default title of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#61-title
     |
     */
 
-    'title' => 'AdminLTE 2',
-
+    'title' => 'Labs',
     'title_prefix' => '',
-
     'title_postfix' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Favicon
+    |--------------------------------------------------------------------------
+    |
+    | Here you can activate the favicon.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#62-favicon
+    |
+    */
+
+    'use_ico_only' => false,
+    'use_full_favicon' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Logo
     |--------------------------------------------------------------------------
     |
-    | This logo is displayed at the upper left corner of your admin panel.
-    | You can use basic HTML here if you want. The logo has also a mini
-    | variant, used for the mini side bar. Make it 3 letters or so
+    | Here you can change the logo of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#63-logo
     |
     */
 
-    'logo' => '<b>Labs</b>LTE',
-
-    'logo_mini' => '<b>Labs</b>',
+    'logo' => 'Labs',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img_xl' => null,
+    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_alt' => 'AdminLTE',
 
     /*
     |--------------------------------------------------------------------------
-    | Skin Color
+    | User Menu
     |--------------------------------------------------------------------------
     |
-    | Choose a skin color for your admin panel. The available skin colors:
-    | blue, black, purple, yellow, red, and green. Each skin also has a
-    | light variant: blue-light, purple-light, purple-light, etc.
+    | Here you can activate and change the user menu.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#64-user-menu
     |
     */
 
-    'skin' => 'blue',
+    'usermenu_enabled' => true,
+    'usermenu_header' => false,
+    'usermenu_header_class' => 'bg-primary',
+    'usermenu_image' => true,
+    'usermenu_desc' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Layout
     |--------------------------------------------------------------------------
     |
-    | Choose a layout for your admin panel. The available layout options:
-    | null, 'boxed', 'fixed', 'top-nav'. null is the default, top-nav
-    | removes the sidebar and places your menu in the top navbar
+    | Here we change the layout of your admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#65-layout
     |
     */
 
-    'layout' => null,
+    'layout_topnav' => null,
+    'layout_boxed' => null,
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
+    'layout_fixed_footer' => null,
 
     /*
     |--------------------------------------------------------------------------
-    | Collapse Sidebar
+    | Extra Classes
     |--------------------------------------------------------------------------
     |
-    | Here we choose and option to be able to start with a collapsed side
-    | bar. To adjust your sidebar layout simply set this  either true
-    | this is compatible with layouts except top-nav layout option
+    | Here you can change the look and behavior of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#66-classes
     |
     */
 
-    'collapse_sidebar' => false,
+    'classes_body' => '',
+    'classes_brand' => '',
+    'classes_brand_text' => '',
+    'classes_content_header' => '',
+    'classes_content' => '',
+    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar_nav' => '',
+    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav_nav' => 'navbar-expand-md',
+    'classes_topnav_container' => 'container',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sidebar
+    |--------------------------------------------------------------------------
+    |
+    | Here we can modify the sidebar of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#67-sidebar
+    |
+    */
+
+    'sidebar_mini' => false,
+    'sidebar_collapse' => true,
+    'sidebar_collapse_auto_size' => false,
+    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember_no_transition' => true,
+    'sidebar_scrollbar_theme' => 'os-theme-light',
+    'sidebar_scrollbar_auto_hide' => 'l',
+    'sidebar_nav_accordion' => true,
+    'sidebar_nav_animation_speed' => 300,
 
     /*
     |--------------------------------------------------------------------------
     | Control Sidebar (Right Sidebar)
     |--------------------------------------------------------------------------
     |
-    | Here we have the option to enable a right sidebar.
-    | When active, you can use @section('right-sidebar')
-    | The icon you configured will be displayed at the end of the top menu,
-    | and will show/hide de sidebar.
-    | The slide option will slide the sidebar over the content, while false
-    | will push the content, and have no animation.
-    | You can also choose the sidebar theme (dark or light).
-    | The right Sidebar can only be used if layout is not top-nav.
+    | Here we can modify the right sidebar aka control sidebar of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#68-control-sidebar-right-sidebar
     |
     */
 
@@ -96,18 +149,23 @@ return [
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
+    'right_sidebar_push' => true,
+    'right_sidebar_scrollbar_theme' => 'os-theme-light',
+    'right_sidebar_scrollbar_auto_hide' => 'l',
 
     /*
     |--------------------------------------------------------------------------
     | URLs
     |--------------------------------------------------------------------------
     |
-    | Register here your dashboard, logout, login and register URLs.
-    | This was automatically set on install, only change if you really need.
-    | logout URL automatically sends a POST request in Laravel 5.3 or higher.
-    | Set register_url to null if you don't want a register link.
+    | Here we can modify the url settings of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#69-urls
     |
     */
+
+    'use_route_url' => true,
 
     'dashboard_url' => 'home',
 
@@ -115,21 +173,46 @@ return [
 
     'login_url' => 'login',
 
-    'register_url' => 'register',
+    'register_url' => null,
+
+    'password_reset_url' => null,
+
+    'password_email_url' => null,
+
+    'profile_url' => 'home',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel Mix
+    |--------------------------------------------------------------------------
+    |
+    | Here we can enable the Laravel Mix option for the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#610-laravel-mix
+    |
+    */
+
+    'enabled_laravel_mix' => false,
 
     /*
     |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
     |
-    | Specify your menu items to display in the left sidebar. Each menu item
-    | should have a text and a URL. You can also specify an icon from Font
-    | Awesome. A string instead of an array represents a header in sidebar
-    | layout. The 'can' is a filter on Laravel's built in Gate functionality.
+    | Here we can modify the sidebar/top navigation of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#611-menu
+    |
     */
 
-    'menu' =>     
-    [   
+    'menu' => [
+        [
+            'text' => 'Retour site',
+            'icon' => 'fas fa-home',
+            'route' => 'index'
+        ],
         // ADMIN
         [
             'header' => 'User',
@@ -138,7 +221,7 @@ return [
         [
             'text' => 'Information profil',
             'icon' => 'far fa-question-circle',
-            'url' => '/home/info'
+            'route' => 'info.edit'
         ],
         [
             'header' => 'Gestion du site',
@@ -153,12 +236,12 @@ return [
                     'text' => 'Ajouter un User',
                     'icon' => 'fas fa-plus',
                     'can' => 'admin',
-                    'url' => 'users/create'
+                    'route' => 'users.create'
                 ],
                 [
                     'text' => 'Afficher les users du site',
                     'icon' => 'fas fa-user',
-                    'url' => 'users',
+                    'route' => 'users.index',
                     'can' => 'admin'
                 ]
             ]
@@ -167,13 +250,13 @@ return [
             'text' => 'Afficher les articles',
             'icon' => 'fas fa-eye',
             'can' => 'admin',
-            'url' => 'articles'
+            'route' => 'articles.index'
         ],
         [
             'text' => 'Validation des articles',
             'icon' => 'fas fa-check',
             'can' => 'admin',
-            'url' => '/articles/validation'
+            'route' => 'article.validation'
         ],
         [
             'header' => 'Page Home',
@@ -182,7 +265,7 @@ return [
         [
             'text' => 'Contenu Textuel',
             'icon' => 'fas fa-pencil-alt',
-            'url' => '/home/index/edit',
+            'route' => 'home.edit',
             'can' => 'admin',
             
         ],
@@ -194,12 +277,14 @@ return [
                 [
                     'text' => 'Ajout d\'une image',
                     'icon' => 'fas fa-plus',
-                    'url' => 'medias/create',
+                    'route' => 'medias.create',
+                    'can' => 'admin'
                 ],
                 [
                     'text' => 'Voir les images',
                     'icon' => 'far fa-eye',
-                    'url' => 'home/medias'
+                    'route' => 'medias.index',
+                    'can' => 'admin'
                 ]
             ],
         ],
@@ -211,12 +296,14 @@ return [
                 [
                     'text' => 'Ajouter un testimonial',
                     'icon' => 'fas fa-plus',
-                    'url' => 'testimonials/create'
+                    'route' => 'testimonials.create',
+                    'can' => 'admin'
                 ],
                 [
                     'text' => 'Voir les testimonials',
                     'icon' => 'far fa-eye',
-                    'url' => 'home/testimonials'
+                    'route' => 'testimonials.index',
+                    'can' => 'admin'
                 ]
             ]
         ],
@@ -228,25 +315,27 @@ return [
                 [
                     'text' => 'Ajout un membre de la team',
                     'icon' => 'fas fa-plus',
-                    'url' => 'teams/create'
+                    'route' => 'teams.create',
+                    'can' => 'admin'
                 ],
                 [
                     'text' => 'Afficher les membres de la team',
                     'icon' => 'far fa-eye',
-                    'url' => 'home/teams'
+                    'route' => 'teams.index',
+                    'can' => 'admin'
                 ]
             ]
         ],
         [
             'text' => 'Section Contact',
             'icon' => 'fas fa-address-card',
-            'url' => '/home/contact/edit',
+            'route' => 'contact.edit',
             'can' => 'admin',
         ],
         [
             'text' => 'Bouton Browse',
             'icon' => 'fas fa-mouse',
-            'url' => 'bouton',
+            'route' => 'bouton.index',
             'can' => 'admin'
 
         ],
@@ -262,12 +351,14 @@ return [
                 [
                     'text' => 'Ajouter un Service',
                     'icon' => 'fas fa-plus',
-                    'url' => 'services/create',
+                    'can' => 'admin',
+                    'route' => 'services.create',
                 ],
                 [
                     'text' => 'Afficher les Services',
                     'icon' => 'far fa-eye',
-                    'url' => '/home/services'
+                    'can' => 'admin',
+                    'route' => 'services.index'
                 ]
             ]
         ],
@@ -279,15 +370,16 @@ return [
                 [
                     'text' => 'Ajouter un projet',
                     'icon' => 'fas fa-plus',
-                    'url' => 'projets/create'
+                    'can' => 'admin',
+                    'route' => 'projets.create'
                 ],
                 [
                     'text' => 'Afficher les projets',
                     'icon' => 'far fa-eye',
-                    'url' => '/home/projets'
+                    'can' => 'admin',
+                    'route' => 'projets.index'
                 ]
             ]
-           
         ],
         //article
         [
@@ -352,8 +444,6 @@ return [
             ]
         ],
         
-        
-
         //Editeur
         [
             'header' => 'Articles',
@@ -416,6 +506,8 @@ return [
                 ],
             ]
         ],
+
+
     ],
 
     /*
@@ -423,10 +515,10 @@ return [
     | Menu Filters
     |--------------------------------------------------------------------------
     |
-    | Choose what filters you want to include for rendering the menu.
-    | You can add your own filters to this array after you've created them.
-    | You can comment out the GateFilter if you don't want to use Laravel's
-    | built in Gate functionality
+    | Here we can modify the menu filters of the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#612-menu-filters
     |
     */
 
@@ -438,42 +530,46 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
-    ],  
+        JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
     | Plugins Initialization
     |--------------------------------------------------------------------------
     |
-    | Configure which JavaScript plugins should be included. At this moment,
-    | DataTables, Select2, Chartjs and SweetAlert are added out-of-the-box,
-    | including the Javascript and CSS files from a CDN via script and link tag.
-    | Plugin Name, active status and files array (even empty) are required.
-    | Files, when added, need to have type (js or css), asset (true or false) and location (string).
-    | When asset is set to true, the location will be output using asset() function.
+    | Here we can modify the plugins used inside the admin panel.
+    |
+    | For more detailed instructions you can look here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/#613-plugins
     |
     */
 
     'plugins' => [
         [
             'name' => 'Datatables',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
         [
             'name' => 'Select2',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -489,7 +585,7 @@ return [
         ],
         [
             'name' => 'Chartjs',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -500,7 +596,7 @@ return [
         ],
         [
             'name' => 'Sweetalert2',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
@@ -511,7 +607,7 @@ return [
         ],
         [
             'name' => 'Pace',
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'css',

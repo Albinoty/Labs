@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'john@guest.com',
                 'password' => password_hash('58626682',PASSWORD_BCRYPT)
             ]
-            ];
+        ];
 
         DB::table('users')->insert($data);
         

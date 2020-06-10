@@ -8,23 +8,24 @@ use App\Article;
 use App\ArticleTag;
 use App\Categorie;
 use App\Tag;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 use App\Mail\ArticleValidation;
 use App\Mail\ArticleNew;
 use App\Mail\EditionArticle;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-    public function storageFile(ArticleRequest $request, $article){
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $article->img_article = $filename;
-        }
+
+    public function __construct()
+    {
+
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +33,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
+
         if(Auth::user()->role == 'admin')
             $articles = Article::orderBy('id','desc')->paginate(5);
         else
@@ -41,7 +43,7 @@ class ArticleController extends Controller
         $categories = Categorie::all();
         $users = User::all();
 
-        return view('admin.articlesIndex',compact('articles','articleTags','tags','categories','users'));
+        return view('admin.article.index',compact('articles','articleTags','tags','categories','users'));
     }
 
     /**
@@ -54,7 +56,7 @@ class ArticleController extends Controller
         $categories = Categorie::all();
         $tags = Tag::all();
 
-        return view('admin.articleCreate',compact('categories','tags'));
+        return view('admin.article.create',compact('categories','tags'));
     }
 
     /**
@@ -71,7 +73,9 @@ class ArticleController extends Controller
         $categorie = Categorie::find($request->input('categorie'));
 
         $article->titre = $request->input('titre');
+        $article->slug = Str::slug($request->input('titre'),"-");
         $article->texte = $request->input ('texte');
+        $article->img_article = $request->file('image')->store('img/articles');
         $article->id_user = $user->id;
         $article->id_categorie = $categorie->id;
         
@@ -79,8 +83,6 @@ class ArticleController extends Controller
             $article->etat = "Publié";
         else
             $article->etat = "Pending";
-
-        $this->storageFile($request,$article);
         
         $article->save();
 
@@ -96,10 +98,10 @@ class ArticleController extends Controller
     
 
         //Si l'user qui créé un poste est un editeur, envoi un mail chez l'admin
-        if(auth()->user()->role == "editeur")
-            Mail::to('exemple@exmple.com')->send(new ArticleValidation($user));
-        else
-            return redirect(url('/sendNewArticle',$article->id));
+        // if(auth()->user()->role == "editeur")
+        //     Mail::to('exemple@exmple.com')->send(new ArticleValidation($user));
+        // else
+        //     return redirect(url('/sendNewArticle',$article->id));
 
         return redirect(route('articles.index'));
 
@@ -108,12 +110,12 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+        return redirect()->route('article.show',$article->id);
     }
 
     /**
@@ -122,17 +124,18 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = Article::find($id);
 
-        $articleTags = ArticleTag::all()->where('article_id','=',$id);
+        $this->authorize('update',$article);
+
+        $articleTags = ArticleTag::all()->where('article_id','=',$article->id);
         
         $tags = Tag::all();
 
         $categories = Categorie::all();
 
-        return view('admin.articleEdit',compact('article','articleTags','tags','categories'));
+        return view('admin.article.edit',compact('article','articleTags','tags','categories'));
     }
 
     /**
@@ -186,8 +189,7 @@ class ArticleController extends Controller
         return redirect(route('articles.index'));
     }
 
-    public function userModif($id){
-        $article = Article::find($id);
+    public function userModif(Article $article){
 
         $user = User::all()->where('id','=',$article->id_user);
 
@@ -204,15 +206,18 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article  $article)
     {
-        $article = Article::find($id);
+
+        $this->authorize('update',$article);
+
+
         Storage::delete($article->img_article);
         
-        $articleTags = ArticleTag::all()->where('article_id','=',$id);
+        $articleTags = ArticleTag::all()->where('article_id','=',$article->id);
 
         foreach($articleTags as $tag){
             $article->tags()->detach($tag);
@@ -223,4 +228,12 @@ class ArticleController extends Controller
         return redirect(route('articles.index'));
 
     }
+
+    public function validations(){
+        $articles = Article::where('etat','=','Pending')->get();
+
+        return view('admin.article.validation',compact('articles'));
+    }
+
+
 }

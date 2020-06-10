@@ -17,7 +17,7 @@ class TagController extends Controller
     {
         $tags = Tag::all();
 
-        return view('admin.tagsIndex',compact('tags'));
+        return view('admin.tag.index',compact('tags'));
     }
 
     /**
@@ -29,7 +29,7 @@ class TagController extends Controller
     {
         $tags = Tag::all();
 
-        return view('admin.tagCreate',compact('tags'));
+        return view('admin.tag.create',compact('tags'));
     }
 
     /**
@@ -77,7 +77,7 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
 
-        return view('admin.tagEdit',compact('tag'));
+        return view('admin.tag.edit',compact('tag'));
     }
 
     /**
@@ -106,7 +106,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag = Tag::find($id)->delete();
+        Tag::find($id)->delete();
 
         return redirect()->route('tags.index');
     }

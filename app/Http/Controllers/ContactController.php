@@ -17,7 +17,7 @@ class ContactController extends Controller
         if($contact !== null)
             return view('admin.adminContact',compact('contact'));
         else
-            return view('admin.adminContact');
+            return view('admin.contact');
 
     }
 

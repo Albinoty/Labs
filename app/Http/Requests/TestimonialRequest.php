@@ -27,7 +27,7 @@ class TestimonialRequest extends FormRequest
             'auteur' => 'required|min:10|max:50',
             'fonction' => 'required|min:10|max:25',
             'texte' => 'required|min:30|max:250',
-            'image' => 'required|image|dimensions:max_width=500,max_height=500,min_width=500,min_height=500'
+            'image' => 'required|image|dimensions:max_width=500,max_height=500,min_width=50,min_height=50'
         ];
     }
 

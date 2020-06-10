@@ -24,7 +24,7 @@ class NewsletterRequest extends FormRequest
     public function rules()
     {
         return [
-            'mail' => 'required|regex:[^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$]'
+            'mail' => 'required|email'
         ];
     }
     public function messages(){

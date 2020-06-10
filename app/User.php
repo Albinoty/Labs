@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -39,4 +40,19 @@ class User extends Authenticatable
 
 
     protected $dates = ['deleted_at'];
+
+    public function articles(){
+        return $this->hasMany('App\Article','id_user');
+    }
+
+    public function adminlte_image(){
+
+        if(Auth::user()->img_user !== null)
+            return asset('storage/'.Auth::user()->img_user);
+        else
+            return asset('/img/avatar/john-doe.png');
+
+    }
+
+
 }

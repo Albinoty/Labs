@@ -9,14 +9,6 @@ use App\Http\Requests\TestimonialRequest;
 
 class TestimonialsController extends Controller
 {
-    public static function storageFile(TestimonialRequest $request, $testimonial){
-
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = $file->store(env('IMG_DIR'));
-            $testimonial->image = $filename;
-        }
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +18,7 @@ class TestimonialsController extends Controller
     {
         $testimonials = Testimonial::all();
 
-        return view('admin.testimonialsIndex',compact('testimonials'));
+        return view('admin.testimonial.index',compact('testimonials'));
     }
 
     /**
@@ -36,7 +28,7 @@ class TestimonialsController extends Controller
      */
     public function create()
     {
-        return view('admin.testimonialCreate');
+        return view('admin.testimonial.create');
     }
 
     /**
@@ -52,8 +44,7 @@ class TestimonialsController extends Controller
         $testimonial->auteur = $request->input('auteur');
         $testimonial->fonction = $request->input('fonction');
         $testimonial->texte = $request->input('texte');
-    
-        $this->storageFile($request,$testimonial);
+        $testimonial->image = $request->file('image')->store('img/testimonial');
 
         $testimonial->save();
 
@@ -82,7 +73,7 @@ class TestimonialsController extends Controller
     {
         $testimonial = Testimonial::find($id);
 
-        return view('admin.testimonialEdit',compact('testimonial'));
+        return view('admin.testimonial.edit',compact('testimonial'));
     }
 
     /**
@@ -99,11 +90,7 @@ class TestimonialsController extends Controller
         $testimonial->auteur = $request->input('auteur');
         $testimonial->fonction = $request->input('fonction');
         $testimonial->texte = $request->input('texte');
-    
-        if($request->image !=null){
-            Storage::delete($testimonial->image);
-            $this->storageFile($request,$testimonial);
-        }
+        $testimonial->image = $request->file('image')->store('img/testimonial');
 
         $testimonial->save();
 

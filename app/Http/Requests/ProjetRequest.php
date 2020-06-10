@@ -26,7 +26,7 @@ class ProjetRequest extends FormRequest
         return [
             'titre' => 'required|min:10|max:25',
             'description' => 'required|min:100|max:250',
-            'logo' => 'required'
+            'image' => 'image'
         ];
     }
     public function messages()
@@ -34,7 +34,7 @@ class ProjetRequest extends FormRequest
         return [
             'titre.required' => 'Le titre doit etre requis, minimum 10 et maximum 25.',
             'description.required' => 'Le champs est requis, minimum 100 et maximum 250.',
-            'logo.required' => 'Le choix d\'une image est obligatoire'
+            'image.required' => 'Le choix d\'une image est obligatoire'
         ];
     }
 }

@@ -12,7 +12,6 @@ class ArticleNew extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email;
     public $id;
 
 
@@ -21,9 +20,8 @@ class ArticleNew extends Mailable
      *
      * @return void
      */
-    public function __construct(Request $request,$id)
+    public function __construct($id)
     {
-        $this->email = $request;
         $this->id = $id;
     }
 

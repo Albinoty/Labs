@@ -1,31 +1,26 @@
-@extends('templates.index')
+@extends('layouts.app')
 
-@section('head')
-    @include('templates.head')
-@endsection
-
-@section('header')
-    @include('templates.header')
-@endsection
-
-@section('chemin')
-    @include('templates.chemin')
-@endsection
-
-@section('contenu')
+@section('content')
+    
     @if ($errors->any())
-    <div class="alert alert-danger" id="msg">
-        <div>
-            <button type="button" class="ml-2 mb-1 close" id="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="alert alert-danger" id="msg">
+            <div>
+                <button type="button" class="ml-2 mb-1 close" id="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
         </div>
-        @foreach ($errors->all() as $error)
-            <li>{{$error}}</li>
-        @endforeach
-    </div>
     @endif
-    @include('templates.services')
+
+    @include('partials.header')
+
+    @include('components.chemin')
+   
+    @include('partials.services')
+
     <!-- features section -->
     <div class="team-section spad">
         <div class="overlay"></div>
@@ -176,27 +171,11 @@
         </div>
     </div>
     <!-- services card section end-->
-@endsection
 
+    @include('partials.newsletter')
 
-@section('newsletter')
-    @include('templates.newsletter')
-@endsection
+    @include('partials.contact')
 
-@section('contact')
-    <!-- Contact section -->
-    <div class="contact-section spad fix">
-        <div class="container">
-            <div class="row">
-                @include('templates.contact')
-                @include('templates.form')
-            </div>
-        </div>
-    </div>
-    <!-- Contact section end-->
-@endsection
+    @include('components.footer')
 
-
-@section('footer')
-@include('templates.footer')
 @endsection

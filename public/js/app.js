@@ -47861,8 +47861,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/albinot/Documents/php/laravel/Labs/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/albinot/Documents/php/laravel/Labs/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\Labs\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Labs\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

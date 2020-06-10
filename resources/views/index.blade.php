@@ -1,14 +1,9 @@
-@extends('templates.index')
+@extends('layouts.app')
 
-@section('head')
-    @include('templates.head')
-@endsection
+@section('content')
 
-@section('header')
-    @include('templates.header')
-@endsection
+	@include('partials.header')	
 
-@section('contenu')
 	@if ($errors->any())
 	<div class="alert alert-danger" id="msg">
 		<div>
@@ -109,7 +104,7 @@
 					</div>
 					<div class="owl-carousel" id="testimonial-slide">
 						<!-- single testimonial -->
-						@if (isset($tesimonials))
+						@if (isset($testimonials))
 							@foreach ($testimonials as $testimonial)
 								<div class="testimonial">
 									<span>‘​‌‘​‌</span>
@@ -163,7 +158,7 @@
 	<!-- Testimonial section end-->
 
 
-	@include('templates.services')
+	@include('partials.services')
 
 	<!-- Team Section -->
 	<div class="team-section spad">
@@ -275,22 +270,9 @@
 		</div>
 	</div>
 	<!-- Promotion section end-->
-@endsection
-
-@section('contact')
-	<!-- Contact section -->
-	<div class="contact-section spad fix" id="contact">
-		<div class="container">
-			<div class="row">
-				@include('templates.contact')
-				@include('templates.form')
-			</div>
-		</div>
-	</div>
-	<!-- Contact section end-->
-@endsection
 
 
-@section('footer')
-    @include('templates.footer')
+	@include('partials.contact')
+
+    @include('components.footer')
 @endsection

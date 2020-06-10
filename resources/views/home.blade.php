@@ -1,12 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'Labs - Home')
 
 @section('content_header')
     <h1>Dashboard</h1>
 @stop
 
 @section('content')
-    
-    <p>Hello, {{$user->name}}.You are logged in!</p>
+    <p>Bievenue {{Auth::user()->name}}</p>
 @stop
