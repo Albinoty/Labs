@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Article;
 use App\Categorie;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -9,6 +10,11 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class CategoriePolicy
 {
     use HandlesAuthorization;
+
+    public function before($user, $ability){
+        if($user->role == "admin")
+            return true;
+    }
 
     /**
      * Determine whether the user can view any categories.
@@ -41,31 +47,30 @@ class CategoriePolicy
      */
     public function create(User $user)
     {
-        //
+        if($user->role == "editeur")
+            return true;
+        else
+            return false;
     }
 
     /**
      * Determine whether the user can update the categorie.
      *
-     * @param  \App\User  $user
-     * @param  \App\Categorie  $categorie
      * @return mixed
      */
-    public function update(User $user, Categorie $categorie)
+    public function update()
     {
-        //
+        return false;
     }
 
     /**
      * Determine whether the user can delete the categorie.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Categorie  $categorie
+     *s
      * @return mixed
      */
-    public function delete(User $user, Categorie $categorie)
+    public function delete()
     {
-        //
+        return false;
     }
 
     /**

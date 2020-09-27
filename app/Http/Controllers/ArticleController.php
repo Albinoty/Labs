@@ -161,7 +161,7 @@ class ArticleController extends Controller
         
         if($request->hasfile('image') != null){
             Storage::delete($article->img_article);
-            $this->storageFile($request,$article);
+            $article->img_article = $request->file('image')->store('img/articles');
         }
         
 

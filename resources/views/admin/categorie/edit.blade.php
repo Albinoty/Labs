@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Ajout une Categorie pour les articles</h1>
+    <h1>Editer la Categorie pour les articles</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
                 @endforeach
             </div>
         @endif
-        <form action="{{route('categories.update',$categorie->id)}}" method="POST">    
+        <form action="{{route('categories.update',$categorie)}}" method="POST">    
             @csrf
             @method('put')
             <div class="form-group">

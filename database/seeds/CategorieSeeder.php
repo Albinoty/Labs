@@ -11,6 +11,12 @@ class CategorieSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('categories')->insert([
+            ['nom' => 'Voitures'],
+            ['nom' => 'Technologie'],
+            ['nom' => 'Voyages'],
+            ['nom' => 'Gaming'],
+            ['nom' => 'Actualité'],
+        ]);
     }
 }

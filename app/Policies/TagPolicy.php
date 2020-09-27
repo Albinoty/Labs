@@ -10,6 +10,11 @@ class TagPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability){
+        if($user->role == "admin")
+            return true;
+    }
+
     /**
      * Determine whether the user can view any tags.
      *
@@ -28,9 +33,9 @@ class TagPolicy
      * @param  \App\Tag  $tag
      * @return mixed
      */
-    public function view(User $user, Tag $tag)
+    public function view()
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +46,10 @@ class TagPolicy
      */
     public function create(User $user)
     {
-        //
+        if($user->role == "editeur")
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -51,9 +59,9 @@ class TagPolicy
      * @param  \App\Tag  $tag
      * @return mixed
      */
-    public function update(User $user, Tag $tag)
+    public function update()
     {
-        //
+        return false;
     }
 
     /**
@@ -63,9 +71,9 @@ class TagPolicy
      * @param  \App\Tag  $tag
      * @return mixed
      */
-    public function delete(User $user, Tag $tag)
+    public function delete()
     {
-        //
+        return false;
     }
 
     /**

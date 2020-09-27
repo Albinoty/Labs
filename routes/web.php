@@ -34,11 +34,11 @@ Route::get('/contact', 'PageController@contact');
 
 
 //Route pour faire une query pour chercher un mot clé dans le titre d'article
-Route::post('/search','SearchController@word');
+Route::get('/search','SearchController@word');
 //Route pour faire une query pour chercher les articles via une categorie
 Route::get('/search/{categorie}','SearchController@category');
 //Route pour faire une query pour chercher les articles via un tag
-Route::get('/search/tag/{tag}','SearchController@tag');
+Route::get('/search/tag/{tag}','SearchController@tag')->name('searchByTag');
 
 
 //Back Office
@@ -86,10 +86,11 @@ Route::post('/sendMessage', function(MessageRequest $request){
 Route::get('/sendNewArticle/{id}',function(){
 
     $users = User::all();
-    
+
+       
     function envoi($user){
-        $id = request('id');
-        Mail::to($user)->send(new ArticleNew($id));
+        $article = Article::find(request('id'));
+        Mail::to($user)->send(new ArticleNew($article));
     }
 
     foreach($users as $user){
@@ -119,14 +120,14 @@ Route::put('article/{article}/valider',function(Article $article){
 
     foreach($users as $user){
         if($user->role == 'admin')
-        Mail::to($user->email)->send(new ArticleNew($article->id));
+        Mail::to($user->email)->send(new ArticleNew($article));
         // sleep(5);
     }
 
     $newsletters = Newsletter::all();
 
     foreach($newsletters as $newsletter){
-        Mail::to($newsletter->email)->send(new ArticleNew($article->id));
+        Mail::to($newsletter->email)->send(new ArticleNew($article));
         // sleep(5);
     }
     

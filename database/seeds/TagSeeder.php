@@ -11,6 +11,13 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('tags')->insert([
+            ['nom' => 'BMW'],
+            ['nom' => 'React'],
+            ['nom' => 'Javascript'],
+            ['nom' => '2020'],
+            ['nom' => 'Audi'],
+            ['nom' => 'Promo']
+        ]);
     }
 }

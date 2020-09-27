@@ -1,9 +1,9 @@
 @component('mail::message')
-# Nouvea Article
+# Nouveau Article
 
-Un nouvel article était créé. Soyez le premier le consulter à le consulter et a commenté.
+Un nouvel article a été créer. Soyez le premier à le consulter et a commenté.
 
-@component('mail::button', ['url' => route('post.show',$id)])
+@component('mail::button', ['url' => route('post.show',[$article->id,$article->slug])])
 Lire l'article
 @endcomponent
 

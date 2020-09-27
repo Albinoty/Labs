@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Article;
 use App\Tag;
 use App\ArticleTag;
 use App\Categorie;
 use App\Commentaire;
 use App\User;
+
 
 class SearchController extends Controller
 {
@@ -19,7 +21,7 @@ class SearchController extends Controller
         $actif = "blog";
     
 
-        $input = request()->input('search');
+        $input = request()->input('query');
         
     
         if($input == null){
@@ -32,9 +34,9 @@ class SearchController extends Controller
         $articles = Article::where('titre','like','%'.$input.'%')->orderBy('id','desc')
             ->paginate(3);
         //permet d'ajouter les liens de la pagination
-        $articles->appends(['search' => request()->input('search')]);
+        $articles->appends(['query' => request()->input('query')]);
     
-
+        
     
         $tags = Tag::all();
         $articleTags = ArticleTag::all();
@@ -45,14 +47,6 @@ class SearchController extends Controller
         if(count($articles) == null){
             $errors = "Il n'y a rien avec le mot '".$input."'";
             return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'))->withErrors($errors);
-        }
-        else if(count($articles) == 1){
-            $article = $articles[0];
-            $commentaires = Commentaire::where('id_article','=',$article->id)
-            ->orderBy('id','desc')
-            ->paginate(5);   
-
-            return redirect()->route("post.show",[$article->id,$article->slug]);
         }
     
         return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
@@ -86,19 +80,30 @@ class SearchController extends Controller
         return view('blog',compact('name','actif','articles','tags','users','articleTags','commentaires','categories'));
     }
 
-    public function tag($url){
+    public function tag($url,Request $request){
         $name = "Blog";
         $actif = "blog";
         
-        
-        $articles = (DB::select('select * from articles AS A, article_tags as AT, tags as T where T.id  = '.$url.' and AT.tag_id = T.id and AT.article_id = A.id ORDER BY A.id DESC'));
+        $articles = Tag::find($url)->articles;
+
+        // Permet de créer une pagination
+        $articles = new LengthAwarePaginator(
+            // Passer les articles a afficher
+            // forPage affiche par page (la page en question, nombre d'article)
+            ($articles->reverse())->forPage($request->page,3),
+            // Nombre total des articles
+            $articles->count(), 
+            // Nombre par page
+            3,
+            // Page courant (la page de blog) 
+            LengthAwarePaginator::resolveCurrentPage(), 
+            // En options, on donne le path pour permettre de naviguer avec le paginate
+            ['path'=>route('searchByTag',$url)]
+        );
+
+        $articles->appends(['tag' => $url]);
 
 
-
-     
-
-            // dd($articles);        
-    
         $tags = Tag::all();
         $articleTags = ArticleTag::all();
         $users = User::all();

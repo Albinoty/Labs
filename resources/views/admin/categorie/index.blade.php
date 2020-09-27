@@ -32,12 +32,12 @@
                         <td class="text-center">{{$categorie->nom}}</td>
                         @if (auth()->user()->role == "admin")
                             <td class="d-flex justify-content-center">
-                                <form action="{{route('categories.edit',$categorie->id)}}">
+                                <form action="{{route('categories.edit',$categorie)}}">
                                     @csrf
                                     @method('get')
                                     <button class="btn btn-warning mx-2">Update</button>
                                 </form>
-                                <form action="{{route('categories.destroy',$categorie->id)}}" method="POST">
+                                <form action="{{route('categories.destroy',$categorie)}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger mx-2">Delete</button>

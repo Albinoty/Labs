@@ -28,6 +28,9 @@ class CategorieController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('create', Categorie::class);
+
         $categories = Categorie::all();
 
         return view('admin.categorie.create',compact('categories'));
@@ -41,6 +44,8 @@ class CategorieController extends Controller
      */
     public function store(CategorieRequest $request)
     {
+        $this->authorize('create', Categorie::class);
+
         $categorie = new Categorie();
 
         $categories = Categorie::where('nom','like','%'.$request->input('nom').'%')->get();
@@ -72,12 +77,16 @@ class CategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Categorie  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
+        $this->authorize('update', Categorie::class);
+        
         $categorie = Categorie::find($id);
+
+        $this->authorize('update', $categorie);
 
         return view('admin.categorie.edit',compact('categorie'));
         
@@ -92,7 +101,10 @@ class CategorieController extends Controller
      */
     public function update(CategorieRequest $request, $id)
     {
+    
         $categorie = Categorie::find($id);
+
+        $this->authorize('delete', $categorie);
 
         $categorie->nom = $request->input('nom');
 
@@ -109,7 +121,10 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        $categorie = Categorie::find($id)->delete();
+        $categorie = Categorie::find($id);
+        $this->authorize('delete', $categorie);
+
+        $categorie->delete(); 
 
         return redirect(route('categories.index'));
     }

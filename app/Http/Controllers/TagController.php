@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tag;
 use App\Http\Requests\TagRequest;
+use Auth;
 
 class TagController extends Controller
 {
@@ -27,7 +28,12 @@ class TagController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
+        
+        $user = Auth::user();
+
+        $this->authorize('create',Tag::class);
+
+        $tags = Tag::all(); 
 
         return view('admin.tag.create',compact('tags'));
     }
@@ -40,12 +46,18 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
+        $this->authorize('create',Tag::class);
+
         $tag = New Tag();
 
+        //Verification si le tag existe
         $tags = Tag::where('nom','like','%'.$request->input('nom').'%')->get();
-
-        
         if(count($tags) > 0)
+            return redirect()->back()->withErrors("Ce tag existe deja");
+
+        //Verification si la limite est depassé
+        $tag = Tag::all();
+        if(count($tags >= 6))
             return redirect()->back()->withErrors("Ce tag existe deja");
 
         $tag->nom = $request->input('nom');
@@ -75,6 +87,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update',Tag::class);
+
         $tag = Tag::find($id);
 
         return view('admin.tag.edit',compact('tag'));
@@ -89,6 +103,8 @@ class TagController extends Controller
      */
     public function update(TagRequest $request, $id)
     {
+        $this->authorize('create',Tag::class);
+
         $tag = Tag::find($id);
 
         $tag->nom = $request->input('nom');
@@ -106,6 +122,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Tag::class);
+
         Tag::find($id)->delete();
 
         return redirect()->route('tags.index');
